@@ -1,0 +1,20 @@
+aid: california-attorney-general
+name: California Attorney General
+description: 'California Attorney General is a company surfaced via the API Evangelist harvest backlog
+  (source: operator-attribution) and added to the network as a stub for full-pipeline profiling.'
+url: https://raw.githubusercontent.com/api-evangelist/california-attorney-general/refs/heads/main/apis.yml
+x-type: company
+x-source: harvest:operator-attribution
+x-tier: stub
+x-tier-reason: harvest
+specificationVersion: '0.20'
+created: '2026-09-17'
+modified: '2026-09-17'
+tags:
+- Company
+apis: []
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
