@@ -64,4 +64,10 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-California Attorney General is a company surfaced via the API Evangelist harvest backlog (source: operator-attribution) and added to the network as a stub for full-pipeline profiling.
+The California Attorney General is the chief law officer of the State of California and heads the California Department of Justice (DOJ). The office runs OpenJustice, the DOJ Criminal Justice Statistics Center's open-data initiative, whose Open Data Portal publishes 26 criminal-justice datasets (Arrests, Crimes and Clearances, Homicide, Hate Crime, Use of Force, RIPA stop data, deaths in custody and more) as CSV/XLSX/ZIP files with context PDFs. The DOJ publishes no developer portal, API documentation or OpenAPI, but the OpenJustice single-page app reads its content from a live, anonymous, standards-conformant JSON:API 1.0 surface at https://data-openjustice.doj.ca.gov/jsonapi (Drupal 9) carrying every dataset, its distributions, the CJSC publications and the data stories — verified here. The California Data Broker Registry that first brought this office into the catalog is now maintained by the California Privacy Protection Agency, per the AG's own page, and is attributed there.
+
+## Machine surfaces verified 2026-09-17
+
+- **OpenJustice Open Data Portal JSON:API** — https://data-openjustice.doj.ca.gov/jsonapi (anonymous, JSON:API 1.0, 26 datasets / 148 distributions). Probe-derived OpenAPI in `openapi/`, verbatim index in `discovery/`, dataset catalog in `datasets/`, verbatim responses in `examples/`.
+- No developer portal, API docs, OpenAPI, SDK, MCP server, agent card, llms.txt, security.txt or well-known document is published by the DOJ on any host probed (`well-known/`).
+

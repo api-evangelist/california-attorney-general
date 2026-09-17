@@ -1,0 +1,1011 @@
+generated: '2026-09-17'
+method: probed
+source: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?include=field_source,field_data_type&fields[file--file]=uri,filesize,filemime,filename&sort=title
+provider: California Attorney General
+providerId: california-attorney-general
+summary: 'The 26 datasets the California DOJ Criminal Justice Statistics Center publishes on the Attorney General''s
+  OpenJustice Open Data Portal, read on 2026-09-17 from the live JSON:API with their 148 file distributions side-loaded.
+  The DOJ publishes no data.json / DCAT catalog and no /.well-known/api-catalog; the dataset list is reachable to
+  a human only through the JS-rendered https://openjustice.doj.ca.gov/data page, and to a machine only through the
+  JSON:API on the data host. Distribution URLs are direct downloads (verified: text/csv, 1,749,288 bytes). Each
+  dataset entry also ships a Context PDF describing the collection, which is the only data documentation the DOJ
+  publishes.'
+catalog:
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset
+  http_status: 200
+  dataset_count: 26
+  distribution_count: 148
+  media_types:
+    text/csv: 61
+    application/pdf: 53
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: 26
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document: 1
+    application/zip: 7
+  data_json:
+    url: https://openjustice.doj.ca.gov/data.json
+    note: Not published — the SPA answers 200 HTML for any path; no Project Open Data catalog exists on either host.
+  saved_verbatim: examples/california-attorney-general-datasets-include-example.json
+assessment:
+  strengths:
+  - Every dataset carries at least one machine-readable distribution (CSV/XLSX/ZIP) plus a context PDF; the largest
+    series run 1980-2025 (Arrests) and 1985-2025 (Crimes and Clearances).
+  - Distribution files carry filemime and filesize, so a consumer can size a download before fetching.
+  - Revision logs on the dataset nodes ("Add 2025 files") date each refresh; all 26 were refreshed June-July 2026.
+  gaps:
+  - No DCAT/data.json catalog, no licence statement on the datasets, no schema or data dictionary beyond the context
+    PDFs.
+  - File names carry the year range and revision suffixes (_0) rather than stable identifiers; a consumer must re-read
+    the API to find the current file after each annual refresh.
+  - The data itself is not queryable — the API serves metadata and file pointers, not rows.
+  - 'The dataset collection is not discoverable from the SPA host: every machine-facing path on openjustice.doj.ca.gov
+    returns the HTML shell.'
+datasets:
+- title: Adult Probation
+  id: 26397339-72bd-4d2a-a78d-34894be84b43
+  landing_page: https://openjustice.doj.ca.gov/data/adult-probation
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/26397339-72bd-4d2a-a78d-34894be84b43
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: Add 2025 files
+  description: The Adult Probation (AP) data is submitted monthly by county probation agencies, and the file is
+    used to produce gross counts that provide a statistical profile for felony and misdemeanor probation by county,
+    type of placement, reasons for removal from probation and the number of persons on supervision caseloads.
+  distribution_count: 2
+  distributions:
+  - filename: Adult_Probation_2003-2025_0.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Adult_Probation_2003-2025_0.csv
+    media_type: text/csv
+    bytes: 1749288
+  - filename: Adult Probation Context_06162026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Adult%20Probation%20Context_06162026.pdf
+    media_type: application/pdf
+    bytes: 159909
+- title: Agency Name - Jurisdiction Listing
+  id: bac4b1ea-926b-4948-87b8-601a5d9cf913
+  landing_page: https://openjustice.doj.ca.gov/data/agency-name-jurisdiction-listing
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/bac4b1ea-926b-4948-87b8-601a5d9cf913
+  data_type:
+  - Agency Information
+  updated: '2026-07-01'
+  revision_log: Add 2026 file
+  description: This file provides mapping information between the NCIC code, agency name, and the years the agency
+    actively reported.
+  distribution_count: 1
+  distributions:
+  - filename: NCIC Code Jurisdiction List_06182026.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/NCIC%20Code%20Jurisdiction%20List_06182026.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 54868
+- title: Anti-Reproductive Rights Crimes
+  id: b7b532a0-078a-4e4a-8887-a367bb9eb630
+  landing_page: https://openjustice.doj.ca.gov/data/anti-reproductive-rights-crimes
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/b7b532a0-078a-4e4a-8887-a367bb9eb630
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: Add 2025 files
+  description: Anti-Reproductive Rights Crimes (ARRC) is reported by various law enforcement agencies (LEA) throughout
+    the State, on a monthly basis. The data set contains information on crimes that are committed against reproductive
+    health services providers, clients, assistants or the facilities where these services are provided or at a place
+    of worship because of the church's beliefs regarding reproductive rights and includes the location of the crime,
+    victim type (individual/property), race/ethnicity, gender of victims and suspects, weapon involved, and property
+    loss or damage.
+  distribution_count: 2
+  distributions:
+  - filename: ARRC_2004_2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/ARRC_2004_2025.csv
+    media_type: text/csv
+    bytes: 25790
+  - filename: ARRC Context_06162026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/ARRC%20Context_06162026.pdf
+    media_type: application/pdf
+    bytes: 129519
+- title: Arrests
+  id: 041eca85-2c60-4f38-a995-805231a75e3c
+  landing_page: https://openjustice.doj.ca.gov/data/arrests
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/041eca85-2c60-4f38-a995-805231a75e3c
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: Add 2025 files
+  description: California LEAs report monthly information on felony, misdemeanor, and status offense arrests occurring
+    within the state as part of the Monthly Arrest and Citation Register (MACR). This dataset includes aggregated
+    counts of arrests by county, gender, race/ethnic group, age group, and offense level.
+  distribution_count: 3
+  distributions:
+  - filename: OnlineArrestData1980-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/OnlineArrestData1980-2025.csv
+    media_type: text/csv
+    bytes: 7105799
+  - filename: OnlineArrestDispoData1980-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/OnlineArrestDispoData1980-2025.csv
+    media_type: text/csv
+    bytes: 39063818
+  - filename: Arrests Context_0615026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Arrests%20Context_0615026.pdf
+    media_type: application/pdf
+    bytes: 341904
+- title: Arrests Related to Firearms Without a Serial Number
+  id: ce39064b-ab51-4c0e-b730-2c00eabaf30c
+  landing_page: https://openjustice.doj.ca.gov/data/arrests-related-firearms-without-serial-number
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/ce39064b-ab51-4c0e-b730-2c00eabaf30c
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: OJ-274 2026 reports.
+  description: Publishing annual statistics on arrests made by law enforcement agencies for offenses related to
+    firearms without a valid state or federal serial number was mandated by Assembly Bill (AB) 97 (Chapter 223,
+    Statutes of 2023). AB 97 required the California Department of Justice to annually publish on the OpenJustice
+    Web portal, as described under Penal Code section 13010.
+  distribution_count: 6
+  distributions:
+  - filename: Violations of Section 23920.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Violations%20of%20Section%2023920.pdf
+    media_type: application/pdf
+    bytes: 582978
+  - filename: Violations of Section 29180.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Violations%20of%20Section%2029180.pdf
+    media_type: application/pdf
+    bytes: 939742
+  - filename: README AB 97 PC 29180 & 23920.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/README%20AB%2097%20PC%2029180%20%26%2023920.pdf
+    media_type: application/pdf
+    bytes: 235271
+  - filename: Table_1_Violations_of_Section_23920_0.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Table_1_Violations_of_Section_23920_0.pdf
+    media_type: application/pdf
+    bytes: 87943
+  - filename: Table_2_Violations_of_Section_29180_0.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Table_2_Violations_of_Section_29180_0.pdf
+    media_type: application/pdf
+    bytes: 87252
+  - filename: 2025_AB97_PC29305_Readme_0.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/2025_AB97_PC29305_Readme_0.pdf
+    media_type: application/pdf
+    bytes: 153033
+- title: Automatic Record Relief (ARR) Annual Statistics
+  id: 2517474d-36b9-47a5-bdd3-376e2a1819a3
+  landing_page: https://openjustice.doj.ca.gov/data/automatic-record-relief-arr-annual-statistics
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/2517474d-36b9-47a5-bdd3-376e2a1819a3
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: OJ-274 2025 Data
+  description: Publishing of Automatic Record Relief (ARR) Annual Statistics was mandated by Assembly Bill (AB)
+    1076 (Chapter 578, Statutes of 2019). The ARR program reviews statewide criminal justice databases and provides
+    record relief for eligible arrests and convictions automatically without the need for individuals to submit
+    a petition. AB 1076 required the California Department of Justice to annually publish on the OpenJustice Web
+    portal, as described under Penal Code section 13010, statistics for each county regarding the total number of
+    arrests granted relief pursuant to Section 851.93 of the Califor
+  distribution_count: 8
+  distributions:
+  - filename: 2025_ARR_Mandated_Statistics.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/2025_ARR_Mandated_Statistics.pdf
+    media_type: application/pdf
+    bytes: 347746
+  - filename: ARR Mandated Statistics Readme 2025.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/ARR%20Mandated%20Statistics%20Readme%202025.pdf
+    media_type: application/pdf
+    bytes: 291497
+  - filename: 2024_ARR_Mandated_Statistics.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-07/2024_ARR_Mandated_Statistics.pdf
+    media_type: application/pdf
+    bytes: 222514
+  - filename: 2024_ARR_Mandated_Statistics_Readme.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-07/2024_ARR_Mandated_Statistics_Readme.pdf
+    media_type: application/pdf
+    bytes: 123168
+  - filename: arr-mandated-stats-2023.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-07/arr-mandated-stats-2023.pdf
+    media_type: application/pdf
+    bytes: 84602
+  - filename: arr-readme-2023.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-07/arr-readme-2023.pdf
+    media_type: application/pdf
+    bytes: 102503
+  - filename: arr-readme-2022.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-07/arr-readme-2022.pdf
+    media_type: application/pdf
+    bytes: 102652
+  - filename: arr-mandated-stats-2022.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-07/arr-mandated-stats-2022.pdf
+    media_type: application/pdf
+    bytes: 89343
+- title: Civilians' Complaints Against Peace Officers
+  id: f8f3ae4b-e4e9-48a9-bbf5-4f10c9b71c24
+  landing_page: https://openjustice.doj.ca.gov/data/civilians-complaints-against-peace-officers
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/f8f3ae4b-e4e9-48a9-bbf5-4f10c9b71c24
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: Add 2025 files
+  description: State and local law enforcement agencies that employ peace officers provide Civilians' Complaints
+    Against Peace Officers (CCAPO) data via an annual summary. The information includes the number of criminal and
+    non-criminal complaints reported by civilians and the number of complaints sustained. Assembly Bill 953 (2015)
+    modified the reporting requirements to expand the types of findings and also include complaints based upon racial
+    and identity profiling claims. 2016 was the first year of collection under the new reporting requirements.
+  distribution_count: 3
+  distributions:
+  - filename: CCAPO_1981-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/CCAPO_1981-2025.csv
+    media_type: text/csv
+    bytes: 1559
+  - filename: CCAPO_2016-2025_Agency_0.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/CCAPO_2016-2025_Agency_0.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 2629405
+  - filename: CCAPO Context Agency and Statewide Context_06162026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/CCAPO%20Context%20Agency%20and%20Statewide%20Context_06162026.pdf
+    media_type: application/pdf
+    bytes: 217297
+- title: Crime Gun and Firearms Dealer Inspection Data
+  id: a2b3c8f5-079c-41b4-b6d1-277eec868ce7
+  landing_page: https://openjustice.doj.ca.gov/data/crime-gun-and-firearms-dealer-inspection-data
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/a2b3c8f5-079c-41b4-b6d1-277eec868ce7
+  data_type:
+  - Other Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: The Department of Justice (DOJ) publishes information on firearms that were used in a crime, suspected
+    of being used in a crime, or illegally possessed and reported to the Automated Firearms System (AFS) by California
+    Law Enforcement Agencies under Assembly Bill (AB) 1191 that came into effect in 2021. DOJ also publishes information
+    on inspections of California firearms dealers under Senate Bill (SB) 965 that came into effect in 2024. The
+    Crime Gun Appendix data contains the corresponding appendix data for the AB 1191 crime gun report, including
+    firearms tracing data on the source dealers asso
+  distribution_count: 2
+  distributions:
+  - filename: 2025 Dealer Inspection Appendix Tables.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/2025%20Dealer%20Inspection%20Appendix%20Tables.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 426069
+  - filename: 2025 Crime Gun Appendix Tables.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/2025%20Crime%20Gun%20Appendix%20Tables.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 500401
+- title: Crimes and Clearances (including Arson)
+  id: ed251cb3-e39f-416d-8a2e-2898acf4eb29
+  landing_page: https://openjustice.doj.ca.gov/data/crimes-and-clearances-including-arson
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/ed251cb3-e39f-416d-8a2e-2898acf4eb29
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: Added 2025 files
+  description: 'Crimes and Clearances are reported monthly by LEAs throughout the state. The data is reported as
+    part of the Federal Bureau of Investigation''s (FBI), Uniform Crime Reporting (UCR) Program and includes the
+    number of actual offenses as well as the number of clearances as per the UCR guidelines. Supplemental data are
+    also collected on the nature of some of the crime types and the value of property stolen and recovered. The
+    information is used to provide statistical data on the offenses of: criminal homicide, rape, robbery, aggravated
+    assault, burglary, larceny-theft, motor vehicle theft, and arso'
+  distribution_count: 3
+  distributions:
+  - filename: Crimes_and_Clearances_with_Arson-1985-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Crimes_and_Clearances_with_Arson-1985-2025.csv
+    media_type: text/csv
+    bytes: 6343304
+  - filename: Crimes_and_Clearances_with_Arson-1985-2025_by month.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Crimes_and_Clearances_with_Arson-1985-2025_by%20month.csv
+    media_type: text/csv
+    bytes: 66093514
+  - filename: Crimes-Clear-Arson Context_06222026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Crimes-Clear-Arson%20Context_06222026.pdf
+    media_type: application/pdf
+    bytes: 411868
+- title: Death in Custody & Arrest-Related Deaths
+  id: 585b5add-aa55-4be4-a22e-7b09abc3a503
+  landing_page: https://openjustice.doj.ca.gov/data/death-custody-arrest-related-deaths
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/585b5add-aa55-4be4-a22e-7b09abc3a503
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: Add 2025 files
+  description: 'State and local law enforcement agencies and correctional facilities report information on deaths
+    that occur in custody or during the process of arrest in compliance with Section 12525 of the California Government
+    Code. Contributors include: California law enforcement agencies, county probation departments, state hospitals,
+    and state correctional facilities. Data are subject to revision as reports are received by the California Department
+    of Justice (DOJ); figures in previous and current releases may not match.'
+  distribution_count: 4
+  distributions:
+  - filename: DeathInCustody_2005-2025.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/DeathInCustody_2005-2025.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 1332808
+  - filename: ca_doj_deaths_in_custody_raw_1980-2015_05-14-2016.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/ca_doj_deaths_in_custody_raw_1980-2015_05-14-2016.csv
+    media_type: text/csv
+    bytes: 2700871
+  - filename: ca_doj_county_deaths_in_custody_summary_2005-2014_02-17-2016.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/ca_doj_county_deaths_in_custody_summary_2005-2014_02-17-2016.csv
+    media_type: text/csv
+    bytes: 188488
+  - filename: Death in Custody Context_06162026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Death%20in%20Custody%20Context_06162026.pdf
+    media_type: application/pdf
+    bytes: 177418
+- title: Domestic Violence Related Calls for Assistance
+  id: 25b28e8b-42d2-42c2-ab28-ebf15669910f
+  landing_page: https://openjustice.doj.ca.gov/data/domestic-violence-related-calls-assistance
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/25b28e8b-42d2-42c2-ab28-ebf15669910f
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: Add 2025 files
+  description: Domestic Violence-Related Calls for Assistance (DVRCA) are reported by various LEAs throughout the
+    State on a monthly basis. The DVRCA data set provides summary statistical data on the total number of domestic
+    violence related calls for assistance received by the LEAs, the number of cases involving weapons, and the type
+    of weapon used during the reported incident.
+  distribution_count: 2
+  distributions:
+  - filename: DVRCA_2001-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/DVRCA_2001-2025.csv
+    media_type: text/csv
+    bytes: 12486945
+  - filename: Domestic Violence Related Calls for Service Context_06222026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Domestic%20Violence%20Related%20Calls%20for%20Service%20Context_06222026.pdf
+    media_type: application/pdf
+    bytes: 222795
+- title: Electronic Search Warrant Notifications
+  id: de082eae-d429-4780-b83f-8ba5f5f22f43
+  landing_page: https://openjustice.doj.ca.gov/data/electronic-search-warrant-notifications
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/de082eae-d429-4780-b83f-8ba5f5f22f43
+  data_type:
+  - Other Data
+  updated: '2026-01-26'
+  revision_log: null
+  description: California law requires any government entity that executes a warrant, or obtains information in
+    an emergency from an electronic communication service provider or from an electronic device shall notify the
+    identified targets of the warrant or emergency request that information about them has been compelled or obtained.
+    The law requires that the government entity provide specific information about the investigation under which
+    the information is sought and provide a copy of the warrant or a written statement setting forth facts giving
+    rise to the emergency. (California Penal Code s. 1546.2)
+  distribution_count: 22
+  distributions:
+  - filename: 2026_calecpa_data.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-01/2026_calecpa_data.csv
+    media_type: text/csv
+    bytes: 79411
+  - filename: 2025_calecpa_data.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-06/2025_calecpa_data.csv
+    media_type: text/csv
+    bytes: 525459
+  - filename: 2024_calecpa_data.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-06/2024_calecpa_data.csv
+    media_type: text/csv
+    bytes: 1131505
+  - filename: search_warrant_submissionsDEC2023.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-02/search_warrant_submissionsDEC2023.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 27070
+  - filename: search_warrant_submissionsNOV2023.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-02/search_warrant_submissionsNOV2023.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 28043
+  - filename: search_warrant_submissionsOCT2023.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-12/search_warrant_submissionsOCT2023.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 28083
+  - filename: search_warrant_submissionsSEPT2023.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-12/search_warrant_submissionsSEPT2023.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 27956
+  - filename: calecpa_Aug2023 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-09/calecpa_Aug2023%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 31027
+  - filename: calecpa_July2023 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-09/calecpa_July2023%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 27094
+  - filename: calecpa_June2023 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-07/calecpa_June2023%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 27520
+  - filename: calecpa_May2023 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-06/calecpa_May2023%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 27122
+  - filename: calecpa_Apr2023 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-06/calecpa_Apr2023%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 23856
+  - filename: calecpa_Mar2023 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-06/calecpa_Mar2023%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 25079
+  - filename: calecpa_Feb2023 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-06/calecpa_Feb2023%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 24506
+  - filename: calecpa_Jan2023 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-02/calecpa_Jan2023%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 38746
+  - filename: calecpa_2022 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-02/calecpa_2022%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 273498
+  - filename: calecpa_2021 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-02/calecpa_2021%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 255518
+  - filename: calecpa_2020 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-02/calecpa_2020%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 196715
+  - filename: calecpa_2019 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-02/calecpa_2019%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 188501
+  - filename: calecpa_2018 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-02/calecpa_2018%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 167145
+  - filename: calecpa_2017 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-02/calecpa_2017%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 158713
+  - filename: calecpa_2016 [OpenJustice].xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-02/calecpa_2016%20%5BOpenJustice%5D.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 170480
+- title: Gun Violence Restraining Orders
+  id: b6341673-e7aa-4a97-abd7-f57a8f659d6b
+  landing_page: https://openjustice.doj.ca.gov/data/gun-violence-restraining-orders
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/b6341673-e7aa-4a97-abd7-f57a8f659d6b
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-04-03'
+  revision_log: 2025 data. https://jira.int.doj.ca.gov/browse/OJ-270
+  description: The Department of Justice (DOJ) collects information on gun violence restraining orders (GVRO). Courts
+    and law enforcement utilize the California Law Enforcement Telecommunications System (CLETS) to enter the data
+    into the California Restraining and Protective Order System (CARPOS). The collection of these data began on
+    January 1, 2016 when Assembly Bill (AB) 1014 came into effect. At the time, only immediate family members and
+    officers could petition the court for a GVRO against persons who pose a threat to themselves or others. Through
+    AB 61, the legislature expanded the list individuals who
+  distribution_count: 15
+  distributions:
+  - filename: gvro_counts_2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-04/gvro_counts_2025.csv
+    media_type: text/csv
+    bytes: 10047
+  - filename: 2025 README (Counts).pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-04/2025%20README%20%28Counts%29.pdf
+    media_type: application/pdf
+    bytes: 150760
+  - filename: gvro_counts_2024.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-03/gvro_counts_2024.csv
+    media_type: text/csv
+    bytes: 9719
+  - filename: README GVRO (Record Counts) 2024.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-03/README%20GVRO%20%28Record%20Counts%29%202024.pdf
+    media_type: application/pdf
+    bytes: 139289
+  - filename: GVRO Counts 2023.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-04/GVRO%20Counts%202023.csv
+    media_type: text/csv
+    bytes: 9259
+  - filename: 2023 README (Counts).pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-04/2023%20README%20%28Counts%29.pdf
+    media_type: application/pdf
+    bytes: 580691
+  - filename: 2022 GVRO Records.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-04/2022%20GVRO%20Records.csv
+    media_type: text/csv
+    bytes: 8677
+  - filename: README GVRO (Record Counts) 2022.docx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-04/README%20GVRO%20%28Record%20Counts%29%202022.docx
+    media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    bytes: 28468
+  - filename: gvro_counts_2021.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-12/gvro_counts_2021.csv
+    media_type: text/csv
+    bytes: 24580
+  - filename: gvro_counts_2020.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-12/gvro_counts_2020.csv
+    media_type: text/csv
+    bytes: 10075
+  - filename: gvro_counts_2019.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-12/gvro_counts_2019.csv
+    media_type: text/csv
+    bytes: 10007
+  - filename: gvro_counts_2018.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-12/gvro_counts_2018.csv
+    media_type: text/csv
+    bytes: 5267
+  - filename: gvro_counts_2017.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-12/gvro_counts_2017.csv
+    media_type: text/csv
+    bytes: 4189
+  - filename: gvro_counts_2016.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-12/gvro_counts_2016.csv
+    media_type: text/csv
+    bytes: 4069
+  - filename: README GVRO (Counts).pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-12/README%20GVRO%20%28Counts%29.pdf
+    media_type: application/pdf
+    bytes: 647144
+- title: Hate Crime
+  id: 7fce47d9-2c8a-4da3-9841-62e41787a2f0
+  landing_page: https://openjustice.doj.ca.gov/data/hate-crime
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/7fce47d9-2c8a-4da3-9841-62e41787a2f0
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: Add 2025 files
+  description: Hate Crime data are submitted monthly by various LEAs throughout the state. Hate crime acts involve
+    the intent to cause physical injury, emotional suffering, or property damage where there is a reasonable cause
+    to believe that the crime was motivated by the victim's race, ethnicity, religion, gender, sexual orientation,
+    or physical or mental disability. Hate data includes information on the hate crime event, hate crime offense,
+    bias type, location, and the number of hate crime victims and suspects.
+  distribution_count: 2
+  distributions:
+  - filename: Hate Crimes_2001-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Hate%20Crimes_2001-2025.csv
+    media_type: text/csv
+    bytes: 7023749
+  - filename: Hate Crime-context 05122026_0.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Hate%20Crime-context%2005122026_0.pdf
+    media_type: application/pdf
+    bytes: 280348
+- title: Hate Crime Policy Compliance
+  id: d962ecf9-f460-4c4c-bec2-02a0b547804f
+  landing_page: https://openjustice.doj.ca.gov/data/hate-crime-policy-compliance
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/d962ecf9-f460-4c4c-bec2-02a0b547804f
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: State and local law enforcement agencies are required to submit their hate crime policy and brochure
+    for compliance review. The Department reviews the submissions and determines if they are complaint with applicable
+    laws. This data set contains the results of those reviews by agency.
+  distribution_count: 2
+  distributions:
+  - filename: Hate Crime Policy Compliance.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Hate%20Crime%20Policy%20Compliance.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 15790
+  - filename: The Hate Crime Policy Compliance Context 06222026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/The%20Hate%20Crime%20Policy%20Compliance%20Context%2006222026.pdf
+    media_type: application/pdf
+    bytes: 111525
+- title: Hate Crime Prosecution Data
+  id: 8ded09eb-3622-4a70-bb78-61e1fb5a4108
+  landing_page: https://openjustice.doj.ca.gov/data/hate-crime-prosecution-data
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/8ded09eb-3622-4a70-bb78-61e1fb5a4108
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: The Hate Crime Prosecution Survey data are submitted annually by district attorneys and elected city
+    attorneys. Hate crime acts involve the intent to cause physical injury, emotional suffering, or property damage
+    where there is a reasonable cause to believe that the crime was motivated by the victim's race, ethnicity, religion,
+    gender, sexual orientation, or physical or mental disability. Hate Crime Prosecution data includes the number
+    of hate crime cases referred to prosecutors, the number of cases filed in court, and the outcome of the cases
+    reaching a disposition in the report year.
+  distribution_count: 2
+  distributions:
+  - filename: Hate Crime Prosecution Survey 2004-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Hate%20Crime%20Prosecution%20Survey%202004-2025.csv
+    media_type: text/csv
+    bytes: 70520
+  - filename: Hate Crime Prosecution Survey Context_06162026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Hate%20Crime%20Prosecution%20Survey%20Context_06162026.pdf
+    media_type: application/pdf
+    bytes: 114647
+- title: Homicide
+  id: 394a7d67-e6f6-4eb5-8e9f-c8c49fe7f074
+  landing_page: https://openjustice.doj.ca.gov/data/homicide
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/394a7d67-e6f6-4eb5-8e9f-c8c49fe7f074
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: Information on homicides in California are reported by various LEAs as part of the reporting requirements
+    for the Federal Uniform Crime Reporting (UCR) Program. These data provide detailed information about the circumstances
+    of each homicide in addition to personal characteristics of the victim.
+  distribution_count: 4
+  distributions:
+  - filename: HomicideManslaughter1987-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/HomicideManslaughter1987-2025.csv
+    media_type: text/csv
+    bytes: 108811
+  - filename: HomicideActuals1987-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/HomicideActuals1987-2025.csv
+    media_type: text/csv
+    bytes: 6930861
+  - filename: HomicideJustifiables1987-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/HomicideJustifiables1987-2025.csv
+    media_type: text/csv
+    bytes: 436644
+  - filename: Homicide Context_06222026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Homicide%20Context_06222026.pdf
+    media_type: application/pdf
+    bytes: 287270
+- title: Human Trafficking
+  id: ff137e97-b057-44b6-aaad-18a8a6538bec
+  landing_page: https://openjustice.doj.ca.gov/data/human-trafficking
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/ff137e97-b057-44b6-aaad-18a8a6538bec
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: California LEAs report human trafficking information as part of their monthly submissions. This dataset
+    includes aggregated counts of arrests and victims by offense and county.
+  distribution_count: 2
+  distributions:
+  - filename: Human Trafficking_2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Human%20Trafficking_2025.csv
+    media_type: text/csv
+    bytes: 2085
+  - filename: Human Trafficking Context_06222026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Human%20Trafficking%20Context_06222026.pdf
+    media_type: application/pdf
+    bytes: 196493
+- title: Juvenile Court and Probation
+  id: 66d2a583-ce39-43a9-a53f-2e413c1ccda0
+  landing_page: https://openjustice.doj.ca.gov/data/juvenile-court-and-probation
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/66d2a583-ce39-43a9-a53f-2e413c1ccda0
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: The Juvenile Court and Probation Statistical System (JCPSS) data are reported monthly by county probation
+    offices. The JCPSS includes basic demographic information of the juvenile referred and the juvenile probation
+    or court disposition (the system does not track individuals through the system).
+  distribution_count: 3
+  distributions:
+  - filename: JCPSS_2007-2011.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/JCPSS_2007-2011.csv
+    media_type: text/csv
+    bytes: 137188425
+  - filename: JCPSS_2012-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/JCPSS_2012-2025.csv
+    media_type: text/csv
+    bytes: 133870652
+  - filename: JCPSS Context_06162026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/JCPSS%20Context_06162026.pdf
+    media_type: application/pdf
+    bytes: 179029
+- title: Law Enforcement Officers Killed or Assaulted
+  id: d53acd65-a46a-4e99-a228-b4877e94a2a1
+  landing_page: https://openjustice.doj.ca.gov/data/law-enforcement-officers-killed-or-assaulted
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/d53acd65-a46a-4e99-a228-b4877e94a2a1
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: Law Enforcement Officers Killed or Assaulted (LEOKA) data are reported as part of the Federal Uniform
+    Crime Reporting (UCR) Program by LEAs throughout the state. LEOKA data are summary data, meaning it is a collection
+    of information describing the totality of incidents, not a collection at the detailed, incident level. LEOKA
+    is a federally mandated collection. From the 1960's until 1990, the CJSC did not retain any of the LEOKA data;
+    the forms were passed along to the Federal Bureau of Investigation (FBI). In 1990, the DOJ began to collect
+    and retain the data from the LEOKA form for statistica
+  distribution_count: 2
+  distributions:
+  - filename: LEOKA 2000-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/LEOKA%202000-2025.csv
+    media_type: text/csv
+    bytes: 33800692
+  - filename: LEOKA Context_06162026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/LEOKA%20Context_06162026.pdf
+    media_type: application/pdf
+    bytes: 343200
+- title: Law Enforcement Personnel
+  id: a2beb00a-c281-43d0-b842-aee866e9f4b9
+  landing_page: https://openjustice.doj.ca.gov/data/law-enforcement-personnel
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/a2beb00a-c281-43d0-b842-aee866e9f4b9
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: California LEAs report counts of the number of full-time sworn and non-sworn, male and female law
+    enforcement personnel (LEP) employed. The DOJ collects the Law Enforcement Personnel data through a one-day
+    survey taken on October 31st of each reporting year.
+  distribution_count: 2
+  distributions:
+  - filename: Law_Enforcement_Personnel_1991-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Law_Enforcement_Personnel_1991-2025.csv
+    media_type: text/csv
+    bytes: 639944
+  - filename: Law Enforcement Personnel Context_06162026_0.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Law%20Enforcement%20Personnel%20Context_06162026_0.pdf
+    media_type: application/pdf
+    bytes: 168838
+- title: Law Enforcement and Criminal Justice Personnel
+  id: 7e9b5a82-e254-4738-b261-2ff71e45e141
+  landing_page: https://openjustice.doj.ca.gov/data/law-enforcement-and-criminal-justice-personnel
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/7e9b5a82-e254-4738-b261-2ff71e45e141
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: 'California LEAs report counts of the number of full-time sworn and non-sworn, male and female law
+    enforcement personnel (LEP) employed. The DOJ also collects the number of attorneys, investigators, and clerical
+    and other criminal justice personnel (CJP) employed by district attorneys and public defenders; and probation
+    officers and other staff employed by probation departments. The DOJ collects the Law Enforcement and Criminal
+    Justice Personnel (LECJP) data through one-day surveys of each reporting year: criminal justice personnel counts
+    are taken on June 30th and law enforcement personnel cou'
+  distribution_count: 2
+  distributions:
+  - filename: LE_and_CJ_Personnel_2003-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/LE_and_CJ_Personnel_2003-2025.csv
+    media_type: text/csv
+    bytes: 177990
+  - filename: Law Enforcement Personnel Context_06162026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Law%20Enforcement%20Personnel%20Context_06162026.pdf
+    media_type: application/pdf
+    bytes: 168838
+- title: RIPA Stop Data
+  id: b71d27ea-cf5b-4162-abaa-9e66081415b2
+  landing_page: https://openjustice.doj.ca.gov/data/ripa-stop-data
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/b71d27ea-cf5b-4162-abaa-9e66081415b2
+  data_type:
+  - Criminal Justice Data
+  updated: '2025-12-31'
+  revision_log: Upload and post 2024 RIPA Stop Data and ReadMe for DanielF Harmon - https://jira.int.doj.ca.gov/browse/OJ-268
+  description: What is required? Assembly Bill 953 (AB 953) requires each state and local agency in California that
+    employs peace officers to annually report to the Attorney General data on all stops conducted by the agency's
+    peace officers. This includes the California Highway Patrol, a city or county law enforcement agency, and California
+    state or university educational institutions, but does not include probation officers and officers in a custodial
+    setting. A “stop” is defined in Government Code section 12525.5(g)(2), with further information and scenarios
+    detailed in the implementing regulations. The bi
+  distribution_count: 14
+  distributions:
+  - filename: ripa-stop-data-2024.zip
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-12/ripa-stop-data-2024.zip
+    media_type: application/zip
+    bytes: 1950764253
+  - filename: ripa-stop-dataset-readme-2024.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-12/ripa-stop-dataset-readme-2024.pdf
+    media_type: application/pdf
+    bytes: 380086
+  - filename: RIPA-Stop-Data-2023.zip
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-05/RIPA-Stop-Data-2023.zip
+    media_type: application/zip
+    bytes: 1493834623
+  - filename: RIPA Dataset Read Me 2023.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-05/RIPA%20Dataset%20Read%20Me%202023.pdf
+    media_type: application/pdf
+    bytes: 293172
+  - filename: RIPA-Stop-Data-2022.zip
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-05/RIPA-Stop-Data-2022.zip
+    media_type: application/zip
+    bytes: 1470159543
+  - filename: RIPA Dataset Read Me 2022.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-05/RIPA%20Dataset%20Read%20Me%202022.pdf
+    media_type: application/pdf
+    bytes: 351551
+  - filename: RIPA-Stop-Data-2021.zip
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-03/RIPA-Stop-Data-2021.zip
+    media_type: application/zip
+    bytes: 989224133
+  - filename: RIPA Dataset Read Me 2021 Final.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-03/RIPA%20Dataset%20Read%20Me%202021%20Final.pdf
+    media_type: application/pdf
+    bytes: 874654
+  - filename: RIPA-Stop-Data-2020.zip
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-03/RIPA-Stop-Data-2020.zip
+    media_type: application/zip
+    bytes: 828345500
+  - filename: RIPA Dataset Read Me 2020 Final.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-03/RIPA%20Dataset%20Read%20Me%202020%20Final.pdf
+    media_type: application/pdf
+    bytes: 281679
+  - filename: RIPA-Stop-Data-2019.zip
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-03/RIPA-Stop-Data-2019.zip
+    media_type: application/zip
+    bytes: 1150820116
+  - filename: RIPA Dataset Read Me 2019 Final.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-03/RIPA%20Dataset%20Read%20Me%202019%20Final.pdf
+    media_type: application/pdf
+    bytes: 283521
+  - filename: RIPA-Stop-Data-2018.zip
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-03/RIPA-Stop-Data-2018.zip
+    media_type: application/zip
+    bytes: 534954956
+  - filename: RIPA Dataset Read Me 2018 Final.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-03/RIPA%20Dataset%20Read%20Me%202018%20Final.pdf
+    media_type: application/pdf
+    bytes: 244908
+- title: Use of Force Incident Reporting
+  id: eb4c662d-7b4f-402c-81d9-7c6d0ef2e332
+  landing_page: https://openjustice.doj.ca.gov/data/use-force-incident-reporting
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/eb4c662d-7b4f-402c-81d9-7c6d0ef2e332
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: OJ-272 Adding 2025 Readme
+  description: The Use of Force Incident Reporting incidents that result in serious bodily injury or death or involved
+    the discharge of a firearm are reported annually from LEAs and other entities throughout the state that employ
+    peace officers. The Use of Force Incident Reporting data is narrowly defined and does not represent the totality
+    of use of force incidents that occur in California. LEAs are only required to report use of force incidents
+    that result in serious bodily injury or death of either the civilian or the officer and all incidents where
+    there is a discharge of a firearm. As such, caution must
+  distribution_count: 36
+  distributions:
+  - filename: UseofForce_ORI-Agency_Names_2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/UseofForce_ORI-Agency_Names_2025.csv
+    media_type: text/csv
+    bytes: 16816
+  - filename: UseofForce_Incident_2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/UseofForce_Incident_2025.csv
+    media_type: text/csv
+    bytes: 61895
+  - filename: UseofForce_Civilian-Officer_2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/UseofForce_Civilian-Officer_2025.csv
+    media_type: text/csv
+    bytes: 354434
+  - filename: Use of Force Readme 06172026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Use%20of%20Force%20Readme%2006172026.pdf
+    media_type: application/pdf
+    bytes: 170660
+  - filename: UseofForce_Incident_2024.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-07/UseofForce_Incident_2024.csv
+    media_type: text/csv
+    bytes: 57311
+  - filename: UseofForce_Civilian-Officer_2024.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-07/UseofForce_Civilian-Officer_2024.csv
+    media_type: text/csv
+    bytes: 345116
+  - filename: UseofForce_ORI-Agency_Names_2024.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-07/UseofForce_ORI-Agency_Names_2024.csv
+    media_type: text/csv
+    bytes: 16717
+  - filename: Use of Force Readme 06202025.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2025-07/Use%20of%20Force%20Readme%2006202025.pdf
+    media_type: application/pdf
+    bytes: 163322
+  - filename: UseofForce_Incident_2023.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-07/UseofForce_Incident_2023.csv
+    media_type: text/csv
+    bytes: 61890
+  - filename: UseofForce_Civilian-Officer_2023.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-07/UseofForce_Civilian-Officer_2023.csv
+    media_type: text/csv
+    bytes: 375822
+  - filename: UseofForce_ORI-Agency_Names_2023.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-07/UseofForce_ORI-Agency_Names_2023.csv
+    media_type: text/csv
+    bytes: 15668
+  - filename: use-of-force-readme-06202024f.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2024-07/use-of-force-readme-06202024f.pdf
+    media_type: application/pdf
+    bytes: 225855
+  - filename: UseofForce_Incident_2022.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-06/UseofForce_Incident_2022.csv
+    media_type: text/csv
+    bytes: 75909
+  - filename: UseofForce_Civilian-Officer_2022.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-06/UseofForce_Civilian-Officer_2022.csv
+    media_type: text/csv
+    bytes: 474276
+  - filename: UseofForce_ORI-Agency_Names_2022f.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-06/UseofForce_ORI-Agency_Names_2022f.csv
+    media_type: text/csv
+    bytes: 23864
+  - filename: Use of Force Readme 20230530f.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2023-06/Use%20of%20Force%20Readme%2020230530f.pdf
+    media_type: application/pdf
+    bytes: 171270
+  - filename: UseofForce_Incident_2021.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/UseofForce_Incident_2021.csv
+    media_type: text/csv
+    bytes: 79451
+  - filename: UseofForce_Civilian-Officer_2021f.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/UseofForce_Civilian-Officer_2021f.csv
+    media_type: text/csv
+    bytes: 506598
+  - filename: UseofForce_ORI-Agency_Names_2021.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/UseofForce_ORI-Agency_Names_2021.csv
+    media_type: text/csv
+    bytes: 23702
+  - filename: UseofForce_Context_2021.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/UseofForce_Context_2021.pdf
+    media_type: application/pdf
+    bytes: 133599
+  - filename: URSUS_ORI-Agency_Names_20210902.xlsx
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_ORI-Agency_Names_20210902.xlsx
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    bytes: 33376
+  - filename: URSUS_Incident_2020.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Incident_2020.csv
+    media_type: text/csv
+    bytes: 89570
+  - filename: URSUS_Civilian-Officer_2020.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Civilian-Officer_2020.csv
+    media_type: text/csv
+    bytes: 584661
+  - filename: Use of Force Incident Reporting 2020 Context_073021.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/Use%20of%20Force%20Incident%20Reporting%202020%20Context_073021.pdf
+    media_type: application/pdf
+    bytes: 167856
+  - filename: URSUS_Incident_2019.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Incident_2019.csv
+    media_type: text/csv
+    bytes: 89613
+  - filename: URSUS_Civilian-Officer_2019.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Civilian-Officer_2019.csv
+    media_type: text/csv
+    bytes: 579124
+  - filename: URSUS 2019 Context_07012020.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS%202019%20Context_07012020.pdf
+    media_type: application/pdf
+    bytes: 543964
+  - filename: URSUS_Incident_2018.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Incident_2018.csv
+    media_type: text/csv
+    bytes: 80282
+  - filename: URSUS_Civilian-Officer_2018.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Civilian-Officer_2018.csv
+    media_type: text/csv
+    bytes: 525821
+  - filename: URSUS 2018 Context_062519.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS%202018%20Context_062519.pdf
+    media_type: application/pdf
+    bytes: 542528
+  - filename: URSUS_Incident_2017.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Incident_2017.csv
+    media_type: text/csv
+    bytes: 91690
+  - filename: URSUS_Civilian-Officer_2017.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Civilian-Officer_2017.csv
+    media_type: text/csv
+    bytes: 575790
+  - filename: URSUS 2017 Context.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS%202017%20Context.pdf
+    media_type: application/pdf
+    bytes: 522800
+  - filename: URSUS_Incident_2016.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Incident_2016.csv
+    media_type: text/csv
+    bytes: 114657
+  - filename: URSUS_Civilian-Officer_2016.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS_Civilian-Officer_2016.csv
+    media_type: text/csv
+    bytes: 709190
+  - filename: URSUS 2016 Context.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2022-08/URSUS%202016%20Context.pdf
+    media_type: application/pdf
+    bytes: 643497
+- title: Values Act Transfer Data
+  id: 53f429a4-db15-4b52-8666-f35b79e60a6c
+  landing_page: https://openjustice.doj.ca.gov/data/values-act-transfer-data
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/53f429a4-db15-4b52-8666-f35b79e60a6c
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: California LEAs report on the transfer of an individual to immigration authorities for immigration
+    purposes pursuant to The Values Act (SB54, 2017). This data is submitted annually during the first two weeks
+    in January for the previous reporting year.
+  distribution_count: 2
+  distributions:
+  - filename: SB54 Transfers 2018-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/SB54%20Transfers%202018-2025.csv
+    media_type: text/csv
+    bytes: 264180
+  - filename: The Values Act (SB54) Transfers Context_06172026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/The%20Values%20Act%20%28SB54%29%20Transfers%20Context_06172026.pdf
+    media_type: application/pdf
+    bytes: 111424
+- title: Violent Crimes Committed Against Senior Citizens
+  id: c3ad3513-65a1-4d62-8968-369f62ebb6c3
+  landing_page: https://openjustice.doj.ca.gov/data/violent-crimes-committed-against-senior-citizens
+  api: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/c3ad3513-65a1-4d62-8968-369f62ebb6c3
+  data_type:
+  - Criminal Justice Data
+  updated: '2026-07-01'
+  revision_log: null
+  description: Violent Crimes Committed Against Senior Citizens (VCASC) data are collected from various LEAs throughout
+    the state on a monthly basis. The data set provides summary statistical data on the total number persons 60
+    years of age or older who were victims of homicide, rape, robbery, or aggravated assault.
+  distribution_count: 2
+  distributions:
+  - filename: VCASC2000-2025.csv
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/VCASC2000-2025.csv
+    media_type: text/csv
+    bytes: 4470550
+  - filename: Violent Crimes Against Senior Citizens Context_0616026.pdf
+    url: https://data-openjustice.doj.ca.gov/sites/default/files/dataset/2026-07/Violent%20Crimes%20Against%20Senior%20Citizens%20Context_0616026.pdf
+    media_type: application/pdf
+    bytes: 195352

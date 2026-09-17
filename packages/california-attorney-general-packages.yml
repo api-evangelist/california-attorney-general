@@ -1,0 +1,23 @@
+generated: '2026-09-17'
+method: searched
+source: registry.npmjs.org, pypi.org, rubygems.org, crates.io, api.github.com searched for openjustice / cadoj /
+  california doj on 2026-09-17
+provider: California Attorney General
+providerId: california-attorney-general
+summary: No first-party client library, SDK or CLI exists for the OpenJustice API. The DOJ has no official GitHub
+  organisation; github.com/openjustice is a 2016 personal account holding six visualisation-tutorial repositories
+  (last push 2016-07-28) and github.com/CADOJ has no public repositories. No npm, PyPI, RubyGems or crates.io package
+  is published under a DOJ name. Any JSON:API client library works unchanged.
+package_count: 0
+packages: []
+evidence:
+- url: https://registry.npmjs.org/openjustice
+  status: 404
+- url: https://pypi.org/pypi/openjustice/json
+  status: 404
+- url: https://api.github.com/users/openjustice
+  status: 200
+  finding: type User, 6 repos, 2016
+- url: https://api.github.com/users/cadoj
+  status: 200
+  finding: 0 public repos

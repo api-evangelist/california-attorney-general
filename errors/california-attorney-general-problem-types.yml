@@ -1,0 +1,75 @@
+generated: '2026-09-17'
+method: probed
+source: live error responses observed against https://data-openjustice.doj.ca.gov/jsonapi on 2026-09-17, saved verbatim
+  in examples/; and openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+provider: California Attorney General
+providerId: california-attorney-general
+format: jsonapi-errors
+rfc9457: false
+envelope:
+  media_type: application/vnd.api+json
+  shape: '{ "jsonapi": {...}, "errors": [ { "title", "status", "detail", "links": { "via", "info" } } ] }'
+  stable: true
+  note: A single, typed, machine-parseable envelope is used across every JSON error observed. `status` is a STRING,
+    not an integer. `links.info` points at the RFC 2616 section defining the status code and `links.via` echoes
+    the request URL.
+  caveat: 'Not every non-2xx on this host is a JSON:API error document: the two PHP dashboard endpoints (filter-queries/*.php)
+    return an empty-body HTTP 500 to an unparameterised GET, and /.well-known/* paths return a 301 to the site root.'
+problem_types:
+- id: bad-request-invalid-filter
+  status: 400
+  title: Bad Request
+  detail_observed: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`,
+    does not exist.
+  cause: A filter names a field that does not exist on the resource type.
+  remediation: Fetch one resource object first and read `attributes` and `relationships` for the exact Drupal machine
+    names (snake_case, usually prefixed `field_`), then filter on those.
+  observed: true
+  evidence: examples/california-attorney-general-error-400-example.json
+  parseable: true
+- id: bad-request-empty-body
+  status: 400
+  title: Bad Request
+  detail_observed: Empty request body.
+  cause: A POST to a create route carried no body.
+  remediation: Send a JSON:API document {"data":{"type":"node--<bundle>","attributes":{...}}} with Content-Type
+    application/vnd.api+json.
+  observed: true
+  parseable: true
+- id: unauthorized-write
+  status: 401
+  title: Unauthorized
+  detail_observed: No authentication credentials provided.
+  cause: POST/PATCH/DELETE on any route other than the three anonymous feedback creates.
+  remediation: There is no public credential. Treat the surface as read-only apart from node/signup, node/suggestion
+    and node/bug.
+  observed: true
+  evidence: examples/california-attorney-general-error-401-write-example.json
+  parseable: true
+- id: not-found-unknown-uuid
+  status: 404
+  title: Not Found
+  detail_observed: 'The "entity" parameter was not converted for the path "/jsonapi/node/dataset/{entity}" (route
+    name: "jsonapi.node--dataset.individual")'
+  cause: The UUID in an individual-resource path does not resolve in that collection.
+  remediation: Re-read the id from a collection response; ids are UUIDs, not drupal_internal__nid.
+  observed: true
+  evidence: examples/california-attorney-general-error-404-example.json
+  parseable: true
+- id: method-not-allowed-post-only
+  status: 405
+  title: Method Not Allowed
+  detail_observed: 'No route found for "GET /jsonapi/contact_message/feedback": Method Not Allowed (Allow: POST)'
+  cause: GET on a contact_message resource type, which only accepts POST.
+  remediation: Do not list contact_message types; they are submission-only.
+  observed: true
+  parseable: true
+- id: omitted-insufficient-authorization
+  status: 200
+  title: (200 with meta.omitted)
+  detail_observed: Some resources have been omitted because of insufficient authorization.
+  cause: The anonymous caller may not view the resources in the page; Drupal returns a 200 with an empty data array
+    and a meta.omitted block rather than a 403.
+  remediation: Check meta.omitted before concluding a collection is empty. For node/dataset, request without page[limit]=1.
+  observed: true
+  parseable: true

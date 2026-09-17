@@ -1,0 +1,60 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements to the OpenJustice JSON:API description
+  version: 1.0.0
+  x-generated: '2026-09-17'
+  x-method: generated
+  x-source: openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+  x-note: >-
+    This Overlay records the enhancements API Evangelist applies on top of the OpenJustice JSON:API
+    description. The base document is also ours — the DOJ publishes no OpenAPI — so the overlay's
+    purpose is to keep consumer-facing guidance (traps, provenance, agent guardrails) separable
+    from the probe-derived facts in the base document. Applying it does not mutate the base file.
+extends: openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-profile: https://apis.io/provider/california-attorney-general
+      x-publisher-provided: false
+      x-consumer-warning: >-
+        The DOJ does not document, announce or support this surface. It exists because Drupal's
+        JSON:API module is enabled on the host behind the OpenJustice app. Nothing here is a
+        commitment by the DOJ, and a routine CMS change could alter or remove any path without notice.
+  - target: $.info
+    update:
+      x-agent-guidance:
+        read_only: false
+        anonymous_writes: [createNodeSignup, createNodeSuggestion, createNodeBug]
+        writes_reversible: false
+        safe_for_autonomous_reads: true
+        safe_for_autonomous_writes: false
+        rationale: >-
+          Reads are anonymous, free and side-effect free. The three feedback creates are real
+          submissions to DOJ staff with no idempotency key and no reversal; require human
+          confirmation before calling them.
+  - target: $.paths['/node/dataset'].get
+    update:
+      x-trap: >-
+        page[limit]=1 returns an empty page with meta.omitted because the lowest-id dataset node
+        is unpublished. Request without that limit (26 records fit in one page).
+      x-recommended-request: >-
+        GET /node/dataset?include=field_source,field_data_type&fields[file--file]=uri,filesize,filemime,filename&sort=title
+  - target: $.paths['/file/file'].get
+    update:
+      x-trap: >-
+        uri.url is site-relative. Prefix https://data-openjustice.doj.ca.gov to download.
+  - target: $.components.parameters.pageLimit
+    update:
+      x-trap: Values above 50 are silently clamped to 50; no error is returned.
+  - target: $.components.parameters.resourceId
+    update:
+      x-trap: Use the UUID `id`, never drupal_internal__nid; the integer returns 404.
+  - target: $.paths['/node/signup'].post
+    update:
+      x-agent-guidance: { requires_human_confirmation: true, idempotent: false, reversible: false }
+  - target: $.paths['/node/suggestion'].post
+    update:
+      x-agent-guidance: { requires_human_confirmation: true, idempotent: false, reversible: false }
+  - target: $.paths['/node/bug'].post
+    update:
+      x-agent-guidance: { requires_human_confirmation: true, idempotent: false, reversible: false }

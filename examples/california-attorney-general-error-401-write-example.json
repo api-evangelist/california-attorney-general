@@ -1,0 +1,1 @@
+{"jsonapi":{"version":"1.0","meta":{"links":{"self":{"href":"http:\/\/jsonapi.org\/format\/1.0\/"}}}},"errors":[{"title":"Unauthorized","status":"401","detail":"No authentication credentials provided.","links":{"via":{"href":"https:\/\/data-openjustice.doj.ca.gov\/jsonapi\/node\/dataset"},"info":{"href":"http:\/\/www.w3.org\/Protocols\/rfc2616\/rfc2616-sec10.html#sec10.4.2"}}}]}

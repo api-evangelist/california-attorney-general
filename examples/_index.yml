@@ -1,0 +1,37 @@
+generated: '2026-09-17'
+method: probed
+source: https://data-openjustice.doj.ca.gov/jsonapi
+provider: California Attorney General
+providerId: california-attorney-general
+note: Verbatim response bodies captured from live anonymous requests on 2026-09-17. Saved exactly as returned. No
+  example includes user--user or webform_submission resources.
+examples:
+- file: california-attorney-general-jsonapi-index-example.json
+  request: GET https://data-openjustice.doj.ca.gov/jsonapi
+  status: 200
+  describes: The resource-type index — 70 entity--bundle link relations.
+- file: california-attorney-general-datasets-include-example.json
+  request: GET /jsonapi/node/dataset?include=field_source,field_data_type&fields[file--file]=uri,filesize,filemime,filename&sort=title
+  status: 200
+  describes: All 26 published datasets with their 148 file distributions and data-type terms side-loaded into `included`.
+    The reference example for relationship expansion on this API.
+- file: california-attorney-general-datasets-sparse-fieldset-example.json
+  request: GET /jsonapi/node/dataset?page[limit]=2&include=field_source,field_data_type&fields[file--file]=uri,filesize,filemime,filename&fields[taxonomy_term--data_type]=name&sort=title
+  status: 200
+  describes: Pagination plus sparse fieldsets on the included types.
+- file: california-attorney-general-stats-filter-example.json
+  request: GET /jsonapi/node/stats?filter[title][operator]=CONTAINS&filter[title][value]=Hate&fields[node--stats]=title,field_data_query,field_path
+  status: 200
+  describes: A CONTAINS filter with a sparse fieldset on the primary type.
+- file: california-attorney-general-error-400-example.json
+  request: GET /jsonapi/node/dataset?filter[nonexistent_field]=x
+  status: 400
+  describes: The JSON:API error document for an unknown filter field.
+- file: california-attorney-general-error-404-example.json
+  request: GET /jsonapi/node/dataset/00000000-0000-0000-0000-000000000000
+  status: 404
+  describes: The JSON:API error document for an unknown UUID.
+- file: california-attorney-general-error-401-write-example.json
+  request: POST /jsonapi/node/dataset (empty body, anonymous)
+  status: 401
+  describes: Writes outside the three feedback routes require credentials.

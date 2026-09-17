@@ -1,0 +1,100 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/california-attorney-general-openjustice-jsonapi-openapi.yml, itself derived from live probes of
+  https://data-openjustice.doj.ca.gov/jsonapi on 2026-09-17
+provider: California Attorney General
+providerId: california-attorney-general
+status: candidate
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: none
+  verified: derived
+  note: 'The California DOJ ships no MCP server, hosted or local. Searched 2026-09-17: no reference to MCP or an
+    agent endpoint on oag.ca.gov or openjustice.doj.ca.gov; no official GitHub organisation (github.com/openjustice
+    is a 2016 personal account with six tutorial repos; github.com/CADOJ is empty); no npm or PyPI package under
+    any DOJ name. The tools below are a CANDIDATE surface derived from the real REST operations, not a server that
+    exists. No endpoint URL is asserted.'
+search_evidence:
+- url: https://openjustice.doj.ca.gov/llms.txt
+  status: 200
+  finding: HTML shell (SPA catch-all) — not an llms.txt
+- url: https://oag.ca.gov/llms.txt
+  status: 404
+- url: https://oag.ca.gov/.well-known/ai-plugin.json
+  status: 404
+- url: https://oag.ca.gov/.well-known/agent-card.json
+  status: 404
+- url: https://api.github.com/users/openjustice/repos
+  status: 200
+  finding: 6 repositories from 2016 (visualisation tutorials); not an official org, no MCP
+- url: https://api.github.com/users/cadoj
+  status: 200
+  finding: 0 public repositories
+feasibility:
+  note: 'A read-only server is easy to build and safe to expose: the underlying API is anonymous, free and returns
+    JSON:API. The three feedback creates should NOT be exposed as tools without a confirmation step — they create
+    records DOJ staff read and cannot be reversed.'
+  auth_required: false
+  write_risk: low (three non-reversible feedback creates, excluded from the candidate tools)
+tools:
+- name: list_datasets
+  description: List the 26 OpenJustice datasets with their downloadable distributions.
+  rest:
+  - listNodeDataset
+  inputSchema:
+    type: object
+    properties:
+      title_contains:
+        type: string
+      include_files:
+        type: boolean
+        default: true
+- name: get_dataset
+  description: Get one dataset by UUID with its files.
+  rest:
+  - getNodeDataset
+  inputSchema:
+    type: object
+    required:
+    - id
+    properties:
+      id:
+        type: string
+        format: uuid
+- name: list_publications
+  description: List CJSC statistical publications and their per-year report PDFs.
+  rest:
+  - listNodePublication
+  inputSchema:
+    type: object
+    properties: {}
+- name: list_data_stories
+  description: List OpenJustice data stories, optionally by story type.
+  rest:
+  - listNodeDataStory
+  inputSchema:
+    type: object
+    properties:
+      page_offset:
+        type: integer
+- name: list_files
+  description: List file distributions (CSV/XLSX/ZIP/PDF) with size and media type.
+  rest:
+  - listFileFile
+  inputSchema:
+    type: object
+    properties:
+      filemime:
+        type: string
+      page_offset:
+        type: integer
+- name: list_stats_pages
+  description: List the Exploration crime-statistics pages and their query slugs.
+  rest:
+  - listNodeStats
+  inputSchema:
+    type: object
+    properties: {}

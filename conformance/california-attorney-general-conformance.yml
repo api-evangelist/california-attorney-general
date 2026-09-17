@@ -1,0 +1,73 @@
+generated: '2026-09-17'
+method: probed
+source: live probes of https://data-openjustice.doj.ca.gov/jsonapi, https://oag.ca.gov and https://openjustice.doj.ca.gov
+  on 2026-09-17
+provider: California Attorney General
+providerId: california-attorney-general
+summary: 'One real, verifiable standards conformance, established from the contract itself rather than a marketing
+  claim: JSON:API 1.0 on the OpenJustice data API. It is not advertised by the DOJ anywhere a developer would look;
+  it is declared inside every response document. No DCAT/Project Open Data catalog, no OAuth/OIDC, no RFC 9457,
+  no security.txt and no api-catalog exist on any host.'
+conformance:
+- id: json-api-1.0
+  name: JSON:API 1.0
+  conforms: true
+  evidence: https://data-openjustice.doj.ca.gov/jsonapi
+  detail: Every response document carries a top-level `jsonapi` member declaring {"version":"1.0","meta":{"links":{"self":{"href":"http://jsonapi.org/format/1.0/"}}}}
+    and is served as application/vnd.api+json. Resource objects, relationship objects, compound documents (include),
+    sparse fieldsets (fields[type]), sort, filter and page[limit]/page[offset] all behave as specified. Verified
+    across 70 resource types and ~570 requests on 2026-09-17.
+  self_declared_in_contract: true
+  spec: https://jsonapi.org/format/1.0/
+- id: pagination
+  name: Standardised pagination
+  conforms: true
+  evidence: https://data-openjustice.doj.ca.gov/jsonapi/node/file?page[limit]=50
+  detail: JSON:API offset pagination with page[limit]/page[offset] and links.self/next/prev. Page cap 50. Verified
+    by walking 488 file--file records and 127 data stories to exhaustion. No total count is exposed.
+- id: rss-2.0
+  name: RSS 2.0
+  conforms: true
+  evidence: https://oag.ca.gov/rss.xml
+  detail: HTTP 200; the Attorney General's press-release feed (Drupal), the only long-standing machine-readable
+    publishing surface on oag.ca.gov.
+- id: project-open-data-1.1
+  name: Project Open Data / DCAT-US v1.1
+  conforms: false
+  evidence: https://openjustice.doj.ca.gov/data.json
+  detail: No data.json on any host (the SPA host answers 200 HTML for every path; oag.ca.gov 404). The dataset inventory
+    exists only as node--dataset resources on the JSON:API — see datasets/.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: examples/california-attorney-general-error-400-example.json
+  detail: Errors use the JSON:API 1.0 errors[] envelope, not application/problem+json — correct for a JSON:API service;
+    recorded false only so the distinction is explicit.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: https://oag.ca.gov/.well-known/oauth-authorization-server
+  detail: HTTP 404 on oag.ca.gov; 301 to the site root on data-openjustice.doj.ca.gov. No authorization server.
+    Reads are anonymous.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: https://oag.ca.gov/.well-known/openid-configuration
+  detail: HTTP 404.
+- id: rfc9116-security-txt
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: https://oag.ca.gov/.well-known/security.txt
+  detail: HTTP 404 on oag.ca.gov and data-openjustice.doj.ca.gov; HTML shell on openjustice.doj.ca.gov. The State
+    of California serves one at https://ca.gov/.well-known/security.txt, but that is the Department of Technology's
+    portal, not the Attorney General's, and is not credited here.
+- id: rfc9727-api-catalog
+  name: RFC 9727 api-catalog
+  conforms: false
+  evidence: https://oag.ca.gov/.well-known/api-catalog
+  detail: HTTP 404.
+- id: idempotency
+  name: Idempotency-Key (draft-ietf-httpapi-idempotency-key-header)
+  conforms: false
+  evidence: https://data-openjustice.doj.ca.gov/jsonapi/node/signup
+  detail: The only public writes are three feedback creates; no Idempotency-Key header is offered. See conventions/.

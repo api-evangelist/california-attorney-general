@@ -1,0 +1,1 @@
+{"jsonapi":{"version":"1.0","meta":{"links":{"self":{"href":"http:\/\/jsonapi.org\/format\/1.0\/"}}}},"data":[],"links":{"self":{"href":"https:\/\/data-openjustice.doj.ca.gov\/jsonapi\/node\/stats?fields%5Bnode--stats%5D=title%2Cfield_data_query%2Cfield_path\u0026filter%5Btitle%5D%5Boperator%5D=CONTAINS\u0026filter%5Btitle%5D%5Bvalue%5D=Hate"}}}

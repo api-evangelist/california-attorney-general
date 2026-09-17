@@ -1,0 +1,166 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/california-attorney-general-openjustice-jsonapi-openapi.yml and the resource objects observed at
+  https://data-openjustice.doj.ca.gov/jsonapi on 2026-09-17 (relationships[] members and their resolved included
+  types)
+provider: California Attorney General
+providerId: california-attorney-general
+summary: 'The entity graph behind the OpenJustice Open Data Portal, derived from the live JSON:API. The part with
+  genuine public value is small and clear: a dataset has many file distributions and a data-type term; a publication
+  has many per-year report paragraphs, each holding one PDF; a data story has many chart paragraphs, each drawn
+  from one CSV file. Relationships were confirmed by side-loading them with ?include= and reading the resulting
+  included types, not inferred from field names.'
+identifiers:
+  primary: JSON:API resource id — a UUID, stable across the API
+  secondary:
+  - field: drupal_internal__nid
+    note: Drupal node id on every node.
+  - field: drupal_internal__fid
+    note: Drupal file id on file--file.
+  - field: drupal_internal__tid
+    note: Drupal term id on taxonomy terms.
+  - field: field_data_query
+    note: 'On node--stats: the slug the dashboard passes to its PHP query endpoints (e.g. adult-probation).'
+  note: There are no domain identifiers. Datasets have no DOI, no DCAT identifier and no stable slug beyond path.alias;
+    joining to other data means matching on title strings or file names.
+entities:
+- name: node--dataset
+  label: Dataset
+  count: 26
+  key_attributes:
+  - title
+  - body
+  - path.alias
+  - changed
+  - revision_log
+- name: file--file
+  label: File distribution
+  count: 488
+  key_attributes:
+  - filename
+  - uri.url
+  - filemime
+  - filesize
+- name: taxonomy_term--data_type
+  label: Data type
+  count: 4
+  values:
+  - Criminal Justice Data
+  - Firearms
+  - Other Data
+  - Agency Information
+- name: node--publication
+  label: Statistical publication
+  count: 6
+  values:
+  - Crime in California
+  - Homicide in California
+  - Hate Crime in California
+  - Juvenile Justice in California
+  - Use of Force Incident Reporting
+  - 'Values Act: Senate Bill 54 Annual Report'
+- name: paragraph--publication_report
+  label: Publication report year
+  count: 113
+  key_attributes:
+  - field_publication_year
+- name: node--stats
+  label: Exploration stats page
+  count: 6
+  key_attributes:
+  - title
+  - field_data_query
+  - field_path
+- name: node--data_story
+  label: Data story
+  count: 127
+  key_attributes:
+  - title
+  - field_data_subtitle
+  - field_chart_layout
+- name: node--data_story_section
+  label: Data story section
+  count: 25
+- name: paragraph--data_chart
+  label: Chart
+  count: 226
+  key_attributes:
+  - field_chart_title
+  - field_chart_type
+  - field_y_axis_label
+- name: paragraph--data_tab
+  label: Chart tab
+  count: 70
+- name: taxonomy_term--story_type
+  label: Story type
+  count: 17
+- name: taxonomy_term--data_story_year
+  label: Story year
+  count: 3
+- name: node--exploration
+  label: Exploration landing page
+  count: 5
+- name: node--documentation
+  label: CMS documentation page
+  count: 2
+  note: Internal how-to pages for DOJ editors (creating a data story), not API documentation.
+relationships:
+- from: node--dataset
+  to: file--file
+  type: has_many
+  via: field_source
+  confirmed_by_include: true
+- from: node--dataset
+  to: taxonomy_term--data_type
+  type: has_one
+  via: field_data_type
+  confirmed_by_include: true
+- from: node--publication
+  to: paragraph--publication_report
+  type: has_many
+  via: field_publication_reports
+- from: paragraph--publication_report
+  to: file--file
+  type: has_one
+  via: field_publication_file
+- from: node--publication
+  to: file--file
+  type: has_one
+  via: field_pub_image
+- from: node--data_story
+  to: paragraph--data_chart
+  type: has_many
+  via: field_data_chart
+- from: node--data_story
+  to: paragraph--data_tab
+  type: has_many
+  via: field_tab
+- from: node--data_story
+  to: node--data_story_section
+  type: has_many
+  via: field_data_story_section
+- from: node--data_story
+  to: taxonomy_term--story_type
+  type: has_one
+  via: field_story_type
+- from: node--data_story_section
+  to: node--data_story
+  type: belongs_to
+  via: field_data_story
+- from: node--data_story_section
+  to: taxonomy_term--data_story_year
+  type: has_one
+  via: field_data_story_year
+- from: paragraph--data_chart
+  to: file--file
+  type: has_one
+  via: field_chart_file
+- from: paragraph--data_tab
+  to: paragraph--data_chart
+  type: has_many
+  via: field_data_chart
+- from: '*'
+  to: user--user
+  type: belongs_to
+  via: uid
+  note: Author reference on every node/file; user--user is deliberately not described in the OpenAPI.

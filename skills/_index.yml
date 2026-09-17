@@ -1,0 +1,18 @@
+generated: '2026-09-17'
+method: generated
+source: openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+provider: California Attorney General
+providerId: california-attorney-general
+note: >-
+  Packaged Agent Skill for the DOJ's undocumented OpenJustice JSON:API. Every operationId
+  referenced was verified to exist in the repository's OpenAPI description, which was itself
+  derived from live anonymous probes on 2026-09-17. The DOJ publishes no skills, no AGENTS.md
+  and no agent guidance of any kind (https://oag.ca.gov/llms.txt 404; the OpenJustice host
+  returns its HTML shell for /llms.txt).
+skills:
+  - name: california-doj-download-openjustice-dataset
+    file: california-attorney-general-download-openjustice-dataset.md
+    summary: >-
+      Find an OpenJustice dataset by title or data type and download its current CSV/XLSX/ZIP
+      distribution and context PDF.
+    operations: [getResourceIndex, listNodeDataset, getNodeDataset, listFileFile, listTaxonomyTermDataType]

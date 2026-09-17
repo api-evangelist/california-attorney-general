@@ -1,0 +1,29 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: California Attorney General
+providerId: california-attorney-general
+generated: '2026-09-17'
+method: searched
+source: https://oag.ca.gov and https://openjustice.doj.ca.gov (site pages) and https://data-openjustice.doj.ca.gov/jsonapi
+  on 2026-09-17
+created: '2026-09-17'
+modified: '2026-09-17'
+tags:
+- State Government
+- Criminal Justice
+- Open Data
+description: The California Department of Justice publishes no plans, no pricing, no tiers and no metered API product.
+  Everything it serves over HTTP — the JSON:API at data-openjustice.doj.ca.gov/jsonapi, every dataset download under
+  /sites/default/files/, and the oag.ca.gov RSS feed — is free, anonymous and uncapped by policy. Data not on the
+  portal is obtained through the Research Services data request process (datarequests@doj.ca.gov), which is a human
+  workflow, not a plan. An honest zero rather than an absence of measurement.
+plan_count: 0
+plans: []
+evidence:
+- url: https://oag.ca.gov/research-services/request-process
+  status: 200
+  finding: human data-request process; no fees or tiers for portal data
+- url: https://data-openjustice.doj.ca.gov/jsonapi
+  status: 200
+  finding: anonymous, free

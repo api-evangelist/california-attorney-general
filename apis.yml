@@ -1,20 +1,177 @@
 aid: california-attorney-general
 name: California Attorney General
-description: 'California Attorney General is a company surfaced via the API Evangelist harvest backlog
-  (source: operator-attribution) and added to the network as a stub for full-pipeline profiling.'
+description: The California Attorney General is the chief law officer of the State of California and heads the California
+  Department of Justice (DOJ). The office runs OpenJustice, the DOJ Criminal Justice Statistics Center's open-data
+  initiative, whose Open Data Portal publishes 26 criminal-justice datasets (Arrests, Crimes and Clearances, Homicide,
+  Hate Crime, Use of Force, RIPA stop data, deaths in custody and more) as CSV/XLSX/ZIP files with context PDFs.
+  The DOJ publishes no developer portal, API documentation or OpenAPI, but the OpenJustice single-page app reads
+  its content from a live, anonymous, standards-conformant JSON:API 1.0 surface at https://data-openjustice.doj.ca.gov/jsonapi
+  (Drupal 9) carrying every dataset, its distributions, the CJSC publications and the data stories — verified here.
+  The California Data Broker Registry that first brought this office into the catalog is now maintained by the California
+  Privacy Protection Agency, per the AG's own page, and is attributed there.
+kind: contract
+deliveryModel:
+  model: public-api
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Free public government API, anonymous reads
+  confidence: high
+  source:
+  - https://data-openjustice.doj.ca.gov/jsonapi
+  - https://openjustice.doj.ca.gov/static/js/app.27bd7a2568ccfb17905a.js
+  generated: '2026-09-17'
+  method: probed
+accessModel:
+  pricing: free
+  onboarding: none
+  trial: false
+  try_now: true
+  public: true
+  label: Free, no registration, anonymous access
+  confidence: high
+  source:
+  - https://data-openjustice.doj.ca.gov/jsonapi
+  generated: '2026-09-17'
+  method: probed
+position: Producing
+access: 3rd-Party
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/california-attorney-general/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:operator-attribution
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: full-pipeline enrichment 2026-09-17 (was harvest stub)
 specificationVersion: '0.20'
 created: '2026-09-17'
 modified: '2026-09-17'
 tags:
-- Company
-apis: []
+- State-Government
+- California
+- Criminal-Justice
+- Open Data
+- Law Enforcement
+- Crime Statistics
+- Government Data
+- JSON:API
+- Public Records
+- Attorney General
+tags_raw:
+- State Government
+- California
+- Criminal Justice
+- Open Data
+- Law Enforcement
+- Crime Statistics
+- Government Data
+- JSON API
+- Public Records
+- Attorney General
+apis:
+- aid: california-attorney-general:openjustice-open-data-portal-jsonapi
+  name: OpenJustice Open Data Portal JSON:API
+  description: The live JSON:API 1.0 surface behind the Attorney General's OpenJustice Open Data Portal, served
+    anonymously by Drupal 9 at https://data-openjustice.doj.ca.gov/jsonapi. It carries the 26 published criminal-justice
+    datasets with their 148 CSV/XLSX/ZIP/PDF distributions (direct downloads under /sites/default/files/), the six
+    Exploration stats pages, the CJSC statistical publications and their per-year report PDFs, the OpenJustice data
+    stories and the site taxonomies. Reads are anonymous with JSON:API filtering, sorting, sparse fieldsets, relationship
+    includes and 50-per-page offset pagination; anonymous create is granted only on the three feedback routes the
+    site footer uses (signup, suggestion, bug) and every other write returns 401. Not published or documented by
+    the DOJ — found through the axios baseURL in the OpenJustice app bundle and described from live probes on 2026-09-17.
+  humanURL: https://openjustice.doj.ca.gov/data
+  baseURL: https://data-openjustice.doj.ca.gov/jsonapi
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  tags:
+  - Criminal-Justice
+  - Open Data
+  - Datasets
+  - Crime Statistics
+  - JSON:API
+  - Law Enforcement
+  tags_raw:
+  - Criminal Justice
+  - Open Data
+  - Datasets
+  - Crime Statistics
+  - JSON API
+  - Law Enforcement
+  properties:
+  - type: OpenAPI
+    url: openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+  - type: APIDiscovery
+    url: discovery/california-attorney-general-openjustice-jsonapi-index.json
+  - type: Datasets
+    url: datasets/california-attorney-general-datasets.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Documentation
+    url: https://openjustice.doj.ca.gov/data
+  - type: Documentation
+    url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: Website
+    url: https://openjustice.doj.ca.gov/
+  - type: Authentication
+    url: authentication/california-attorney-general-authentication.yml
+  - type: Conventions
+    url: conventions/california-attorney-general-conventions.yml
+  - type: ErrorCatalog
+    url: errors/california-attorney-general-problem-types.yml
+  - type: Conformance
+    url: conformance/california-attorney-general-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/california-attorney-general-lifecycle.yml
+  - type: DataModel
+    url: data-model/california-attorney-general-data-model.yml
+  - type: RateLimits
+    url: rate-limits/california-attorney-general-rate-limits.yml
+  - type: Plans
+    url: plans/california-attorney-general-plans-pricing.yml
+  - type: Overlay
+    url: overlays/california-attorney-general-openjustice-jsonapi-overlay.yaml
+  - type: X-MCPServerCandidate
+    url: mcp/california-attorney-general-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/california-attorney-general-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/california-attorney-general-llms.txt
+common:
+- type: AgenticAccess
+  url: agentic-access/california-attorney-general-agentic-access.yml
+- type: DomainSecurity
+  url: security/california-attorney-general-domain-security.yml
+- type: Website
+  url: https://oag.ca.gov/
+- type: Documentation
+  url: https://openjustice.doj.ca.gov/data
+- type: Support
+  url: https://oag.ca.gov/research-services/request-process
+- type: Blog
+  url: https://oag.ca.gov/media/news
+- type: BlogRSS
+  url: https://oag.ca.gov/rss.xml
+- type: TermsOfService
+  url: https://oag.ca.gov/conditions
+- type: PrivacyPolicy
+  url: https://oag.ca.gov/privacy-policy
+- type: X-WellKnownProbe
+  url: well-known/california-attorney-general-well-known.yml
+- type: Packages
+  url: packages/california-attorney-general-packages.yml
+- type: LLMsTxt
+  url: llms/california-attorney-general-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Datasets
+  url: datasets/california-attorney-general-datasets.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-09-17'
+  status: enriched
+  artifacts_added: 29
+  pass: local-v3

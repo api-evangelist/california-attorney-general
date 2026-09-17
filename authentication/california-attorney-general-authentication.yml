@@ -1,0 +1,75 @@
+generated: '2026-09-17'
+method: probed
+source: live anonymous probes of https://data-openjustice.doj.ca.gov/jsonapi on 2026-09-17, plus openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+provider: California Attorney General
+providerId: california-attorney-general
+docs: null
+summary: 'The OpenJustice JSON:API requires no authentication for reads. Every collection and individual read was
+  performed anonymously with no header, key, cookie or token and returned HTTP 200 application/vnd.api+json. There
+  is no sign-up, no key issuance, no OAuth authorization server and no developer account, because there is no developer
+  programme. Writes are a different story from most government Drupal JSON:API sites: the module is NOT configured
+  read-only. Anonymous create is granted on the three feedback content types the site footer posts to (node--signup,
+  node--suggestion, node--bug); every other write route answers 401 ''No authentication credentials provided.''
+  with no documented way for a member of the public to obtain credentials — those routes exist for DOJ content editors.'
+schemes: []
+security_requirement: []
+model:
+  anonymous_read: true
+  credentialed_read: not-offered
+  write: anonymous on node--signup / node--suggestion / node--bug only; credentialed (undocumented, staff) elsewhere
+  note: Empty-body anonymous POST returns 400 "Empty request body." on the three feedback routes (authorisation
+    passed, validation failed) and 401 on every other route probed. No populated write was sent.
+authorization_visible_in_responses:
+  mechanism: Drupal entity access, applied silently per resource type
+  signal: meta.omitted
+  detail: 32 of the 70 advertised resource types return HTTP 200 with an empty data array and a meta.omitted block.
+    These are configuration entities (views, field definitions, roles, webforms, workflows) plus the three feedback
+    types and node--dataset when paged with page[limit]=1 (its lowest-id node is unpublished). A caller sees a 200
+    and an empty collection, not a 401 or 403.
+probes:
+- url: https://data-openjustice.doj.ca.gov/jsonapi
+  method: GET
+  credentials: none
+  status: 200
+- url: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset
+  method: GET
+  credentials: none
+  status: 200
+- url: https://data-openjustice.doj.ca.gov/jsonapi/node/signup
+  method: POST
+  credentials: none
+  body: (empty)
+  status: 400
+- url: https://data-openjustice.doj.ca.gov/jsonapi/node/suggestion
+  method: POST
+  credentials: none
+  body: (empty)
+  status: 400
+- url: https://data-openjustice.doj.ca.gov/jsonapi/node/bug
+  method: POST
+  credentials: none
+  body: (empty)
+  status: 400
+- url: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset
+  method: POST
+  credentials: none
+  body: (empty)
+  status: 401
+- url: https://data-openjustice.doj.ca.gov/jsonapi/node/stats/1a1dff1d-24e8-4050-a617-8f45dba7445f
+  method: PATCH
+  credentials: none
+  status: 401
+- url: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/1a1dff1d-24e8-4050-a617-8f45dba7445f
+  method: DELETE
+  credentials: none
+  status: 401
+- url: https://oag.ca.gov/.well-known/openid-configuration
+  method: GET
+  status: 404
+- url: https://oag.ca.gov/.well-known/oauth-authorization-server
+  method: GET
+  status: 404
+- url: https://data-openjustice.doj.ca.gov/.well-known/oauth-authorization-server
+  method: GET
+  status: 301
+  note: redirects to the site root

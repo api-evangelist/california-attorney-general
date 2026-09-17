@@ -1,0 +1,139 @@
+generated: '2026-09-17'
+method: probed
+source: live probes of https://data-openjustice.doj.ca.gov/jsonapi on 2026-09-17; the JSON:API 1.0 specification
+  the surface declares in every response; openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+provider: California Attorney General
+providerId: california-attorney-general
+summary: 'Cross-cutting runtime semantics of the OpenJustice JSON:API. Almost nothing here is a DOJ decision — the
+  surface is Drupal core''s JSON:API module, so its conventions are the JSON:API 1.0 specification''s conventions,
+  which is the good news: an agent that already speaks JSON:API needs no DOJ-specific connector. The DOJ publishes
+  none of this itself.'
+auth:
+  style: none
+  detail: Anonymous read. See authentication/california-attorney-general-authentication.yml.
+media_type:
+  request: application/vnd.api+json
+  response: application/vnd.api+json
+  observed: true
+  note: Every 200 and every JSON error observed carried content-type application/vnd.api+json; a GET without an
+    Accept header is also answered with it.
+idempotency:
+  coverage: none
+  applicable: true
+  reason: The public mutating surface is three anonymous feedback creates (POST node/signup, node/suggestion, node/bug)
+    with no Idempotency-Key header documented, offered or honoured; a retried POST would create a duplicate record.
+    GET is idempotent by HTTP semantics. Everything else mutating requires undocumented staff credentials.
+  scope: []
+  evidence:
+  - url: https://data-openjustice.doj.ca.gov/jsonapi/node/signup
+    method: POST
+    status: 400
+    detail: Empty request body. (auth passed; no idempotency mechanism in the route)
+reversibility:
+  grade: none
+  applicable: true
+  reason: 'The three anonymous creates have no public reversal: DELETE on any node returns 401 and the created submissions
+    are not readable back (anonymous GET on node/signup returns an empty page with meta.omitted). An agent that
+    submits a suggestion cannot withdraw it. All read operations are side-effect free.'
+  write_surfaces:
+  - operation: createNodeSignup
+    reversal: null
+    window: null
+  - operation: createNodeSuggestion
+    reversal: null
+    window: null
+  - operation: createNodeBug
+    reversal: null
+    window: null
+  evidence:
+  - url: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/1a1dff1d-24e8-4050-a617-8f45dba7445f
+    method: DELETE
+    status: 401
+dry_run_mode:
+  supported: none
+  reason: No dry-run or validate-only mode on the three creates; every read is already side-effect free.
+pagination:
+  style: offset
+  spec: JSON:API 1.0 page[] family, Drupal implementation
+  params:
+    limit: page[limit]
+    offset: page[offset]
+  max_page_size: 50
+  max_page_size_note: 'Drupal caps page[limit] at 50 and silently clamps larger values: ?page[limit]=100 on node/data_story
+    returned 50 and a links.next offset of 50.'
+  response_fields:
+    next: links.next.href
+    prev: links.prev.href
+    self: links.self.href
+  total_count: not exposed
+filtering:
+  style: JSON:API filter[] with Drupal operators
+  equality: filter[field]=value
+  operator_form: filter[field][operator]=CONTAINS&filter[field][value]=...
+  operators:
+  - '='
+  - <>
+  - '>'
+  - '>='
+  - <
+  - <=
+  - STARTS_WITH
+  - CONTAINS
+  - ENDS_WITH
+  - IN
+  - NOT IN
+  - IS NULL
+  - IS NOT NULL
+  - BETWEEN
+  nested: filter[relationship.field]=value
+  verified: filter[title][operator]=CONTAINS&filter[title][value]=Arrest on node/dataset -> 3 results; unknown field
+    -> 400
+sorting:
+  param: sort
+  syntax: comma-separated attribute names, `-` prefix for descending
+  verified: sort=title
+field_expansion:
+  include:
+    param: include
+    syntax: comma-separated relationship paths
+    verified: include=field_source,field_data_type on node/dataset side-loaded 148 file--file objects
+  sparse_fieldsets:
+    param: fields[<type>]
+    verified: fields[file--file]=uri,filesize,filemime,filename
+identifiers:
+  primary: JSON:API id (UUID)
+  secondary:
+  - drupal_internal__nid
+  - drupal_internal__fid
+  - drupal_internal__tid
+  note: Individual routes take the UUID, never the internal integer id.
+request_id:
+  header: null
+  note: No request-id or trace header is returned.
+versioning:
+  scheme: none
+  note: See lifecycle/.
+error_envelope:
+  format: jsonapi-errors
+  media_type: application/vnd.api+json
+  shape: errors[] of {title, status (string), detail, links.via, links.info}
+  catalog: errors/california-attorney-general-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  note: No X-RateLimit-*, RateLimit-* or Retry-After header on any of ~570 requests; see rate-limits/.
+caching:
+  headers_observed:
+  - 'Cache-Control: must-revalidate, no-cache, private'
+  - X-Drupal-Cache
+  - X-Drupal-Dynamic-Cache
+  note: Responses are marked private/no-cache; a client should not expect CDN caching. An F5 persistence cookie
+    named oag.ca.gov is set on every response.
+files:
+  note: file--file uri.url is a site-relative path; prefix https://data-openjustice.doj.ca.gov. Direct GET returns
+    the file (verified text/csv, Content-Length 1749288).
+cross_links:
+  errors: errors/california-attorney-general-problem-types.yml
+  lifecycle: lifecycle/california-attorney-general-lifecycle.yml
+  authentication: authentication/california-attorney-general-authentication.yml
+  rate_limits: rate-limits/california-attorney-general-rate-limits.yml

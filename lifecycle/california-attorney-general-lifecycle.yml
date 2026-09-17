@@ -1,0 +1,47 @@
+generated: '2026-09-17'
+method: searched
+source: https://oag.ca.gov and https://openjustice.doj.ca.gov (site pages and the app bundle) on 2026-09-17; https://data-openjustice.doj.ca.gov/jsonapi
+  response headers
+provider: California Attorney General
+providerId: california-attorney-general
+summary: 'The DOJ operates the OpenJustice JSON:API without any published lifecycle governance: no version scheme,
+  no deprecation policy, no Sunset signalling, no SLA and no status page. This is the predictable consequence of
+  the surface being an unadvertised by-product of the CMS behind the OpenJustice app rather than a declared product.
+  Recorded as a measured absence with the probes that establish it.'
+versioning:
+  scheme: none
+  in_path: false
+  in_header: false
+  policy_published: false
+  note: Responses carry jsonapi.version "1.0" — the JSON:API specification version, not a DOJ API version. The addressable
+    contract is the Drupal content model; renaming a content type or field would change paths and attribute names
+    with no notice. The app bundle is content-hashed (app.27bd7a2568ccfb17905a.js), so the SPA itself is versioned
+    by deploy, not by policy.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: No Sunset or Deprecation header on any of the 70 resource-type probes. The two dashboard PHP endpoints named
+    in the bundle (filter-queries/agencies-load-data.php, get-cjsc-data.php) return HTTP 500 to a bare GET — possibly
+    retired, possibly parameter-dependent; nothing announces either.
+status_page:
+  published: false
+  probed:
+  - url: https://oag.ca.gov/status
+    status: 404
+  - url: https://status.oag.ca.gov
+    status: null
+    note: does not resolve
+  note: No status page, no uptime history, no incident feed.
+sla:
+  published: false
+changelog:
+  published: false
+  note: Dataset refreshes are visible only as revision_log strings on the node--dataset resources ("Add 2025 files",
+    "Add 2026 file"), all dated June-July 2026; there is no changelog page.
+data_refresh_cadence:
+  observed: annual
+  evidence: 26 of 26 dataset nodes carry a changed timestamp between 2026-06-15 and 2026-07-01 and file names ending
+    in -2025; the CJSC publishes the prior calendar year each summer.

@@ -1,0 +1,67 @@
+generated: '2026-09-17'
+method: derived
+source: mcp/california-attorney-general-mcp.yml (candidate) bound to openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+provider: California Attorney General
+providerId: california-attorney-general
+note: The MCP surface is a CANDIDATE (no server exists), so this crosswalk maps candidate tools to the real OpenAPI
+  operations they would wrap. No GraphQL surface exists.
+surfaces:
+  openapi: openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+  graphql: null
+  mcp: null
+  mcp_status: candidate
+  gated: []
+crosswalk:
+- tool: list_datasets
+  category: read
+  rest:
+  - listNodeDataset
+  binding: GET /node/dataset?include=field_source,field_data_type[&filter[title][operator]=CONTAINS&filter[title][value]=]
+  confidence: high
+- tool: get_dataset
+  category: read
+  rest:
+  - getNodeDataset
+  binding: GET /node/dataset/{id}?include=field_source
+  confidence: high
+- tool: list_publications
+  category: read
+  rest:
+  - listNodePublication
+  binding: GET /node/publication?include=field_publication_reports
+  confidence: high
+- tool: list_data_stories
+  category: read
+  rest:
+  - listNodeDataStory
+  binding: GET /node/data_story?page[limit]=50&page[offset]=
+  confidence: high
+- tool: list_files
+  category: read
+  rest:
+  - listFileFile
+  binding: GET /file/file?filter[filemime]=&page[offset]=
+  confidence: high
+- tool: list_stats_pages
+  category: read
+  rest:
+  - listNodeStats
+  binding: GET /node/stats?sort=title
+  confidence: high
+mcp_only: []
+rest_only:
+- operationId: createNodeSignup
+  reason: non-reversible anonymous create; excluded from candidate tools
+- operationId: createNodeSuggestion
+  reason: non-reversible anonymous create; excluded
+- operationId: createNodeBug
+  reason: non-reversible anonymous create; excluded
+- operationId: getResourceIndex
+  reason: discovery only
+- operationId: list*/get* on paragraph, taxonomy, menu, block, config types
+  reason: site-composition entities with no standalone value to an agent
+coverage:
+  tools: 6
+  rest_operations: 68
+  rest_operations_bound: 6
+  mcp_only: 0

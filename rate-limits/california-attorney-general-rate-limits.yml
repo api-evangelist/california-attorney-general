@@ -1,0 +1,36 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: California Attorney General
+providerId: california-attorney-general
+generated: '2026-09-17'
+method: probed
+source: response headers observed on live anonymous requests to https://data-openjustice.doj.ca.gov/jsonapi on 2026-09-17,
+  plus a search of oag.ca.gov and openjustice.doj.ca.gov for any published usage policy
+created: '2026-09-17'
+modified: '2026-09-17'
+tags:
+- State Government
+- Criminal Justice
+- Open Data
+- Rate Limiting
+description: 'The DOJ publishes no rate limits and returns no rate-limit headers. Over roughly 570 anonymous requests
+  on 2026-09-17 — a full 70-resource-type sweep plus complete pagination walks of ten collections (488 files, 226
+  charts, 127 data stories) — not one response carried X-RateLimit-*, RateLimit-* or Retry-After, and no request
+  was throttled or rejected. An honest zero: nothing is documented, and nothing was observed.'
+limit_count: 0
+limits: []
+headers: []
+status_on_exhaustion: null
+evidence:
+- url: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?page[limit]=1
+  status: 200
+  headers_observed:
+  - 'Server: Apache'
+  - 'Cache-Control: must-revalidate, no-cache, private'
+  - X-Drupal-Cache
+  - X-Drupal-Dynamic-Cache
+  - 'X-Generator: Drupal 9'
+  - 'X-Content-Type-Options: nosniff'
+  - 'X-Frame-Options: SAMEORIGIN'
+  - 'Set-Cookie: oag.ca.gov=... (F5 persistence)'

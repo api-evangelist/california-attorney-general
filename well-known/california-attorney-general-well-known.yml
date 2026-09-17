@@ -1,0 +1,187 @@
+generated: '2026-09-17'
+method: probed
+source: API Evangelist well-known probe of every host the record names
+provider: California Attorney General
+providerId: california-attorney-general
+summary: No /.well-known/ document is served on any of the six hosts. oag.ca.gov and www.oag.ca.gov answer a Drupal
+  404 for every path; openjustice.doj.ca.gov is a single-page app that returns HTTP 200 with the same HTML shell
+  for EVERY path (recorded as a miss — a 200 carrying an HTML shell is not a document); data-openjustice.doj.ca.gov
+  301-redirects every /.well-known/ path except security.txt (404) to its root; doj.ca.gov and www.doj.ca.gov redirect
+  to oag.ca.gov. No WellKnown or SecurityTxt pointer is emitted because nothing was found.
+hosts:
+- host: oag.ca.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  path_echo_control: n/a (no 2xx)
+- host: www.oag.ca.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  path_echo_control: n/a (no 2xx)
+- host: openjustice.doj.ca.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: 200 but HTML document (SPA/site shell) — treated as a miss, not a document
+    content_type: text/html; charset=UTF-8
+  - path: /.well-known/openid-configuration
+    status: 200
+    note: 200 but HTML document (SPA/site shell) — treated as a miss, not a document
+    content_type: text/html; charset=UTF-8
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: 200 but HTML document (SPA/site shell) — treated as a miss, not a document
+    content_type: text/html; charset=UTF-8
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    note: 200 but HTML document (SPA/site shell) — treated as a miss, not a document
+    content_type: text/html; charset=UTF-8
+  - path: /.well-known/api-catalog
+    status: 200
+    note: 200 but HTML document (SPA/site shell) — treated as a miss, not a document
+    content_type: text/html; charset=UTF-8
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: 200 but HTML document (SPA/site shell) — treated as a miss, not a document
+    content_type: text/html; charset=UTF-8
+  - path: /.well-known/agent-card.json
+    status: 200
+    note: 200 but HTML document (SPA/site shell) — treated as a miss, not a document
+    content_type: text/html; charset=UTF-8
+  - path: /.well-known/agent.json
+    status: 200
+    note: 200 but HTML document (SPA/site shell) — treated as a miss, not a document
+    content_type: text/html; charset=UTF-8
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    note: 200 but HTML document (SPA/site shell) — treated as a miss, not a document
+    content_type: text/html; charset=UTF-8
+  path_echo_control: catch-all (HTML shell)
+- host: data-openjustice.doj.ca.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 301
+    note: 301 redirect to https://data-openjustice.doj.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    note: 301 redirect to https://data-openjustice.doj.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/oauth-protected-resource
+    status: 301
+    note: 301 redirect to https://data-openjustice.doj.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/api-catalog
+    status: 301
+    note: 301 redirect to https://data-openjustice.doj.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    note: 301 redirect to https://data-openjustice.doj.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/agent-card.json
+    status: 301
+    note: 301 redirect to https://data-openjustice.doj.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/agent.json
+    status: 301
+    note: 301 redirect to https://data-openjustice.doj.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/aauth-resource.json
+    status: 301
+    note: 301 redirect to https://data-openjustice.doj.ca.gov/ (an HTML page, not a document)
+  path_echo_control: n/a (no 2xx)
+- host: doj.ca.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/openid-configuration
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/oauth-protected-resource
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/api-catalog
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/agent-card.json
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/agent.json
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/aauth-resource.json
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  path_echo_control: n/a (no 2xx)
+- host: www.doj.ca.gov
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/openid-configuration
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/oauth-protected-resource
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/api-catalog
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/agent-card.json
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/agent.json
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  - path: /.well-known/aauth-resource.json
+    status: 301
+    note: 301 redirect to https://www.oag.ca.gov/ (an HTML page, not a document)
+  path_echo_control: n/a (no 2xx)
+hit_count: 0
+soft_404_control:
+  url: https://openjustice.doj.ca.gov/.well-known/california-attorney-general-negative-control-9c2e41ab.json
+  status: 200
+  bytes: 3139
+  note: A path that cannot exist returns the same HTML shell — the host is a catch-all; every 200 on it is a miss.

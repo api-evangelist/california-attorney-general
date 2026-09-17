@@ -1,0 +1,51 @@
+generated: '2026-09-17'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts on 2026-09-17; domain records re-probed by hand with
+  dig against the AG/DOJ zones (oag.ca.gov, doj.ca.gov) rather than the shared state domain ca.gov
+hosts:
+- host: oag.ca.gov
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Nov  5 23:59:59 2026 GMT
+  hsts: false
+- host: openjustice.doj.ca.gov
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Jan  6 23:59:59 2027 GMT
+  hsts: false
+- host: data-openjustice.doj.ca.gov
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Jan  6 23:59:59 2027 GMT
+  hsts: false
+domains:
+- domain: oag.ca.gov
+  dnssec: false
+  dnssec_note: no DS record and no RRSIG on the A answer
+  caa: []
+  spf: true
+  spf_record: v=spf1 a mx include:public.govdelivery.com -all
+  dmarc: true
+  dmarc_policy: quarantine
+  dmarc_record: v=DMARC1;p=quarantine;rua=mailto:dojdmarcrua@doj.ca.gov;ruf=mailto:dojdmarcruf@doj.ca.gov;fo=1
+- domain: doj.ca.gov
+  dnssec: false
+  caa: []
+  spf: true
+  spf_record: v=spf1 ip4:167.10.243.94 ip4:167.10.240.132 ip4:167.10.240.129 ip4:167.10.240.1 include:spf-00292801.pphosted.com
+    include:_phishspf.knowbe4.com include:spf.protection.outlook.com include:spf-00292802.pphosted.com -all
+  dmarc: true
+  dmarc_policy: quarantine
+  dmarc_record: v=DMARC1;p=quarantine;rua=mailto:dojdmarcrua@doj.ca.gov;ruf=mailto:dojdmarcruf@doj.ca.gov;fo=1
+- domain: ca.gov
+  credited: false
+  note: Shared State of California domain (Department of Technology) — recorded for reference only.
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+note: The registrable-domain heuristic resolves oag.ca.gov to ca.gov, which is the State of California's shared
+  portal domain operated by the Department of Technology, not the Attorney General's. The `domains` block below
+  therefore records oag.ca.gov and doj.ca.gov, the zones the DOJ itself runs (its DMARC reports go to dojdmarcrua@doj.ca.gov).
+  ca.gov is listed last for reference only and is NOT credited to this provider.
