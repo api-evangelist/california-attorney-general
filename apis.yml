@@ -48,7 +48,7 @@ modified: '2026-09-17'
 tags:
 - State-Government
 - California
-- Criminal-Justice
+- Criminal Justice
 - Open Data
 - Law Enforcement
 - Crime Statistics
@@ -82,7 +82,7 @@ apis:
   baseURL: https://data-openjustice.doj.ca.gov/jsonapi
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
-  - Criminal-Justice
+  - Criminal Justice
   - Open Data
   - Datasets
   - Crime Statistics
