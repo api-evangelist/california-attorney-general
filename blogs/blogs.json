@@ -1,0 +1,21 @@
+{
+  "repo": "california-attorney-general",
+  "feeds": [
+    {
+      "source": "https://oag.ca.gov/media/news",
+      "feed_url": "https://oag.ca.gov/media/news",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://oag.ca.gov/research-services/request-process",
+      "feed_url": "https://oag.ca.gov/research-services/request-process",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-09-19T20:17:39Z"
+}
