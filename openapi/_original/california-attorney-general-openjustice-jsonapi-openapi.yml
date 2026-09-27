@@ -1,3 +1,5 @@
+# x-archived-from: california-attorney-general-openjustice-jsonapi-openapi.yml
+# x-archived-on: 2026-09-26
 openapi: 3.1.0
 info:
   title: California DOJ OpenJustice Open Data Portal JSON:API

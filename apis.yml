@@ -46,7 +46,7 @@ specificationVersion: '0.20'
 created: '2026-09-17'
 modified: '2026-09-17'
 tags:
-- State-Government
+- State Government
 - California
 - Criminal Justice
 - Open Data
@@ -67,37 +67,18 @@ tags_raw:
 - JSON API
 - Public Records
 - Attorney General
+- State-Government
 apis:
-- aid: california-attorney-general:openjustice-open-data-portal-jsonapi
-  name: OpenJustice Open Data Portal JSON:API
-  description: The live JSON:API 1.0 surface behind the Attorney General's OpenJustice Open Data Portal, served
-    anonymously by Drupal 9 at https://data-openjustice.doj.ca.gov/jsonapi. It carries the 26 published criminal-justice
-    datasets with their 148 CSV/XLSX/ZIP/PDF distributions (direct downloads under /sites/default/files/), the six
-    Exploration stats pages, the CJSC statistical publications and their per-year report PDFs, the OpenJustice data
-    stories and the site taxonomies. Reads are anonymous with JSON:API filtering, sorting, sparse fieldsets, relationship
-    includes and 50-per-page offset pagination; anonymous create is granted only on the three feedback routes the
-    site footer uses (signup, suggestion, bug) and every other write returns 401. Not published or documented by
-    the DOJ — found through the axios baseURL in the OpenJustice app bundle and described from live probes on 2026-09-17.
+- aid: california-attorney-general:california-attorney-general-content-api
+  name: California Attorney General Content API
+  description: Datasets, publications, stats pages, data stories and site pages (node entities).
   humanURL: https://openjustice.doj.ca.gov/data
   baseURL: https://data-openjustice.doj.ca.gov/jsonapi
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
-  - Criminal Justice
-  - Open Data
-  - Datasets
-  - Crime Statistics
-  - JSON:API
-  - Law Enforcement
-  tags_raw:
-  - Criminal Justice
-  - Open Data
-  - Datasets
-  - Crime Statistics
-  - JSON API
-  - Law Enforcement
+  - Content
   properties:
   - type: OpenAPI
-    url: openapi/california-attorney-general-openjustice-jsonapi-openapi.yml
+    url: openapi/california-attorney-general-content-api-openapi.yml
   - type: APIDiscovery
     url: discovery/california-attorney-general-openjustice-jsonapi-index.json
   - type: Datasets
@@ -107,7 +88,8 @@ apis:
   - type: Documentation
     url: https://openjustice.doj.ca.gov/data
   - type: Documentation
-    url: https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
   - type: Website
     url: https://openjustice.doj.ca.gov/
   - type: Authentication
@@ -126,17 +108,285 @@ apis:
     url: rate-limits/california-attorney-general-rate-limits.yml
   - type: Plans
     url: plans/california-attorney-general-plans-pricing.yml
-  - type: Overlay
-    url: overlays/california-attorney-general-openjustice-jsonapi-overlay.yaml
   - type: X-MCPServerCandidate
     url: mcp/california-attorney-general-mcp.yml
   - type: ToolCrosswalk
     url: mcp/california-attorney-general-tool-crosswalk.yml
-  - type: AgentSkill
-    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/california-attorney-general-llms.txt
+- aid: california-attorney-general:california-attorney-general-discovery-api
+  name: California Attorney General Discovery API
+  description: The JSON:API index.
+  humanURL: https://openjustice.doj.ca.gov/data
+  baseURL: https://data-openjustice.doj.ca.gov/jsonapi
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/california-attorney-general-discovery-api-openapi.yml
+  - type: APIDiscovery
+    url: discovery/california-attorney-general-openjustice-jsonapi-index.json
+  - type: Datasets
+    url: datasets/california-attorney-general-datasets.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Documentation
+    url: https://openjustice.doj.ca.gov/data
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: Website
+    url: https://openjustice.doj.ca.gov/
+  - type: Authentication
+    url: authentication/california-attorney-general-authentication.yml
+  - type: Conventions
+    url: conventions/california-attorney-general-conventions.yml
+  - type: ErrorCatalog
+    url: errors/california-attorney-general-problem-types.yml
+  - type: Conformance
+    url: conformance/california-attorney-general-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/california-attorney-general-lifecycle.yml
+  - type: DataModel
+    url: data-model/california-attorney-general-data-model.yml
+  - type: RateLimits
+    url: rate-limits/california-attorney-general-rate-limits.yml
+  - type: Plans
+    url: plans/california-attorney-general-plans-pricing.yml
+  - type: X-MCPServerCandidate
+    url: mcp/california-attorney-general-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/california-attorney-general-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: llms/california-attorney-general-llms.txt
+- aid: california-attorney-general:california-attorney-general-feedback-api
+  name: California Attorney General Feedback API
+  description: The three anonymous feedback creates the site footer uses.
+  humanURL: https://openjustice.doj.ca.gov/data
+  baseURL: https://data-openjustice.doj.ca.gov/jsonapi
+  tags:
+  - Feedback
+  properties:
+  - type: OpenAPI
+    url: openapi/california-attorney-general-feedback-api-openapi.yml
+  - type: APIDiscovery
+    url: discovery/california-attorney-general-openjustice-jsonapi-index.json
+  - type: Datasets
+    url: datasets/california-attorney-general-datasets.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Documentation
+    url: https://openjustice.doj.ca.gov/data
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: Website
+    url: https://openjustice.doj.ca.gov/
+  - type: Authentication
+    url: authentication/california-attorney-general-authentication.yml
+  - type: Conventions
+    url: conventions/california-attorney-general-conventions.yml
+  - type: ErrorCatalog
+    url: errors/california-attorney-general-problem-types.yml
+  - type: Conformance
+    url: conformance/california-attorney-general-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/california-attorney-general-lifecycle.yml
+  - type: DataModel
+    url: data-model/california-attorney-general-data-model.yml
+  - type: RateLimits
+    url: rate-limits/california-attorney-general-rate-limits.yml
+  - type: Plans
+    url: plans/california-attorney-general-plans-pricing.yml
+  - type: X-MCPServerCandidate
+    url: mcp/california-attorney-general-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/california-attorney-general-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: llms/california-attorney-general-llms.txt
+- aid: california-attorney-general:california-attorney-general-files-api
+  name: California Attorney General Files API
+  description: Downloadable distributions.
+  humanURL: https://openjustice.doj.ca.gov/data
+  baseURL: https://data-openjustice.doj.ca.gov/jsonapi
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/california-attorney-general-files-api-openapi.yml
+  - type: APIDiscovery
+    url: discovery/california-attorney-general-openjustice-jsonapi-index.json
+  - type: Datasets
+    url: datasets/california-attorney-general-datasets.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Documentation
+    url: https://openjustice.doj.ca.gov/data
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: Website
+    url: https://openjustice.doj.ca.gov/
+  - type: Authentication
+    url: authentication/california-attorney-general-authentication.yml
+  - type: Conventions
+    url: conventions/california-attorney-general-conventions.yml
+  - type: ErrorCatalog
+    url: errors/california-attorney-general-problem-types.yml
+  - type: Conformance
+    url: conformance/california-attorney-general-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/california-attorney-general-lifecycle.yml
+  - type: DataModel
+    url: data-model/california-attorney-general-data-model.yml
+  - type: RateLimits
+    url: rate-limits/california-attorney-general-rate-limits.yml
+  - type: Plans
+    url: plans/california-attorney-general-plans-pricing.yml
+  - type: X-MCPServerCandidate
+    url: mcp/california-attorney-general-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/california-attorney-general-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: llms/california-attorney-general-llms.txt
+- aid: california-attorney-general:california-attorney-general-paragraphs-api
+  name: California Attorney General Paragraphs API
+  description: Composable page fragments (charts, tabs, report years, blocks).
+  humanURL: https://openjustice.doj.ca.gov/data
+  baseURL: https://data-openjustice.doj.ca.gov/jsonapi
+  tags:
+  - Paragraphs
+  properties:
+  - type: OpenAPI
+    url: openapi/california-attorney-general-paragraphs-api-openapi.yml
+  - type: APIDiscovery
+    url: discovery/california-attorney-general-openjustice-jsonapi-index.json
+  - type: Datasets
+    url: datasets/california-attorney-general-datasets.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Documentation
+    url: https://openjustice.doj.ca.gov/data
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: Website
+    url: https://openjustice.doj.ca.gov/
+  - type: Authentication
+    url: authentication/california-attorney-general-authentication.yml
+  - type: Conventions
+    url: conventions/california-attorney-general-conventions.yml
+  - type: ErrorCatalog
+    url: errors/california-attorney-general-problem-types.yml
+  - type: Conformance
+    url: conformance/california-attorney-general-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/california-attorney-general-lifecycle.yml
+  - type: DataModel
+    url: data-model/california-attorney-general-data-model.yml
+  - type: RateLimits
+    url: rate-limits/california-attorney-general-rate-limits.yml
+  - type: Plans
+    url: plans/california-attorney-general-plans-pricing.yml
+  - type: X-MCPServerCandidate
+    url: mcp/california-attorney-general-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/california-attorney-general-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: llms/california-attorney-general-llms.txt
+- aid: california-attorney-general:california-attorney-general-site-configuration-api
+  name: California Attorney General Site Configuration API
+  description: Drupal config entities readable anonymously.
+  humanURL: https://openjustice.doj.ca.gov/data
+  baseURL: https://data-openjustice.doj.ca.gov/jsonapi
+  tags:
+  - Site Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/california-attorney-general-site-configuration-api-openapi.yml
+  - type: APIDiscovery
+    url: discovery/california-attorney-general-openjustice-jsonapi-index.json
+  - type: Datasets
+    url: datasets/california-attorney-general-datasets.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Documentation
+    url: https://openjustice.doj.ca.gov/data
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: Website
+    url: https://openjustice.doj.ca.gov/
+  - type: Authentication
+    url: authentication/california-attorney-general-authentication.yml
+  - type: Conventions
+    url: conventions/california-attorney-general-conventions.yml
+  - type: ErrorCatalog
+    url: errors/california-attorney-general-problem-types.yml
+  - type: Conformance
+    url: conformance/california-attorney-general-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/california-attorney-general-lifecycle.yml
+  - type: DataModel
+    url: data-model/california-attorney-general-data-model.yml
+  - type: RateLimits
+    url: rate-limits/california-attorney-general-rate-limits.yml
+  - type: Plans
+    url: plans/california-attorney-general-plans-pricing.yml
+  - type: X-MCPServerCandidate
+    url: mcp/california-attorney-general-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/california-attorney-general-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: llms/california-attorney-general-llms.txt
+- aid: california-attorney-general:california-attorney-general-taxonomies-api
+  name: California Attorney General Taxonomies API
+  description: Vocabularies used to classify content.
+  humanURL: https://openjustice.doj.ca.gov/data
+  baseURL: https://data-openjustice.doj.ca.gov/jsonapi
+  tags:
+  - Taxonomies
+  properties:
+  - type: OpenAPI
+    url: openapi/california-attorney-general-taxonomies-api-openapi.yml
+  - type: APIDiscovery
+    url: discovery/california-attorney-general-openjustice-jsonapi-index.json
+  - type: Datasets
+    url: datasets/california-attorney-general-datasets.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Documentation
+    url: https://openjustice.doj.ca.gov/data
+  - type: Documentation
+    url: >-
+      https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
+  - type: Website
+    url: https://openjustice.doj.ca.gov/
+  - type: Authentication
+    url: authentication/california-attorney-general-authentication.yml
+  - type: Conventions
+    url: conventions/california-attorney-general-conventions.yml
+  - type: ErrorCatalog
+    url: errors/california-attorney-general-problem-types.yml
+  - type: Conformance
+    url: conformance/california-attorney-general-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/california-attorney-general-lifecycle.yml
+  - type: DataModel
+    url: data-model/california-attorney-general-data-model.yml
+  - type: RateLimits
+    url: rate-limits/california-attorney-general-rate-limits.yml
+  - type: Plans
+    url: plans/california-attorney-general-plans-pricing.yml
+  - type: X-MCPServerCandidate
+    url: mcp/california-attorney-general-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/california-attorney-general-tool-crosswalk.yml
   - type: LLMsTxt
     url: llms/california-attorney-general-llms.txt
 common:
+- type: Overlay
+  url: overlays/california-attorney-general-openjustice-jsonapi-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/california-attorney-general-agentic-access.yml
 - type: DomainSecurity

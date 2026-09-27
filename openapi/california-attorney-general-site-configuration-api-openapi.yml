@@ -1,0 +1,1133 @@
+openapi: 3.2.0
+info:
+  title: 'California DOJ OpenJustice Open Data Portal JSON: Site…'
+  version: '1.0'
+  summary: Anonymous JSON:API 1.0 over the California Department of Justice OpenJustice open-data portal — the Attorney General's criminal-justice datasets (Arrests, Crimes & Clearances, Homicide, Hate Crime, Use of Force, RIPA stop data, deaths in custody and 19 more), their CSV/XLSX distributions, CJSC publications and data stories.
+  description: The California Attorney General heads the California Department of Justice, whose Criminal Justice Statistics Center runs the OpenJustice initiative (https://openjustice.doj.ca.gov).
+  contact:
+    name: California Department of Justice — Criminal Justice Statistics Center
+    email: datarequests@doj.ca.gov
+    url: https://oag.ca.gov/research-services/request-process
+  termsOfService: https://oag.ca.gov/conditions
+  license:
+    name: California DOJ conditions of use (public government data; no licence text is attached to the files)
+    url: https://oag.ca.gov/conditions
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-from: https://data-openjustice.doj.ca.gov/jsonapi
+  x-derived-on: '2026-09-17'
+  x-publisher-provided: false
+servers:
+- url: https://data-openjustice.doj.ca.gov/jsonapi
+  description: Production JSON:API entry point (Drupal 9, behind an F5 load balancer that sets an `oag.ca.gov` persistence cookie). Public, anonymous reads.
+security: []
+tags:
+- name: Site Configuration
+  description: Drupal config entities readable anonymously.
+paths:
+  /node_type/node_type:
+    get:
+      operationId: listNodeTypeNodeType
+      summary: List node_type--node_type resources
+      tags:
+      - Site Configuration
+      description: 'The 13 content types of the site (config entity).
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node_type/node_type?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodeTypeNodeType'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node_type/node_type?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /node_type/node_type/{id}:
+    get:
+      operationId: getNodeTypeNodeType
+      summary: Get one node_type--node_type resource by UUID
+      tags:
+      - Site Configuration
+      description: Returns a single `node_type--node_type` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodeTypeNodeType'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /paragraphs_type/paragraphs_type:
+    get:
+      operationId: listParagraphsTypeParagraphsType
+      summary: List paragraphs_type--paragraphs_type resources
+      tags:
+      - Site Configuration
+      description: 'Paragraph types (config entity).
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/paragraphs_type/paragraphs_type?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/ParagraphsTypeParagraphsType'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/paragraphs_type/paragraphs_type?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /paragraphs_type/paragraphs_type/{id}:
+    get:
+      operationId: getParagraphsTypeParagraphsType
+      summary: Get one paragraphs_type--paragraphs_type resource by UUID
+      tags:
+      - Site Configuration
+      description: Returns a single `paragraphs_type--paragraphs_type` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ParagraphsTypeParagraphsType'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /menu/menu:
+    get:
+      operationId: listMenuMenu
+      summary: List menu--menu resources
+      tags:
+      - Site Configuration
+      description: 'Site menus (config entity).
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/menu/menu?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/MenuMenu'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/menu/menu?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /menu/menu/{id}:
+    get:
+      operationId: getMenuMenu
+      summary: Get one menu--menu resource by UUID
+      tags:
+      - Site Configuration
+      description: Returns a single `menu--menu` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/MenuMenu'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /menu_link_content/menu_link_content:
+    get:
+      operationId: listMenuLinkContentMenuLinkContent
+      summary: List menu_link_content--menu_link_content resources
+      tags:
+      - Site Configuration
+      description: 'Menu link content items.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/menu_link_content/menu_link_content?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/MenuLinkContentMenuLinkContent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/menu_link_content/menu_link_content?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /menu_link_content/menu_link_content/{id}:
+    get:
+      operationId: getMenuLinkContentMenuLinkContent
+      summary: Get one menu_link_content--menu_link_content resource by UUID
+      tags:
+      - Site Configuration
+      description: Returns a single `menu_link_content--menu_link_content` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/MenuLinkContentMenuLinkContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /contact_form/contact_form:
+    get:
+      operationId: listContactFormContactForm
+      summary: List contact_form--contact_form resources
+      tags:
+      - Site Configuration
+      description: 'Contact form configuration (config entity).
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 1 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/contact_form/contact_form?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/ContactFormContactForm'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/contact_form/contact_form?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 1
+  /contact_form/contact_form/{id}:
+    get:
+      operationId: getContactFormContactForm
+      summary: Get one contact_form--contact_form resource by UUID
+      tags:
+      - Site Configuration
+      description: Returns a single `contact_form--contact_form` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/ContactFormContactForm'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /date_format/date_format:
+    get:
+      operationId: listDateFormatDateFormat
+      summary: List date_format--date_format resources
+      tags:
+      - Site Configuration
+      description: 'Date format configuration (config entity).
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/date_format/date_format?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/DateFormatDateFormat'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/date_format/date_format?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /date_format/date_format/{id}:
+    get:
+      operationId: getDateFormatDateFormat
+      summary: Get one date_format--date_format resource by UUID
+      tags:
+      - Site Configuration
+      description: Returns a single `date_format--date_format` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/DateFormatDateFormat'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /block/block:
+    get:
+      operationId: listBlockBlock
+      summary: List block--block resources
+      tags:
+      - Site Configuration
+      description: 'Theme block placements (config entity).
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/block/block?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/BlockBlock'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/block/block?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /block/block/{id}:
+    get:
+      operationId: getBlockBlock
+      summary: Get one block--block resource by UUID
+      tags:
+      - Site Configuration
+      description: Returns a single `block--block` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/BlockBlock'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+components:
+  schemas:
+    MenuMenuRelationships:
+      type: object
+      properties: {}
+    ParagraphsTypeParagraphsTypeAttributes:
+      type: object
+      description: Attributes observed on live `paragraphs_type--paragraphs_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        label:
+          type: string
+    CollectionDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+          description: Present when ?include= names relationships.
+        meta:
+          type: object
+          properties:
+            omitted:
+              type: object
+              description: Present when Drupal withheld resources the anonymous caller may not view; carries a detail message and per-item links.
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Links'
+            next:
+              $ref: '#/components/schemas/Links'
+            prev:
+              $ref: '#/components/schemas/Links'
+    MenuLinkContentMenuLinkContent:
+      type: object
+      description: Menu link content items.
+      properties:
+        type:
+          type: string
+          const: menu_link_content--menu_link_content
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/MenuLinkContentMenuLinkContentAttributes'
+        relationships:
+          $ref: '#/components/schemas/MenuLinkContentMenuLinkContentRelationships'
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          const: '1.0'
+        meta:
+          type: object
+    MenuLinkContentMenuLinkContentAttributes:
+      type: object
+      description: Attributes observed on live `menu_link_content--menu_link_content` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__id:
+          type: integer
+        drupal_internal__revision_id:
+          type: integer
+        langcode:
+          type: string
+        bundle:
+          type: string
+        revision_created:
+          type: string
+          nullable: true
+        revision_log_message:
+          type: string
+          nullable: true
+        enabled:
+          type: boolean
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        menu_name:
+          type: string
+        link:
+          type: object
+        external:
+          type: boolean
+        rediscover:
+          type: boolean
+        weight:
+          type: integer
+        expanded:
+          type: boolean
+        parent:
+          type: string
+          nullable: true
+        changed:
+          type: string
+          format: date-time
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+    ContactFormContactFormRelationships:
+      type: object
+      properties: {}
+    BlockBlockRelationships:
+      type: object
+      properties: {}
+    NodeTypeNodeTypeRelationships:
+      type: object
+      properties: {}
+    ContactFormContactForm:
+      type: object
+      description: Contact form configuration (config entity).
+      properties:
+        type:
+          type: string
+          const: contact_form--contact_form
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/ContactFormContactFormAttributes'
+        relationships:
+          $ref: '#/components/schemas/ContactFormContactFormRelationships'
+    DateFormatDateFormatRelationships:
+      type: object
+      properties: {}
+    ErrorDocument:
+      type: object
+      required:
+      - errors
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+    ParagraphsTypeParagraphsType:
+      type: object
+      description: Paragraph types (config entity).
+      properties:
+        type:
+          type: string
+          const: paragraphs_type--paragraphs_type
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/ParagraphsTypeParagraphsTypeAttributes'
+        relationships:
+          $ref: '#/components/schemas/ParagraphsTypeParagraphsTypeRelationships'
+    ParagraphsTypeParagraphsTypeRelationships:
+      type: object
+      properties: {}
+    BlockBlockAttributes:
+      type: object
+      description: Attributes observed on live `block--block` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        langcode:
+          type: string
+        status:
+          type: boolean
+        dependencies:
+          type: object
+        drupal_internal__id:
+          type: string
+        theme:
+          type: string
+        region:
+          type: string
+        weight:
+          type: integer
+        provider:
+          type: string
+          nullable: true
+        plugin:
+          type: string
+        settings:
+          type: object
+        visibility:
+          type: array
+    DateFormatDateFormat:
+      type: object
+      description: Date format configuration (config entity).
+      properties:
+        type:
+          type: string
+          const: date_format--date_format
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/DateFormatDateFormatAttributes'
+        relationships:
+          $ref: '#/components/schemas/DateFormatDateFormatRelationships'
+    ContactFormContactFormAttributes:
+      type: object
+      description: Attributes observed on live `contact_form--contact_form` resources (1 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        langcode:
+          type: string
+        status:
+          type: boolean
+        dependencies:
+          type: array
+        drupal_internal__id:
+          type: string
+        label:
+          type: string
+        recipients:
+          type: array
+        reply:
+          type: string
+        weight:
+          type: integer
+        message:
+          type: string
+        redirect:
+          type: string
+    NodeTypeNodeTypeAttributes:
+      type: object
+      description: Attributes observed on live `node_type--node_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        langcode:
+          type: string
+        status:
+          type: boolean
+        dependencies:
+          type: object
+        third_party_settings:
+          type: object
+        name:
+          type: string
+        drupal_internal__type:
+          type: string
+        description:
+          type: string
+        help:
+          type: string
+        new_revision:
+          type: boolean
+        preview_mode:
+          type: integer
+        display_submitted:
+          type: boolean
+    IndividualDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        links:
+          $ref: '#/components/schemas/Links'
+    MenuLinkContentMenuLinkContentRelationships:
+      type: object
+      properties:
+        revision_user:
+          type: object
+          description: To-one relationship.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    DateFormatDateFormatAttributes:
+      type: object
+      description: Attributes observed on live `date_format--date_format` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        label:
+          type: string
+    MenuMenuAttributes:
+      type: object
+      description: Attributes observed on live `menu--menu` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        langcode:
+          type: string
+        status:
+          type: boolean
+        dependencies:
+          type: array
+        drupal_internal__id:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        locked:
+          type: boolean
+    NodeTypeNodeType:
+      type: object
+      description: The 13 content types of the site (config entity).
+      properties:
+        type:
+          type: string
+          const: node_type--node_type
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeTypeNodeTypeAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeTypeNodeTypeRelationships'
+    ErrorObject:
+      type: object
+      properties:
+        title:
+          type: string
+          examples:
+          - Bad Request
+          - Not Found
+          - Unauthorized
+          - Method Not Allowed
+        status:
+          type: string
+          description: HTTP status as a STRING, per JSON:API 1.0.
+          examples:
+          - '400'
+          - '404'
+          - '401'
+        detail:
+          type: string
+        links:
+          type: object
+          properties:
+            via:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+            info:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+        source:
+          type: object
+          properties:
+            pointer:
+              type: string
+            parameter:
+              type: string
+    BlockBlock:
+      type: object
+      description: Theme block placements (config entity).
+      properties:
+        type:
+          type: string
+          const: block--block
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/BlockBlockAttributes'
+        relationships:
+          $ref: '#/components/schemas/BlockBlockRelationships'
+    ResourceIdentifier:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          description: entity--bundle
+        id:
+          type: string
+          format: uuid
+        meta:
+          type: object
+          properties:
+            drupal_internal__target_id:
+              oneOf:
+              - type: integer
+              - type: string
+    ResourceObject:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type: object
+        links:
+          $ref: '#/components/schemas/Links'
+    MenuMenu:
+      type: object
+      description: Site menus (config entity).
+      properties:
+        type:
+          type: string
+          const: menu--menu
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/MenuMenuAttributes'
+        relationships:
+          $ref: '#/components/schemas/MenuMenuRelationships'
+    Links:
+      type: object
+      additionalProperties:
+        oneOf:
+        - type: string
+          format: uri
+        - type: object
+          properties:
+            href:
+              type: string
+              format: uri
+            meta:
+              type: object
+  responses:
+    ServiceUnavailable:
+      description: Not observed during the probe; listed because the site runs behind an F5 load balancer (persistence cookie `oag.ca.gov`) that answers on behalf of an unavailable origin.
+    NotFound:
+      description: No resource with that UUID. JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Not Found
+              status: '404'
+              detail: 'The "entity" parameter was not converted for the path "/jsonapi/node/dataset/{entity}" (route name: "jsonapi.node--dataset.individual")'
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/00000000-0000-0000-0000-000000000000
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
+    BadRequest:
+      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Bad Request
+              status: '400'
+              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Resource UUID (the JSON:API `id`, not `drupal_internal__nid`).
+    include:
+      name: include
+      in: query
+      schema:
+        type: string
+      description: 'Comma-separated relationship paths to side-load into `included` (JSON:API compound documents). Verified 2026-09-17: `include=field_source,field_data_type` on node/dataset side-loaded 148 file--file distributions across the 26 datasets.'
+      example: field_source,field_data_type
+    sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+      description: Comma-separated attribute names; prefix with `-` for descending (JSON:API 1.0). Verified with `sort=title`.
+      example: title
+    filter:
+      name: filter
+      in: query
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties: true
+      description: 'Drupal JSON:API filter family: `filter[<field>]=value` for equality, or `filter[<field>][operator]=CONTAINS&filter[<field>][value]=...` for other operators (=, <>, >, >=, <, <=, STARTS_WITH, CONTAINS, ENDS_WITH, IN, NOT IN, IS NULL, IS NOT NULL, BETWEEN). Verified 2026-09-17: `filter[title][operator]=CONTAINS&filter[title][value]=Arrest` on node/dataset returned 3 datasets; an unknown field returns HTTP 400 "Invalid nested filtering."'
+      example: filter[title][operator]=CONTAINS&filter[title][value]=Arrest
+    fields:
+      name: fields
+      in: query
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: string
+      description: 'Sparse fieldsets keyed by resource type: `fields[file--file]=uri,filesize,filemime,filename`. Verified.'
+      example: fields[file--file]=uri,filesize,filemime,filename
+    pageOffset:
+      name: page[offset]
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: Zero-based offset. Follow `links.next` rather than computing offsets.
+    pageLimit:
+      name: page[limit]
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+      description: 'Page size. Drupal caps the page at 50 and silently clamps larger values — verified 2026-09-17: `?page[limit]=100` on node/data_story returned 50 items and a `links.next` offset of 50.'
+x-provenance:
+  generated: '2026-09-17'
+  method: probed
+  source: https://data-openjustice.doj.ca.gov/jsonapi
+  author: API Evangelist
+  discovery: https://openjustice.doj.ca.gov/static/js/app.27bd7a2568ccfb17905a.js (axios baseURL)
+x-probe:
+  fetched: '2026-09-17'
+  index:
+    url: https://data-openjustice.doj.ca.gov/jsonapi
+    http_status: 200
+    content_type: application/vnd.api+json
+    resource_types_advertised: 70
+  described: 32
+  page_limit_cap: 50
+  writes:
+    anonymous_create_granted:
+    - node--signup
+    - node--suggestion
+    - node--bug
+    requires_credentials:
+    - method: POST
+      path: /node/dataset
+      status: 401
+    - method: PATCH
+      path: /node/stats/{id}
+      status: 401
+    - method: DELETE
+      path: /node/dataset/{id}
+      status: 401
+  excluded:
+    omitted_insufficient_authorization:
+    - action--action
+    - base_field_override--base_field_override
+    - block_content_type--block_content_type
+    - corresponding_reference--corresponding_reference
+    - editor--editor
+    - embed_button--embed_button
+    - entity_form_display--entity_form_display
+    - entity_form_mode--entity_form_mode
+    - entity_view_display--entity_view_display
+    - entity_view_mode--entity_view_mode
+    - field_config--field_config
+    - field_storage_config--field_storage_config
+    - filter_format--filter_format
+    - image_style--image_style
+    - node--bug
+    - node--signup
+    - node--suggestion
+    - path_alias--path_alias
+    - pathauto_pattern--pathauto_pattern
+    - rdf_mapping--rdf_mapping
+    - rest_resource_config--rest_resource_config
+    - shortcut--default
+    - shortcut_set--shortcut_set
+    - taxonomy_vocabulary--taxonomy_vocabulary
+    - tour--tour
+    - user_role--user_role
+    - view--view
+    - webform--webform
+    - webform_options--webform_options
+    - workflow--workflow
+    empty_collection:
+    - block_content--basic
+    - taxonomy_menu--taxonomy_menu
+    - taxonomy_term--tags
+    - webform_submission--contact
+    post_only_405_on_get:
+    - contact_message--feedback
+    - contact_message--personal
+    excluded_by_api_evangelist_on_privacy_grounds:
+    - user--user (anonymous GET returns 22 Drupal account display names)
+    - webform_submission--kinetic_energy_ab48_2022 (anonymous GET returns form-submission metadata including remote_addr and token fields)

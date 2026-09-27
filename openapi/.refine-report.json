@@ -1,0 +1,25 @@
+{
+  "provider": "california-attorney-general",
+  "sources": [
+    "california-attorney-general-openjustice-jsonapi-openapi.yml"
+  ],
+  "outputs": [
+    "california-attorney-general-content-api-openapi.yml",
+    "california-attorney-general-discovery-api-openapi.yml",
+    "california-attorney-general-feedback-api-openapi.yml",
+    "california-attorney-general-files-api-openapi.yml",
+    "california-attorney-general-paragraphs-api-openapi.yml",
+    "california-attorney-general-site-configuration-api-openapi.yml",
+    "california-attorney-general-taxonomies-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/california-attorney-general-openjustice-jsonapi-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "california-attorney-general-openjustice-jsonapi-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+7 apis, 7 total)"
+  ],
+  "skipped": []
+}

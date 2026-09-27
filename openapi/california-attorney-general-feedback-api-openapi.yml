@@ -1,0 +1,352 @@
+openapi: 3.2.0
+info:
+  title: 'California DOJ OpenJustice Open Data Portal JSON: Feedback…'
+  version: '1.0'
+  summary: Anonymous JSON:API 1.0 over the California Department of Justice OpenJustice open-data portal — the Attorney General's criminal-justice datasets (Arrests, Crimes & Clearances, Homicide, Hate Crime, Use of Force, RIPA stop data, deaths in custody and 19 more), their CSV/XLSX distributions, CJSC publications and data stories.
+  description: The California Attorney General heads the California Department of Justice, whose Criminal Justice Statistics Center runs the OpenJustice initiative (https://openjustice.doj.ca.gov).
+  contact:
+    name: California Department of Justice — Criminal Justice Statistics Center
+    email: datarequests@doj.ca.gov
+    url: https://oag.ca.gov/research-services/request-process
+  termsOfService: https://oag.ca.gov/conditions
+  license:
+    name: California DOJ conditions of use (public government data; no licence text is attached to the files)
+    url: https://oag.ca.gov/conditions
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-from: https://data-openjustice.doj.ca.gov/jsonapi
+  x-derived-on: '2026-09-17'
+  x-publisher-provided: false
+servers:
+- url: https://data-openjustice.doj.ca.gov/jsonapi
+  description: Production JSON:API entry point (Drupal 9, behind an F5 load balancer that sets an `oag.ca.gov` persistence cookie). Public, anonymous reads.
+security: []
+tags:
+- name: Feedback
+  description: The three anonymous feedback creates the site footer uses.
+paths:
+  /node/signup:
+    post:
+      operationId: createNodeSignup
+      summary: Submit a newsletter sign-up (email address)
+      tags:
+      - Feedback
+      description: 'Anonymous create of a `node--signup` resource. This is the operation the OpenJustice site footer performs (its app bundle POSTs `/jsonapi/node/signup` with a `node--signup` payload whose `title` and `body.value` both carry the submitted text, `body.format` "plain_text"). Verified 2026-09-17: an anonymous POST with an EMPTY body returned HTTP 400 "Empty request body." rather than 401, i.e. anonymous access to this create route is granted (by contrast an empty anonymous POST to /node/dataset returns 401 "No authentication credentials provided."). No populated request was sent by API Evangelist — do not call this operation to test; it creates a record the DOJ staff will read. Anonymous GET on this collection returns an empty page with meta.omitted (submissions are not readable back).'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                data:
+                  type: object
+                  required:
+                  - type
+                  - attributes
+                  properties:
+                    type:
+                      type: string
+                      const: node--signup
+                    attributes:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        body:
+                          type: object
+                          properties:
+                            value:
+                              type: string
+                            format:
+                              type: string
+                              const: plain_text
+      responses:
+        '201':
+          description: Created (the site code checks for statusText "Created"). Not exercised by API Evangelist.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          description: JSON:API validation error document (Drupal entity validation).
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorDocument'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/signup
+        method: POST
+        body: (empty)
+        http_status: 400
+        detail: Empty request body.
+        fetched: '2026-09-17'
+  /node/suggestion:
+    post:
+      operationId: createNodeSuggestion
+      summary: Submit a dataset suggestion
+      tags:
+      - Feedback
+      description: 'Anonymous create of a `node--suggestion` resource. This is the operation the OpenJustice site footer performs (its app bundle POSTs `/jsonapi/node/suggestion` with a `node--suggestion` payload whose `title` and `body.value` both carry the submitted text, `body.format` "plain_text"). Verified 2026-09-17: an anonymous POST with an EMPTY body returned HTTP 400 "Empty request body." rather than 401, i.e. anonymous access to this create route is granted (by contrast an empty anonymous POST to /node/dataset returns 401 "No authentication credentials provided."). No populated request was sent by API Evangelist — do not call this operation to test; it creates a record the DOJ staff will read. Anonymous GET on this collection returns an empty page with meta.omitted (submissions are not readable back).'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                data:
+                  type: object
+                  required:
+                  - type
+                  - attributes
+                  properties:
+                    type:
+                      type: string
+                      const: node--suggestion
+                    attributes:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        body:
+                          type: object
+                          properties:
+                            value:
+                              type: string
+                            format:
+                              type: string
+                              const: plain_text
+      responses:
+        '201':
+          description: Created (the site code checks for statusText "Created"). Not exercised by API Evangelist.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          description: JSON:API validation error document (Drupal entity validation).
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorDocument'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/suggestion
+        method: POST
+        body: (empty)
+        http_status: 400
+        detail: Empty request body.
+        fetched: '2026-09-17'
+  /node/bug:
+    post:
+      operationId: createNodeBug
+      summary: Submit a bug report
+      tags:
+      - Feedback
+      description: 'Anonymous create of a `node--bug` resource. This is the operation the OpenJustice site footer performs (its app bundle POSTs `/jsonapi/node/bug` with a `node--bug` payload whose `title` and `body.value` both carry the submitted text, `body.format` "plain_text"). Verified 2026-09-17: an anonymous POST with an EMPTY body returned HTTP 400 "Empty request body." rather than 401, i.e. anonymous access to this create route is granted (by contrast an empty anonymous POST to /node/dataset returns 401 "No authentication credentials provided."). No populated request was sent by API Evangelist — do not call this operation to test; it creates a record the DOJ staff will read. Anonymous GET on this collection returns an empty page with meta.omitted (submissions are not readable back).'
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                data:
+                  type: object
+                  required:
+                  - type
+                  - attributes
+                  properties:
+                    type:
+                      type: string
+                      const: node--bug
+                    attributes:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        body:
+                          type: object
+                          properties:
+                            value:
+                              type: string
+                            format:
+                              type: string
+                              const: plain_text
+      responses:
+        '201':
+          description: Created (the site code checks for statusText "Created"). Not exercised by API Evangelist.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          description: JSON:API validation error document (Drupal entity validation).
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ErrorDocument'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/bug
+        method: POST
+        body: (empty)
+        http_status: 400
+        detail: Empty request body.
+        fetched: '2026-09-17'
+components:
+  responses:
+    BadRequest:
+      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Bad Request
+              status: '400'
+              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+  schemas:
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          const: '1.0'
+        meta:
+          type: object
+    ErrorObject:
+      type: object
+      properties:
+        title:
+          type: string
+          examples:
+          - Bad Request
+          - Not Found
+          - Unauthorized
+          - Method Not Allowed
+        status:
+          type: string
+          description: HTTP status as a STRING, per JSON:API 1.0.
+          examples:
+          - '400'
+          - '404'
+          - '401'
+        detail:
+          type: string
+        links:
+          type: object
+          properties:
+            via:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+            info:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+        source:
+          type: object
+          properties:
+            pointer:
+              type: string
+            parameter:
+              type: string
+    ErrorDocument:
+      type: object
+      required:
+      - errors
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+x-provenance:
+  generated: '2026-09-17'
+  method: probed
+  source: https://data-openjustice.doj.ca.gov/jsonapi
+  author: API Evangelist
+  discovery: https://openjustice.doj.ca.gov/static/js/app.27bd7a2568ccfb17905a.js (axios baseURL)
+x-probe:
+  fetched: '2026-09-17'
+  index:
+    url: https://data-openjustice.doj.ca.gov/jsonapi
+    http_status: 200
+    content_type: application/vnd.api+json
+    resource_types_advertised: 70
+  described: 32
+  page_limit_cap: 50
+  writes:
+    anonymous_create_granted:
+    - node--signup
+    - node--suggestion
+    - node--bug
+    requires_credentials:
+    - method: POST
+      path: /node/dataset
+      status: 401
+    - method: PATCH
+      path: /node/stats/{id}
+      status: 401
+    - method: DELETE
+      path: /node/dataset/{id}
+      status: 401
+  excluded:
+    omitted_insufficient_authorization:
+    - action--action
+    - base_field_override--base_field_override
+    - block_content_type--block_content_type
+    - corresponding_reference--corresponding_reference
+    - editor--editor
+    - embed_button--embed_button
+    - entity_form_display--entity_form_display
+    - entity_form_mode--entity_form_mode
+    - entity_view_display--entity_view_display
+    - entity_view_mode--entity_view_mode
+    - field_config--field_config
+    - field_storage_config--field_storage_config
+    - filter_format--filter_format
+    - image_style--image_style
+    - node--bug
+    - node--signup
+    - node--suggestion
+    - path_alias--path_alias
+    - pathauto_pattern--pathauto_pattern
+    - rdf_mapping--rdf_mapping
+    - rest_resource_config--rest_resource_config
+    - shortcut--default
+    - shortcut_set--shortcut_set
+    - taxonomy_vocabulary--taxonomy_vocabulary
+    - tour--tour
+    - user_role--user_role
+    - view--view
+    - webform--webform
+    - webform_options--webform_options
+    - workflow--workflow
+    empty_collection:
+    - block_content--basic
+    - taxonomy_menu--taxonomy_menu
+    - taxonomy_term--tags
+    - webform_submission--contact
+    post_only_405_on_get:
+    - contact_message--feedback
+    - contact_message--personal
+    excluded_by_api_evangelist_on_privacy_grounds:
+    - user--user (anonymous GET returns 22 Drupal account display names)
+    - webform_submission--kinetic_energy_ab48_2022 (anonymous GET returns form-submission metadata including remote_addr and token fields)

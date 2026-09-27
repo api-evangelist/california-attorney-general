@@ -1,0 +1,2296 @@
+openapi: 3.2.0
+info:
+  title: 'California DOJ OpenJustice Open Data Portal JSON: Content…'
+  version: '1.0'
+  summary: Anonymous JSON:API 1.0 over the California Department of Justice OpenJustice open-data portal — the Attorney General's criminal-justice datasets (Arrests, Crimes & Clearances, Homicide, Hate Crime, Use of Force, RIPA stop data, deaths in custody and 19 more), their CSV/XLSX distributions, CJSC publications and data stories.
+  description: The California Attorney General heads the California Department of Justice, whose Criminal Justice Statistics Center runs the OpenJustice initiative (https://openjustice.doj.ca.gov).
+  contact:
+    name: California Department of Justice — Criminal Justice Statistics Center
+    email: datarequests@doj.ca.gov
+    url: https://oag.ca.gov/research-services/request-process
+  termsOfService: https://oag.ca.gov/conditions
+  license:
+    name: California DOJ conditions of use (public government data; no licence text is attached to the files)
+    url: https://oag.ca.gov/conditions
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-from: https://data-openjustice.doj.ca.gov/jsonapi
+  x-derived-on: '2026-09-17'
+  x-publisher-provided: false
+servers:
+- url: https://data-openjustice.doj.ca.gov/jsonapi
+  description: Production JSON:API entry point (Drupal 9, behind an F5 load balancer that sets an `oag.ca.gov` persistence cookie). Public, anonymous reads.
+security: []
+tags:
+- name: Content
+  description: Datasets, publications, stats pages, data stories and site pages (node entities).
+paths:
+  /node/dataset:
+    get:
+      operationId: listNodeDataset
+      summary: List node--dataset resources
+      tags:
+      - Content
+      description: 'OpenJustice Open Data Portal datasets — the 26 published criminal-justice data products (Arrests, Crimes and Clearances, Homicide, Hate Crime, Use of Force, RIPA Stop Data, Death in Custody, Domestic Violence calls, Gun Violence Restraining Orders, Electronic Search Warrant notifications and more). Each dataset relates to its CSV/XLSX/ZIP/PDF distributions through `field_source` (file--file) and to a data-type taxonomy term through `field_data_type`. This is the collection a data consumer wants.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 26 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/dataset. Note: `?page[limit]=1` returns an empty page with meta.omitted because the lowest-id dataset node is unpublished; request the collection without page[limit]=1, or with page[limit]=50, to receive all 26 published datasets.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodeDataset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 26
+  /node/dataset/{id}:
+    get:
+      operationId: getNodeDataset
+      summary: Get one node--dataset resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--dataset` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodeDataset'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /node/stats:
+    get:
+      operationId: listNodeStats
+      summary: List node--stats resources
+      tags:
+      - Content
+      description: 'The six OpenJustice Exploration "stats" pages (crime statistics explorers). `field_data_query` names the server-side query slug the dashboard uses; `field_path` is the public exploration path.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/stats?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodeStats'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/stats?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /node/stats/{id}:
+    get:
+      operationId: getNodeStats
+      summary: Get one node--stats resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--stats` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodeStats'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /node/publication:
+    get:
+      operationId: listNodePublication
+      summary: List node--publication resources
+      tags:
+      - Content
+      description: 'CJSC statistical publications (annual Crime in California, Homicide in California, Hate Crime in California, Juvenile Justice in California, Use of Force, RIPA). Each publication relates to per-year report paragraphs through `field_publication_reports`.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/publication?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodePublication'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/publication?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /node/publication/{id}:
+    get:
+      operationId: getNodePublication
+      summary: Get one node--publication resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--publication` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodePublication'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /node/documentation:
+    get:
+      operationId: listNodeDocumentation
+      summary: List node--documentation resources
+      tags:
+      - Content
+      description: 'Data documentation pages published alongside the datasets.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 2 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/documentation?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodeDocumentation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/documentation?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 2
+  /node/documentation/{id}:
+    get:
+      operationId: getNodeDocumentation
+      summary: Get one node--documentation resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--documentation` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodeDocumentation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /node/exploration:
+    get:
+      operationId: listNodeExploration
+      summary: List node--exploration resources
+      tags:
+      - Content
+      description: 'Landing pages for the Exploration section of OpenJustice.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/exploration?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodeExploration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/exploration?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /node/exploration/{id}:
+    get:
+      operationId: getNodeExploration
+      summary: Get one node--exploration resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--exploration` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodeExploration'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /node/data_story:
+    get:
+      operationId: listNodeDataStory
+      summary: List node--data_story resources
+      tags:
+      - Content
+      description: 'OpenJustice Data Stories — narrative statistical stories composed of chart paragraphs (`field_data_chart`), tabs and sections.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/data_story?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodeDataStory'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/data_story?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /node/data_story/{id}:
+    get:
+      operationId: getNodeDataStory
+      summary: Get one node--data_story resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--data_story` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodeDataStory'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /node/data_story_section:
+    get:
+      operationId: listNodeDataStorySection
+      summary: List node--data_story_section resources
+      tags:
+      - Content
+      description: 'Sections within a data story, related to the parent story, its year term and story type.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/data_story_section?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodeDataStorySection'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/data_story_section?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /node/data_story_section/{id}:
+    get:
+      operationId: getNodeDataStorySection
+      summary: Get one node--data_story_section resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--data_story_section` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodeDataStorySection'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /node/page:
+    get:
+      operationId: listNodePage
+      summary: List node--page resources
+      tags:
+      - Content
+      description: 'Basic content pages of the OpenJustice site.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 3 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/page?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodePage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/page?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 3
+  /node/page/{id}:
+    get:
+      operationId: getNodePage
+      summary: Get one node--page resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--page` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodePage'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /node/landing_page:
+    get:
+      operationId: listNodeLandingPage
+      summary: List node--landing_page resources
+      tags:
+      - Content
+      description: 'Section landing pages composed of section-block paragraphs.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 2 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/landing_page?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodeLandingPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/landing_page?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 2
+  /node/landing_page/{id}:
+    get:
+      operationId: getNodeLandingPage
+      summary: Get one node--landing_page resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--landing_page` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodeLandingPage'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /node/front_page:
+    get:
+      operationId: listNodeFrontPage
+      summary: List node--front_page resources
+      tags:
+      - Content
+      description: 'The OpenJustice front page composition.
+
+
+        Probed anonymously 2026-09-17: HTTP 200, `application/vnd.api+json`, 1 resource object(s) returned from https://data-openjustice.doj.ca.gov/jsonapi/node/front_page?page[limit]=3.'
+      parameters:
+      - $ref: '#/components/parameters/pageLimit'
+      - $ref: '#/components/parameters/pageOffset'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API collection document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/CollectionDocument'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NodeFrontPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi/node/front_page?page[limit]=3
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+        resources_returned: 1
+  /node/front_page/{id}:
+    get:
+      operationId: getNodeFrontPage
+      summary: Get one node--front_page resource by UUID
+      tags:
+      - Content
+      description: Returns a single `node--front_page` resource object. Individual reads were verified on 2026-09-17 against `node--stats` (self link of the Adult Probation Caseload & Actions page). An unknown UUID returns HTTP 404 with a JSON:API error document.
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      - $ref: '#/components/parameters/include'
+      - $ref: '#/components/parameters/fields'
+      responses:
+        '200':
+          description: JSON:API individual document.
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/IndividualDocument'
+                - type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/NodeFrontPage'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+components:
+  schemas:
+    NodeDatasetAttributes:
+      type: object
+      description: Attributes observed on live `node--dataset` resources (26 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+        field_path:
+          type: string
+    NodeDataStoryRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_data_chart:
+          type: object
+          description: To-many relationship to paragraph--data_chart.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_data_story_section:
+          type: object
+          description: To-many relationship to node--data_story_section.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_story_type:
+          type: object
+          description: To-one relationship to taxonomy_term--story_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_tab:
+          type: object
+          description: To-many relationship.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodePage:
+      type: object
+      description: Basic content pages of the OpenJustice site.
+      properties:
+        type:
+          type: string
+          const: node--page
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodePageAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodePageRelationships'
+    NodePublication:
+      type: object
+      description: CJSC statistical publications (annual Crime in California, Homicide in California, Hate Crime in California, Juvenile Justice in California, Use of Force, RIPA). Each publication relates to per-year report paragraphs through `field_publication_reports`.
+      properties:
+        type:
+          type: string
+          const: node--publication
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodePublicationAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodePublicationRelationships'
+    CollectionDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+          description: Present when ?include= names relationships.
+        meta:
+          type: object
+          properties:
+            omitted:
+              type: object
+              description: Present when Drupal withheld resources the anonymous caller may not view; carries a detail message and per-item links.
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Links'
+            next:
+              $ref: '#/components/schemas/Links'
+            prev:
+              $ref: '#/components/schemas/Links'
+    NodeDataStorySection:
+      type: object
+      description: Sections within a data story, related to the parent story, its year term and story type.
+      properties:
+        type:
+          type: string
+          const: node--data_story_section
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeDataStorySectionAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeDataStorySectionRelationships'
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          const: '1.0'
+        meta:
+          type: object
+    NodePageRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_section:
+          type: object
+          description: To-one relationship to taxonomy_term--site_section.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_story_type:
+          type: object
+          description: To-one relationship to taxonomy_term--story_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeDataStory:
+      type: object
+      description: OpenJustice Data Stories — narrative statistical stories composed of chart paragraphs (`field_data_chart`), tabs and sections.
+      properties:
+        type:
+          type: string
+          const: node--data_story
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeDataStoryAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeDataStoryRelationships'
+    NodeStats:
+      type: object
+      description: The six OpenJustice Exploration "stats" pages (crime statistics explorers). `field_data_query` names the server-side query slug the dashboard uses; `field_path` is the public exploration path.
+      properties:
+        type:
+          type: string
+          const: node--stats
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeStatsAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeStatsRelationships'
+    NodeDataStorySectionAttributes:
+      type: object
+      description: Attributes observed on live `node--data_story_section` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+        field_path:
+          type: string
+        field_short_title:
+          type: string
+    ErrorDocument:
+      type: object
+      required:
+      - errors
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+    NodeLandingPage:
+      type: object
+      description: Section landing pages composed of section-block paragraphs.
+      properties:
+        type:
+          type: string
+          const: node--landing_page
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeLandingPageAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeLandingPageRelationships'
+    NodeStatsRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_private_interactive_tables:
+          type: object
+          description: To-many relationship.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_source:
+          type: object
+          description: To-many relationship to file--file.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeFrontPage:
+      type: object
+      description: The OpenJustice front page composition.
+      properties:
+        type:
+          type: string
+          const: node--front_page
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeFrontPageAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeFrontPageRelationships'
+    NodeExplorationRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeFrontPageAttributes:
+      type: object
+      description: Attributes observed on live `node--front_page` resources (1 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+          nullable: true
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+    NodePublicationRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_publication_reports:
+          type: object
+          description: To-many relationship to paragraph--publication_report.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_pub_image:
+          type: object
+          description: To-one relationship to file--file.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    IndividualDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        links:
+          $ref: '#/components/schemas/Links'
+    NodeDocumentation:
+      type: object
+      description: Data documentation pages published alongside the datasets.
+      properties:
+        type:
+          type: string
+          const: node--documentation
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeDocumentationAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeDocumentationRelationships'
+    NodePublicationAttributes:
+      type: object
+      description: Attributes observed on live `node--publication` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+    NodeLandingPageRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_banner:
+          type: object
+          description: To-one relationship to file--file.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_section_block:
+          type: object
+          description: To-many relationship to paragraph--section_block.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeDatasetRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_data_type:
+          type: object
+          description: To-one relationship to taxonomy_term--data_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_source:
+          type: object
+          description: To-many relationship to file--file.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeDocumentationRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeExplorationAttributes:
+      type: object
+      description: Attributes observed on live `node--exploration` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: string
+          nullable: true
+        moderation_state:
+          type: string
+          nullable: true
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+    NodeDataset:
+      type: object
+      description: OpenJustice Open Data Portal datasets — the 26 published criminal-justice data products (Arrests, Crimes and Clearances, Homicide, Hate Crime, Use of Force, RIPA Stop Data, Death in Custody, Domestic Violence calls, Gun Violence Restraining Orders, Electronic Search Warrant notifications and more). Each dataset relates to its CSV/XLSX/ZIP/PDF distributions through `field_source` (file--file) and to a data-type taxonomy term through `field_data_type`. This is the collection a data consumer wants.
+      properties:
+        type:
+          type: string
+          const: node--dataset
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeDatasetAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeDatasetRelationships'
+    ErrorObject:
+      type: object
+      properties:
+        title:
+          type: string
+          examples:
+          - Bad Request
+          - Not Found
+          - Unauthorized
+          - Method Not Allowed
+        status:
+          type: string
+          description: HTTP status as a STRING, per JSON:API 1.0.
+          examples:
+          - '400'
+          - '404'
+          - '401'
+        detail:
+          type: string
+        links:
+          type: object
+          properties:
+            via:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+            info:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+        source:
+          type: object
+          properties:
+            pointer:
+              type: string
+            parameter:
+              type: string
+    NodeStatsAttributes:
+      type: object
+      description: Attributes observed on live `node--stats` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+        field_data_query:
+          type: string
+        field_ext_link:
+          type: string
+          nullable: true
+        field_path:
+          type: string
+    NodePageAttributes:
+      type: object
+      description: Attributes observed on live `node--page` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+        field_display_sidebar:
+          type: string
+          nullable: true
+        field_jumbotron:
+          type: string
+          nullable: true
+    NodeLandingPageAttributes:
+      type: object
+      description: Attributes observed on live `node--landing_page` resources (2 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+          nullable: true
+        moderation_state:
+          type: string
+          nullable: true
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+          nullable: true
+    NodeExploration:
+      type: object
+      description: Landing pages for the Exploration section of OpenJustice.
+      properties:
+        type:
+          type: string
+          const: node--exploration
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeExplorationAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeExplorationRelationships'
+    NodeFrontPageRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_paragraph:
+          type: object
+          description: To-many relationship to paragraph--blocks_quad, paragraph--highlight_tri, paragraph--intro_header.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+    ResourceIdentifier:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          description: entity--bundle
+        id:
+          type: string
+          format: uuid
+        meta:
+          type: object
+          properties:
+            drupal_internal__target_id:
+              oneOf:
+              - type: integer
+              - type: string
+    NodeDataStorySectionRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_data_story:
+          type: object
+          description: To-many relationship to node--data_story.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_data_story_year:
+          type: object
+          description: To-one relationship to taxonomy_term--data_story_year.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_story_type:
+          type: object
+          description: To-one relationship.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    ResourceObject:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type: object
+        links:
+          $ref: '#/components/schemas/Links'
+    NodeDocumentationAttributes:
+      type: object
+      description: Attributes observed on live `node--documentation` resources (2 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+          nullable: true
+        moderation_state:
+          type: string
+          nullable: true
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+    Links:
+      type: object
+      additionalProperties:
+        oneOf:
+        - type: string
+          format: uri
+        - type: object
+          properties:
+            href:
+              type: string
+              format: uri
+            meta:
+              type: object
+    NodeDataStoryAttributes:
+      type: object
+      description: Attributes observed on live `node--data_story` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+        field_chart_layout:
+          type: string
+          nullable: true
+        field_data_subtitle:
+          type: string
+        field_focus_box:
+          type: string
+          nullable: true
+        field_tabs:
+          type: string
+          nullable: true
+  responses:
+    ServiceUnavailable:
+      description: Not observed during the probe; listed because the site runs behind an F5 load balancer (persistence cookie `oag.ca.gov`) that answers on behalf of an unavailable origin.
+    NotFound:
+      description: No resource with that UUID. JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Not Found
+              status: '404'
+              detail: 'The "entity" parameter was not converted for the path "/jsonapi/node/dataset/{entity}" (route name: "jsonapi.node--dataset.individual")'
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/00000000-0000-0000-0000-000000000000
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
+    BadRequest:
+      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Bad Request
+              status: '400'
+              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Resource UUID (the JSON:API `id`, not `drupal_internal__nid`).
+    include:
+      name: include
+      in: query
+      schema:
+        type: string
+      description: 'Comma-separated relationship paths to side-load into `included` (JSON:API compound documents). Verified 2026-09-17: `include=field_source,field_data_type` on node/dataset side-loaded 148 file--file distributions across the 26 datasets.'
+      example: field_source,field_data_type
+    sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+      description: Comma-separated attribute names; prefix with `-` for descending (JSON:API 1.0). Verified with `sort=title`.
+      example: title
+    filter:
+      name: filter
+      in: query
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties: true
+      description: 'Drupal JSON:API filter family: `filter[<field>]=value` for equality, or `filter[<field>][operator]=CONTAINS&filter[<field>][value]=...` for other operators (=, <>, >, >=, <, <=, STARTS_WITH, CONTAINS, ENDS_WITH, IN, NOT IN, IS NULL, IS NOT NULL, BETWEEN). Verified 2026-09-17: `filter[title][operator]=CONTAINS&filter[title][value]=Arrest` on node/dataset returned 3 datasets; an unknown field returns HTTP 400 "Invalid nested filtering."'
+      example: filter[title][operator]=CONTAINS&filter[title][value]=Arrest
+    fields:
+      name: fields
+      in: query
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: string
+      description: 'Sparse fieldsets keyed by resource type: `fields[file--file]=uri,filesize,filemime,filename`. Verified.'
+      example: fields[file--file]=uri,filesize,filemime,filename
+    pageOffset:
+      name: page[offset]
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      description: Zero-based offset. Follow `links.next` rather than computing offsets.
+    pageLimit:
+      name: page[limit]
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+      description: 'Page size. Drupal caps the page at 50 and silently clamps larger values — verified 2026-09-17: `?page[limit]=100` on node/data_story returned 50 items and a `links.next` offset of 50.'
+x-provenance:
+  generated: '2026-09-17'
+  method: probed
+  source: https://data-openjustice.doj.ca.gov/jsonapi
+  author: API Evangelist
+  discovery: https://openjustice.doj.ca.gov/static/js/app.27bd7a2568ccfb17905a.js (axios baseURL)
+x-probe:
+  fetched: '2026-09-17'
+  index:
+    url: https://data-openjustice.doj.ca.gov/jsonapi
+    http_status: 200
+    content_type: application/vnd.api+json
+    resource_types_advertised: 70
+  described: 32
+  page_limit_cap: 50
+  writes:
+    anonymous_create_granted:
+    - node--signup
+    - node--suggestion
+    - node--bug
+    requires_credentials:
+    - method: POST
+      path: /node/dataset
+      status: 401
+    - method: PATCH
+      path: /node/stats/{id}
+      status: 401
+    - method: DELETE
+      path: /node/dataset/{id}
+      status: 401
+  excluded:
+    omitted_insufficient_authorization:
+    - action--action
+    - base_field_override--base_field_override
+    - block_content_type--block_content_type
+    - corresponding_reference--corresponding_reference
+    - editor--editor
+    - embed_button--embed_button
+    - entity_form_display--entity_form_display
+    - entity_form_mode--entity_form_mode
+    - entity_view_display--entity_view_display
+    - entity_view_mode--entity_view_mode
+    - field_config--field_config
+    - field_storage_config--field_storage_config
+    - filter_format--filter_format
+    - image_style--image_style
+    - node--bug
+    - node--signup
+    - node--suggestion
+    - path_alias--path_alias
+    - pathauto_pattern--pathauto_pattern
+    - rdf_mapping--rdf_mapping
+    - rest_resource_config--rest_resource_config
+    - shortcut--default
+    - shortcut_set--shortcut_set
+    - taxonomy_vocabulary--taxonomy_vocabulary
+    - tour--tour
+    - user_role--user_role
+    - view--view
+    - webform--webform
+    - webform_options--webform_options
+    - workflow--workflow
+    empty_collection:
+    - block_content--basic
+    - taxonomy_menu--taxonomy_menu
+    - taxonomy_term--tags
+    - webform_submission--contact
+    post_only_405_on_get:
+    - contact_message--feedback
+    - contact_message--personal
+    excluded_by_api_evangelist_on_privacy_grounds:
+    - user--user (anonymous GET returns 22 Drupal account display names)
+    - webform_submission--kinetic_energy_ab48_2022 (anonymous GET returns form-submission metadata including remote_addr and token fields)

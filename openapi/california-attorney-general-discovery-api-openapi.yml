@@ -1,0 +1,146 @@
+openapi: 3.2.0
+info:
+  title: 'California DOJ OpenJustice Open Data Portal JSON: Discovery…'
+  version: '1.0'
+  summary: Anonymous JSON:API 1.0 over the California Department of Justice OpenJustice open-data portal — the Attorney General's criminal-justice datasets (Arrests, Crimes & Clearances, Homicide, Hate Crime, Use of Force, RIPA stop data, deaths in custody and 19 more), their CSV/XLSX distributions, CJSC publications and data stories.
+  description: The California Attorney General heads the California Department of Justice, whose Criminal Justice Statistics Center runs the OpenJustice initiative (https://openjustice.doj.ca.gov).
+  contact:
+    name: California Department of Justice — Criminal Justice Statistics Center
+    email: datarequests@doj.ca.gov
+    url: https://oag.ca.gov/research-services/request-process
+  termsOfService: https://oag.ca.gov/conditions
+  license:
+    name: California DOJ conditions of use (public government data; no licence text is attached to the files)
+    url: https://oag.ca.gov/conditions
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-from: https://data-openjustice.doj.ca.gov/jsonapi
+  x-derived-on: '2026-09-17'
+  x-publisher-provided: false
+servers:
+- url: https://data-openjustice.doj.ca.gov/jsonapi
+  description: Production JSON:API entry point (Drupal 9, behind an F5 load balancer that sets an `oag.ca.gov` persistence cookie). Public, anonymous reads.
+security: []
+tags:
+- name: Discovery
+  description: The JSON:API index.
+paths:
+  /:
+    get:
+      operationId: getResourceIndex
+      summary: JSON:API resource-type index
+      tags:
+      - Discovery
+      description: 'The JSON:API entry point. Returns a `links` map of every advertised resource type in `entity--bundle` form. Probed 2026-09-17: HTTP 200, application/vnd.api+json, 7,905 bytes, 70 resource-type link relations. Saved verbatim at discovery/california-attorney-general-openjustice-jsonapi-index.json.'
+      responses:
+        '200':
+          description: Resource-type index document
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/IndexDocument'
+      x-probe:
+        url: https://data-openjustice.doj.ca.gov/jsonapi
+        http_status: 200
+        content_type: application/vnd.api+json
+        fetched: '2026-09-17'
+components:
+  schemas:
+    IndexDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items: {}
+          description: Empty array on the index.
+        links:
+          type: object
+          description: One entry per resource type, keyed `entity--bundle`, plus `self`.
+          additionalProperties:
+            type: object
+            properties:
+              href:
+                type: string
+                format: uri
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          const: '1.0'
+        meta:
+          type: object
+x-provenance:
+  generated: '2026-09-17'
+  method: probed
+  source: https://data-openjustice.doj.ca.gov/jsonapi
+  author: API Evangelist
+  discovery: https://openjustice.doj.ca.gov/static/js/app.27bd7a2568ccfb17905a.js (axios baseURL)
+x-probe:
+  fetched: '2026-09-17'
+  index:
+    url: https://data-openjustice.doj.ca.gov/jsonapi
+    http_status: 200
+    content_type: application/vnd.api+json
+    resource_types_advertised: 70
+  described: 32
+  page_limit_cap: 50
+  writes:
+    anonymous_create_granted:
+    - node--signup
+    - node--suggestion
+    - node--bug
+    requires_credentials:
+    - method: POST
+      path: /node/dataset
+      status: 401
+    - method: PATCH
+      path: /node/stats/{id}
+      status: 401
+    - method: DELETE
+      path: /node/dataset/{id}
+      status: 401
+  excluded:
+    omitted_insufficient_authorization:
+    - action--action
+    - base_field_override--base_field_override
+    - block_content_type--block_content_type
+    - corresponding_reference--corresponding_reference
+    - editor--editor
+    - embed_button--embed_button
+    - entity_form_display--entity_form_display
+    - entity_form_mode--entity_form_mode
+    - entity_view_display--entity_view_display
+    - entity_view_mode--entity_view_mode
+    - field_config--field_config
+    - field_storage_config--field_storage_config
+    - filter_format--filter_format
+    - image_style--image_style
+    - node--bug
+    - node--signup
+    - node--suggestion
+    - path_alias--path_alias
+    - pathauto_pattern--pathauto_pattern
+    - rdf_mapping--rdf_mapping
+    - rest_resource_config--rest_resource_config
+    - shortcut--default
+    - shortcut_set--shortcut_set
+    - taxonomy_vocabulary--taxonomy_vocabulary
+    - tour--tour
+    - user_role--user_role
+    - view--view
+    - webform--webform
+    - webform_options--webform_options
+    - workflow--workflow
+    empty_collection:
+    - block_content--basic
+    - taxonomy_menu--taxonomy_menu
+    - taxonomy_term--tags
+    - webform_submission--contact
+    post_only_405_on_get:
+    - contact_message--feedback
+    - contact_message--personal
+    excluded_by_api_evangelist_on_privacy_grounds:
+    - user--user (anonymous GET returns 22 Drupal account display names)
+    - webform_submission--kinetic_energy_ab48_2022 (anonymous GET returns form-submission metadata including remote_addr and token fields)
