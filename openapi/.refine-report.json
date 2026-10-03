@@ -1,7 +1,7 @@
 {
   "provider": "california-attorney-general",
   "sources": [
-    "california-attorney-general-openjustice-jsonapi-openapi.yml"
+    "_original/california-attorney-general-openjustice-jsonapi-openapi.yml"
   ],
   "outputs": [
     "california-attorney-general-content-api-openapi.yml",
@@ -12,14 +12,21 @@
     "california-attorney-general-site-configuration-api-openapi.yml",
     "california-attorney-general-taxonomies-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/california-attorney-general-openjustice-jsonapi-openapi.yml"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "california-attorney-general-openjustice-jsonapi-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: written (+7 apis, 7 total)"
+    "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "california-attorney-general-content-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "california-attorney-general-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "california-attorney-general-feedback-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "california-attorney-general-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "california-attorney-general-paragraphs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "california-attorney-general-site-configuration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "california-attorney-general-taxonomies-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
