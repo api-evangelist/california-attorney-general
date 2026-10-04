@@ -210,6 +210,8 @@ apis:
   humanURL: https://openjustice.doj.ca.gov/data
   baseURL: https://data-openjustice.doj.ca.gov/jsonapi
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -345,6 +347,8 @@ apis:
   humanURL: https://openjustice.doj.ca.gov/data
   baseURL: https://data-openjustice.doj.ca.gov/jsonapi
   tags:
+  - taxonomies
+  tags_raw:
   - Taxonomies
   properties:
   - type: OpenAPI
