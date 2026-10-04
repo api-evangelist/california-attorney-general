@@ -502,22 +502,31 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
 components:
   schemas:
-    MenuLinkContentMenuLinkContent:
+    DateFormatDateFormatAttributes:
       type: object
-      description: Menu link content items.
+      description: Attributes observed on live `date_format--date_format` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        label:
+          type: string
+    NodeTypeNodeTypeRelationships:
+      type: object
+      properties: {}
+    DateFormatDateFormat:
+      type: object
+      description: Date format configuration (config entity).
       properties:
         type:
           type: string
-          const: menu_link_content--menu_link_content
+          const: date_format--date_format
         id:
           type: string
           format: uuid
         links:
           $ref: '#/components/schemas/Links'
         attributes:
-          $ref: '#/components/schemas/MenuLinkContentMenuLinkContentAttributes'
+          $ref: '#/components/schemas/DateFormatDateFormatAttributes'
         relationships:
-          $ref: '#/components/schemas/MenuLinkContentMenuLinkContentRelationships'
+          $ref: '#/components/schemas/DateFormatDateFormatRelationships'
     ParagraphsTypeParagraphsType:
       type: object
       description: Paragraph types (config entity).
@@ -534,24 +543,6 @@ components:
           $ref: '#/components/schemas/ParagraphsTypeParagraphsTypeAttributes'
         relationships:
           $ref: '#/components/schemas/ParagraphsTypeParagraphsTypeRelationships'
-    MenuMenuAttributes:
-      type: object
-      description: Attributes observed on live `menu--menu` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        langcode:
-          type: string
-        status:
-          type: boolean
-        dependencies:
-          type: array
-        drupal_internal__id:
-          type: string
-        label:
-          type: string
-        description:
-          type: string
-        locked:
-          type: boolean
     Links:
       type: object
       additionalProperties:
@@ -565,101 +556,9 @@ components:
               format: uri
             meta:
               type: object
-    ParagraphsTypeParagraphsTypeAttributes:
-      type: object
-      description: Attributes observed on live `paragraphs_type--paragraphs_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        label:
-          type: string
-    DateFormatDateFormatAttributes:
-      type: object
-      description: Attributes observed on live `date_format--date_format` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        label:
-          type: string
-    ParagraphsTypeParagraphsTypeRelationships:
+    DateFormatDateFormatRelationships:
       type: object
       properties: {}
-    NodeTypeNodeTypeAttributes:
-      type: object
-      description: Attributes observed on live `node_type--node_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        langcode:
-          type: string
-        status:
-          type: boolean
-        dependencies:
-          type: object
-        third_party_settings:
-          type: object
-        name:
-          type: string
-        drupal_internal__type:
-          type: string
-        description:
-          type: string
-        help:
-          type: string
-        new_revision:
-          type: boolean
-        preview_mode:
-          type: integer
-        display_submitted:
-          type: boolean
-    ContactFormContactForm:
-      type: object
-      description: Contact form configuration (config entity).
-      properties:
-        type:
-          type: string
-          const: contact_form--contact_form
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/ContactFormContactFormAttributes'
-        relationships:
-          $ref: '#/components/schemas/ContactFormContactFormRelationships'
-    BlockBlockAttributes:
-      type: object
-      description: Attributes observed on live `block--block` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        langcode:
-          type: string
-        status:
-          type: boolean
-        dependencies:
-          type: object
-        drupal_internal__id:
-          type: string
-        theme:
-          type: string
-        region:
-          type: string
-        weight:
-          type: integer
-        provider:
-          type: string
-          nullable: true
-        plugin:
-          type: string
-        settings:
-          type: object
-        visibility:
-          type: array
-    ErrorDocument:
-      type: object
-      required:
-      - errors
-      properties:
-        jsonapi:
-          $ref: '#/components/schemas/JsonApiObject'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
     ErrorObject:
       type: object
       properties:
@@ -701,10 +600,53 @@ components:
               type: string
             parameter:
               type: string
-    NodeTypeNodeTypeRelationships:
+    CollectionDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+          description: Present when ?include= names relationships.
+        meta:
+          type: object
+          properties:
+            omitted:
+              type: object
+              description: Present when Drupal withheld resources the anonymous caller may not view; carries a detail message and per-item links.
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Links'
+            next:
+              $ref: '#/components/schemas/Links'
+            prev:
+              $ref: '#/components/schemas/Links'
+    MenuMenuRelationships:
       type: object
       properties: {}
     ContactFormContactFormRelationships:
+      type: object
+      properties: {}
+    ErrorDocument:
+      type: object
+      required:
+      - errors
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+    ParagraphsTypeParagraphsTypeRelationships:
       type: object
       properties: {}
     NodeTypeNodeType:
@@ -723,157 +665,6 @@ components:
           $ref: '#/components/schemas/NodeTypeNodeTypeAttributes'
         relationships:
           $ref: '#/components/schemas/NodeTypeNodeTypeRelationships'
-    ResourceIdentifier:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-          description: entity--bundle
-        id:
-          type: string
-          format: uuid
-        meta:
-          type: object
-          properties:
-            drupal_internal__target_id:
-              oneOf:
-              - type: integer
-              - type: string
-    MenuLinkContentMenuLinkContentRelationships:
-      type: object
-      properties:
-        revision_user:
-          type: object
-          description: To-one relationship.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-    BlockBlock:
-      type: object
-      description: Theme block placements (config entity).
-      properties:
-        type:
-          type: string
-          const: block--block
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/BlockBlockAttributes'
-        relationships:
-          $ref: '#/components/schemas/BlockBlockRelationships'
-    IndividualDocument:
-      type: object
-      properties:
-        jsonapi:
-          $ref: '#/components/schemas/JsonApiObject'
-        data:
-          $ref: '#/components/schemas/ResourceObject'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-        links:
-          $ref: '#/components/schemas/Links'
-    JsonApiObject:
-      type: object
-      properties:
-        version:
-          type: string
-          const: '1.0'
-        meta:
-          type: object
-    DateFormatDateFormatRelationships:
-      type: object
-      properties: {}
-    BlockBlockRelationships:
-      type: object
-      properties: {}
-    MenuMenu:
-      type: object
-      description: Site menus (config entity).
-      properties:
-        type:
-          type: string
-          const: menu--menu
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/MenuMenuAttributes'
-        relationships:
-          $ref: '#/components/schemas/MenuMenuRelationships'
-    MenuMenuRelationships:
-      type: object
-      properties: {}
-    DateFormatDateFormat:
-      type: object
-      description: Date format configuration (config entity).
-      properties:
-        type:
-          type: string
-          const: date_format--date_format
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/DateFormatDateFormatAttributes'
-        relationships:
-          $ref: '#/components/schemas/DateFormatDateFormatRelationships'
-    ContactFormContactFormAttributes:
-      type: object
-      description: Attributes observed on live `contact_form--contact_form` resources (1 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        langcode:
-          type: string
-        status:
-          type: boolean
-        dependencies:
-          type: array
-        drupal_internal__id:
-          type: string
-        label:
-          type: string
-        recipients:
-          type: array
-        reply:
-          type: string
-        weight:
-          type: integer
-        message:
-          type: string
-        redirect:
-          type: string
-    ResourceObject:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        attributes:
-          type: object
-        relationships:
-          type: object
-        links:
-          $ref: '#/components/schemas/Links'
     MenuLinkContentMenuLinkContentAttributes:
       type: object
       description: Attributes observed on live `menu_link_content--menu_link_content` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
@@ -921,60 +712,245 @@ components:
           type: boolean
         revision_translation_affected:
           type: boolean
-    CollectionDocument:
+    BlockBlock:
+      type: object
+      description: Theme block placements (config entity).
+      properties:
+        type:
+          type: string
+          const: block--block
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/BlockBlockAttributes'
+        relationships:
+          $ref: '#/components/schemas/BlockBlockRelationships'
+    MenuMenu:
+      type: object
+      description: Site menus (config entity).
+      properties:
+        type:
+          type: string
+          const: menu--menu
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/MenuMenuAttributes'
+        relationships:
+          $ref: '#/components/schemas/MenuMenuRelationships'
+    IndividualDocument:
       type: object
       properties:
         jsonapi:
           $ref: '#/components/schemas/JsonApiObject'
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
+          $ref: '#/components/schemas/ResourceObject'
         included:
           type: array
           items:
             $ref: '#/components/schemas/ResourceObject'
-          description: Present when ?include= names relationships.
+        links:
+          $ref: '#/components/schemas/Links'
+    MenuMenuAttributes:
+      type: object
+      description: Attributes observed on live `menu--menu` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        langcode:
+          type: string
+        status:
+          type: boolean
+        dependencies:
+          type: array
+        drupal_internal__id:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        locked:
+          type: boolean
+    ResourceObject:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type: object
+        links:
+          $ref: '#/components/schemas/Links'
+    MenuLinkContentMenuLinkContentRelationships:
+      type: object
+      properties:
+        revision_user:
+          type: object
+          description: To-one relationship.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeTypeNodeTypeAttributes:
+      type: object
+      description: Attributes observed on live `node_type--node_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        langcode:
+          type: string
+        status:
+          type: boolean
+        dependencies:
+          type: object
+        third_party_settings:
+          type: object
+        name:
+          type: string
+        drupal_internal__type:
+          type: string
+        description:
+          type: string
+        help:
+          type: string
+        new_revision:
+          type: boolean
+        preview_mode:
+          type: integer
+        display_submitted:
+          type: boolean
+    ResourceIdentifier:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          description: entity--bundle
+        id:
+          type: string
+          format: uuid
         meta:
           type: object
           properties:
-            omitted:
-              type: object
-              description: Present when Drupal withheld resources the anonymous caller may not view; carries a detail message and per-item links.
-        links:
+            drupal_internal__target_id:
+              oneOf:
+              - type: integer
+              - type: string
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          const: '1.0'
+        meta:
           type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Links'
-            next:
-              $ref: '#/components/schemas/Links'
-            prev:
-              $ref: '#/components/schemas/Links'
+    MenuLinkContentMenuLinkContent:
+      type: object
+      description: Menu link content items.
+      properties:
+        type:
+          type: string
+          const: menu_link_content--menu_link_content
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/MenuLinkContentMenuLinkContentAttributes'
+        relationships:
+          $ref: '#/components/schemas/MenuLinkContentMenuLinkContentRelationships'
+    ParagraphsTypeParagraphsTypeAttributes:
+      type: object
+      description: Attributes observed on live `paragraphs_type--paragraphs_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        label:
+          type: string
+    BlockBlockAttributes:
+      type: object
+      description: Attributes observed on live `block--block` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        langcode:
+          type: string
+        status:
+          type: boolean
+        dependencies:
+          type: object
+        drupal_internal__id:
+          type: string
+        theme:
+          type: string
+        region:
+          type: string
+        weight:
+          type: integer
+        provider:
+          type: string
+          nullable: true
+        plugin:
+          type: string
+        settings:
+          type: object
+        visibility:
+          type: array
+    ContactFormContactFormAttributes:
+      type: object
+      description: Attributes observed on live `contact_form--contact_form` resources (1 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        langcode:
+          type: string
+        status:
+          type: boolean
+        dependencies:
+          type: array
+        drupal_internal__id:
+          type: string
+        label:
+          type: string
+        recipients:
+          type: array
+        reply:
+          type: string
+        weight:
+          type: integer
+        message:
+          type: string
+        redirect:
+          type: string
+    BlockBlockRelationships:
+      type: object
+      properties: {}
+    ContactFormContactForm:
+      type: object
+      description: Contact form configuration (config entity).
+      properties:
+        type:
+          type: string
+          const: contact_form--contact_form
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/ContactFormContactFormAttributes'
+        relationships:
+          $ref: '#/components/schemas/ContactFormContactFormRelationships'
   responses:
-    BadRequest:
-      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
-          example:
-            jsonapi:
-              version: '1.0'
-              meta:
-                links:
-                  self:
-                    href: http://jsonapi.org/format/1.0/
-            errors:
-            - title: Bad Request
-              status: '400'
-              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
-              links:
-                via:
-                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
-                info:
-                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
-    ServiceUnavailable:
-      description: Not observed during the probe; listed because the site runs behind an F5 load balancer (persistence cookie `oag.ca.gov`) that answers on behalf of an unavailable origin.
     NotFound:
       description: No resource with that UUID. JSON:API error document.
       content:
@@ -997,6 +973,30 @@ components:
                   href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/00000000-0000-0000-0000-000000000000
                 info:
                   href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
+    ServiceUnavailable:
+      description: Not observed during the probe; listed because the site runs behind an F5 load balancer (persistence cookie `oag.ca.gov`) that answers on behalf of an unavailable origin.
+    BadRequest:
+      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Bad Request
+              status: '400'
+              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
   parameters:
     filter:
       name: filter
@@ -1008,24 +1008,6 @@ components:
         additionalProperties: true
       description: 'Drupal JSON:API filter family: `filter[<field>]=value` for equality, or `filter[<field>][operator]=CONTAINS&filter[<field>][value]=...` for other operators (=, <>, >, >=, <, <=, STARTS_WITH, CONTAINS, ENDS_WITH, IN, NOT IN, IS NULL, IS NOT NULL, BETWEEN). Verified 2026-09-17: `filter[title][operator]=CONTAINS&filter[title][value]=Arrest` on node/dataset returned 3 datasets; an unknown field returns HTTP 400 "Invalid nested filtering."'
       example: filter[title][operator]=CONTAINS&filter[title][value]=Arrest
-    fields:
-      name: fields
-      in: query
-      style: deepObject
-      explode: true
-      schema:
-        type: object
-        additionalProperties:
-          type: string
-      description: 'Sparse fieldsets keyed by resource type: `fields[file--file]=uri,filesize,filemime,filename`. Verified.'
-      example: fields[file--file]=uri,filesize,filemime,filename
-    include:
-      name: include
-      in: query
-      schema:
-        type: string
-      description: 'Comma-separated relationship paths to side-load into `included` (JSON:API compound documents). Verified 2026-09-17: `include=field_source,field_data_type` on node/dataset side-loaded 148 file--file distributions across the 26 datasets.'
-      example: field_source,field_data_type
     pageLimit:
       name: page[limit]
       in: query
@@ -1043,13 +1025,6 @@ components:
         type: string
         format: uuid
       description: Resource UUID (the JSON:API `id`, not `drupal_internal__nid`).
-    sort:
-      name: sort
-      in: query
-      schema:
-        type: string
-      description: Comma-separated attribute names; prefix with `-` for descending (JSON:API 1.0). Verified with `sort=title`.
-      example: title
     pageOffset:
       name: page[offset]
       in: query
@@ -1058,6 +1033,31 @@ components:
         minimum: 0
         default: 0
       description: Zero-based offset. Follow `links.next` rather than computing offsets.
+    sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+      description: Comma-separated attribute names; prefix with `-` for descending (JSON:API 1.0). Verified with `sort=title`.
+      example: title
+    include:
+      name: include
+      in: query
+      schema:
+        type: string
+      description: 'Comma-separated relationship paths to side-load into `included` (JSON:API compound documents). Verified 2026-09-17: `include=field_source,field_data_type` on node/dataset side-loaded 148 file--file distributions across the 26 datasets.'
+      example: field_source,field_data_type
+    fields:
+      name: fields
+      in: query
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: string
+      description: 'Sparse fieldsets keyed by resource type: `fields[file--file]=uri,filesize,filemime,filename`. Verified.'
+      example: fields[file--file]=uri,filesize,filemime,filename
 x-provenance:
   generated: '2026-09-17'
   method: probed

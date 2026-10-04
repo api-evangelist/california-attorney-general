@@ -706,78 +706,9 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
 components:
   schemas:
-    NodeStatsRelationships:
+    NodePublicationAttributes:
       type: object
-      properties:
-        node_type:
-          type: object
-          description: To-one relationship to node_type--node_type.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        revision_uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        field_private_interactive_tables:
-          type: object
-          description: To-many relationship.
-          properties:
-            data:
-              type: array
-              items:
-                $ref: '#/components/schemas/ResourceIdentifier'
-            links:
-              $ref: '#/components/schemas/Links'
-        field_source:
-          type: object
-          description: To-many relationship to file--file.
-          properties:
-            data:
-              type: array
-              items:
-                $ref: '#/components/schemas/ResourceIdentifier'
-            links:
-              $ref: '#/components/schemas/Links'
-    NodeDataStory:
-      type: object
-      description: OpenJustice Data Stories — narrative statistical stories composed of chart paragraphs (`field_data_chart`), tabs and sections.
-      properties:
-        type:
-          type: string
-          const: node--data_story
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/NodeDataStoryAttributes'
-        relationships:
-          $ref: '#/components/schemas/NodeDataStoryRelationships'
-    NodeStatsAttributes:
-      type: object
-      description: Attributes observed on live `node--stats` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      description: Attributes observed on live `node--publication` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
       properties:
         drupal_internal__nid:
           type: integer
@@ -790,6 +721,7 @@ components:
           format: date-time
         revision_log:
           type: string
+          nullable: true
         status:
           type: boolean
         title:
@@ -830,26 +762,6 @@ components:
               type: string
             summary:
               type: string
-        field_data_query:
-          type: string
-        field_ext_link:
-          type: string
-          nullable: true
-        field_path:
-          type: string
-    Links:
-      type: object
-      additionalProperties:
-        oneOf:
-        - type: string
-          format: uri
-        - type: object
-          properties:
-            href:
-              type: string
-              format: uri
-            meta:
-              type: object
     NodeFrontPage:
       type: object
       description: The OpenJustice front page composition.
@@ -866,42 +778,9 @@ components:
           $ref: '#/components/schemas/NodeFrontPageAttributes'
         relationships:
           $ref: '#/components/schemas/NodeFrontPageRelationships'
-    NodeDocumentationRelationships:
+    NodeFrontPageAttributes:
       type: object
-      properties:
-        node_type:
-          type: object
-          description: To-one relationship to node_type--node_type.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        revision_uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-    NodeDataStorySectionAttributes:
-      type: object
-      description: Attributes observed on live `node--data_story_section` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      description: Attributes observed on live `node--front_page` resources (1 sampled on 2026-09-17). Names are the Drupal field machine names.
       properties:
         drupal_internal__nid:
           type: integer
@@ -935,6 +814,7 @@ components:
           type: boolean
         moderation_state:
           type: string
+          nullable: true
         path:
           type: object
           properties:
@@ -944,141 +824,6 @@ components:
               type: integer
             langcode:
               type: string
-        body:
-          type: object
-          properties:
-            value:
-              type: string
-            format:
-              type: string
-            processed:
-              type: string
-            summary:
-              type: string
-        field_path:
-          type: string
-        field_short_title:
-          type: string
-    NodeDataStoryAttributes:
-      type: object
-      description: Attributes observed on live `node--data_story` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        drupal_internal__nid:
-          type: integer
-        drupal_internal__vid:
-          type: integer
-        langcode:
-          type: string
-        revision_timestamp:
-          type: string
-          format: date-time
-        revision_log:
-          type: string
-          nullable: true
-        status:
-          type: boolean
-        title:
-          type: string
-        created:
-          type: string
-          format: date-time
-        changed:
-          type: string
-          format: date-time
-        promote:
-          type: boolean
-        sticky:
-          type: boolean
-        default_langcode:
-          type: boolean
-        revision_translation_affected:
-          type: boolean
-        moderation_state:
-          type: string
-        path:
-          type: object
-          properties:
-            alias:
-              type: string
-            pid:
-              type: integer
-            langcode:
-              type: string
-        body:
-          type: object
-          properties:
-            value:
-              type: string
-            format:
-              type: string
-            processed:
-              type: string
-            summary:
-              type: string
-        field_chart_layout:
-          type: string
-          nullable: true
-        field_data_subtitle:
-          type: string
-        field_focus_box:
-          type: string
-          nullable: true
-        field_tabs:
-          type: string
-          nullable: true
-    NodePublicationRelationships:
-      type: object
-      properties:
-        node_type:
-          type: object
-          description: To-one relationship to node_type--node_type.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        revision_uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        field_publication_reports:
-          type: object
-          description: To-many relationship to paragraph--publication_report.
-          properties:
-            data:
-              type: array
-              items:
-                $ref: '#/components/schemas/ResourceIdentifier'
-            links:
-              $ref: '#/components/schemas/Links'
-        field_pub_image:
-          type: object
-          description: To-one relationship to file--file.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
     NodeDataStoryRelationships:
       type: object
       properties:
@@ -1152,9 +897,9 @@ components:
                 $ref: '#/components/schemas/ResourceIdentifier'
             links:
               $ref: '#/components/schemas/Links'
-    NodeDatasetAttributes:
+    NodeDataStorySectionAttributes:
       type: object
-      description: Attributes observed on live `node--dataset` resources (26 sampled on 2026-09-17). Names are the Drupal field machine names.
+      description: Attributes observed on live `node--data_story_section` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
       properties:
         drupal_internal__nid:
           type: integer
@@ -1210,65 +955,37 @@ components:
               type: string
         field_path:
           type: string
-    NodePage:
+        field_short_title:
+          type: string
+    Links:
       type: object
-      description: Basic content pages of the OpenJustice site.
+      additionalProperties:
+        oneOf:
+        - type: string
+          format: uri
+        - type: object
+          properties:
+            href:
+              type: string
+              format: uri
+            meta:
+              type: object
+    NodePublication:
+      type: object
+      description: CJSC statistical publications (annual Crime in California, Homicide in California, Hate Crime in California, Juvenile Justice in California, Use of Force, RIPA). Each publication relates to per-year report paragraphs through `field_publication_reports`.
       properties:
         type:
           type: string
-          const: node--page
+          const: node--publication
         id:
           type: string
           format: uuid
         links:
           $ref: '#/components/schemas/Links'
         attributes:
-          $ref: '#/components/schemas/NodePageAttributes'
+          $ref: '#/components/schemas/NodePublicationAttributes'
         relationships:
-          $ref: '#/components/schemas/NodePageRelationships'
-    NodeDataStorySection:
-      type: object
-      description: Sections within a data story, related to the parent story, its year term and story type.
-      properties:
-        type:
-          type: string
-          const: node--data_story_section
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/NodeDataStorySectionAttributes'
-        relationships:
-          $ref: '#/components/schemas/NodeDataStorySectionRelationships'
-    NodeDocumentation:
-      type: object
-      description: Data documentation pages published alongside the datasets.
-      properties:
-        type:
-          type: string
-          const: node--documentation
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/NodeDocumentationAttributes'
-        relationships:
-          $ref: '#/components/schemas/NodeDocumentationRelationships'
-    ErrorDocument:
-      type: object
-      required:
-      - errors
-      properties:
-        jsonapi:
-          $ref: '#/components/schemas/JsonApiObject'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
+          $ref: '#/components/schemas/NodePublicationRelationships'
     ErrorObject:
       type: object
       properties:
@@ -1310,7 +1027,52 @@ components:
               type: string
             parameter:
               type: string
-    NodePageRelationships:
+    CollectionDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+          description: Present when ?include= names relationships.
+        meta:
+          type: object
+          properties:
+            omitted:
+              type: object
+              description: Present when Drupal withheld resources the anonymous caller may not view; carries a detail message and per-item links.
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Links'
+            next:
+              $ref: '#/components/schemas/Links'
+            prev:
+              $ref: '#/components/schemas/Links'
+    NodeDataset:
+      type: object
+      description: OpenJustice Open Data Portal datasets — the 26 published criminal-justice data products (Arrests, Crimes and Clearances, Homicide, Hate Crime, Use of Force, RIPA Stop Data, Death in Custody, Domestic Violence calls, Gun Violence Restraining Orders, Electronic Search Warrant notifications and more). Each dataset relates to its CSV/XLSX/ZIP/PDF distributions through `field_source` (file--file) and to a data-type taxonomy term through `field_data_type`. This is the collection a data consumer wants.
+      properties:
+        type:
+          type: string
+          const: node--dataset
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeDatasetAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeDatasetRelationships'
+    NodeStatsRelationships:
       type: object
       properties:
         node_type:
@@ -1343,124 +1105,9 @@ components:
               - type: 'null'
             links:
               $ref: '#/components/schemas/Links'
-        field_section:
+        field_private_interactive_tables:
           type: object
-          description: To-one relationship to taxonomy_term--site_section.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        field_story_type:
-          type: object
-          description: To-one relationship to taxonomy_term--story_type.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-    NodePageAttributes:
-      type: object
-      description: Attributes observed on live `node--page` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        drupal_internal__nid:
-          type: integer
-        drupal_internal__vid:
-          type: integer
-        langcode:
-          type: string
-        revision_timestamp:
-          type: string
-          format: date-time
-        revision_log:
-          type: string
-          nullable: true
-        status:
-          type: boolean
-        title:
-          type: string
-        created:
-          type: string
-          format: date-time
-        changed:
-          type: string
-          format: date-time
-        promote:
-          type: boolean
-        sticky:
-          type: boolean
-        default_langcode:
-          type: boolean
-        revision_translation_affected:
-          type: boolean
-        moderation_state:
-          type: string
-        path:
-          type: object
-          properties:
-            alias:
-              type: string
-            pid:
-              type: integer
-            langcode:
-              type: string
-        body:
-          type: object
-          properties:
-            value:
-              type: string
-            format:
-              type: string
-            processed:
-              type: string
-            summary:
-              type: string
-        field_display_sidebar:
-          type: string
-          nullable: true
-        field_jumbotron:
-          type: string
-          nullable: true
-    NodeDataStorySectionRelationships:
-      type: object
-      properties:
-        node_type:
-          type: object
-          description: To-one relationship to node_type--node_type.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        revision_uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        field_data_story:
-          type: object
-          description: To-many relationship to node--data_story.
+          description: To-many relationship.
           properties:
             data:
               type: array
@@ -1468,280 +1115,16 @@ components:
                 $ref: '#/components/schemas/ResourceIdentifier'
             links:
               $ref: '#/components/schemas/Links'
-        field_data_story_year:
+        field_source:
           type: object
-          description: To-one relationship to taxonomy_term--data_story_year.
+          description: To-many relationship to file--file.
           properties:
             data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
             links:
               $ref: '#/components/schemas/Links'
-        field_story_type:
-          type: object
-          description: To-one relationship.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-    NodeExplorationRelationships:
-      type: object
-      properties:
-        node_type:
-          type: object
-          description: To-one relationship to node_type--node_type.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        revision_uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        uid:
-          type: object
-          description: To-one relationship to user--user.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-    NodeExplorationAttributes:
-      type: object
-      description: Attributes observed on live `node--exploration` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        drupal_internal__nid:
-          type: integer
-        drupal_internal__vid:
-          type: integer
-        langcode:
-          type: string
-        revision_timestamp:
-          type: string
-          format: date-time
-        revision_log:
-          type: string
-          nullable: true
-        status:
-          type: boolean
-        title:
-          type: string
-        created:
-          type: string
-          format: date-time
-        changed:
-          type: string
-          format: date-time
-        promote:
-          type: boolean
-        sticky:
-          type: boolean
-        default_langcode:
-          type: boolean
-        revision_translation_affected:
-          type: string
-          nullable: true
-        moderation_state:
-          type: string
-          nullable: true
-        path:
-          type: object
-          properties:
-            alias:
-              type: string
-            pid:
-              type: integer
-            langcode:
-              type: string
-        body:
-          type: object
-          properties:
-            value:
-              type: string
-            format:
-              type: string
-            processed:
-              type: string
-            summary:
-              type: string
-    ResourceIdentifier:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-          description: entity--bundle
-        id:
-          type: string
-          format: uuid
-        meta:
-          type: object
-          properties:
-            drupal_internal__target_id:
-              oneOf:
-              - type: integer
-              - type: string
-    NodeExploration:
-      type: object
-      description: Landing pages for the Exploration section of OpenJustice.
-      properties:
-        type:
-          type: string
-          const: node--exploration
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/NodeExplorationAttributes'
-        relationships:
-          $ref: '#/components/schemas/NodeExplorationRelationships'
-    NodeLandingPageAttributes:
-      type: object
-      description: Attributes observed on live `node--landing_page` resources (2 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        drupal_internal__nid:
-          type: integer
-        drupal_internal__vid:
-          type: integer
-        langcode:
-          type: string
-        revision_timestamp:
-          type: string
-          format: date-time
-        revision_log:
-          type: string
-          nullable: true
-        status:
-          type: boolean
-        title:
-          type: string
-        created:
-          type: string
-          format: date-time
-        changed:
-          type: string
-          format: date-time
-        promote:
-          type: boolean
-        sticky:
-          type: boolean
-        default_langcode:
-          type: boolean
-        revision_translation_affected:
-          type: boolean
-          nullable: true
-        moderation_state:
-          type: string
-          nullable: true
-        path:
-          type: object
-          properties:
-            alias:
-              type: string
-            pid:
-              type: integer
-            langcode:
-              type: string
-        body:
-          type: object
-          properties:
-            value:
-              type: string
-            format:
-              type: string
-            processed:
-              type: string
-            summary:
-              type: string
-          nullable: true
-    IndividualDocument:
-      type: object
-      properties:
-        jsonapi:
-          $ref: '#/components/schemas/JsonApiObject'
-        data:
-          $ref: '#/components/schemas/ResourceObject'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-        links:
-          $ref: '#/components/schemas/Links'
-    JsonApiObject:
-      type: object
-      properties:
-        version:
-          type: string
-          const: '1.0'
-        meta:
-          type: object
-    NodeLandingPage:
-      type: object
-      description: Section landing pages composed of section-block paragraphs.
-      properties:
-        type:
-          type: string
-          const: node--landing_page
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/NodeLandingPageAttributes'
-        relationships:
-          $ref: '#/components/schemas/NodeLandingPageRelationships'
-    NodeStats:
-      type: object
-      description: The six OpenJustice Exploration "stats" pages (crime statistics explorers). `field_data_query` names the server-side query slug the dashboard uses; `field_path` is the public exploration path.
-      properties:
-        type:
-          type: string
-          const: node--stats
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/NodeStatsAttributes'
-        relationships:
-          $ref: '#/components/schemas/NodeStatsRelationships'
-    NodePublication:
-      type: object
-      description: CJSC statistical publications (annual Crime in California, Homicide in California, Hate Crime in California, Juvenile Justice in California, Use of Force, RIPA). Each publication relates to per-year report paragraphs through `field_publication_reports`.
-      properties:
-        type:
-          type: string
-          const: node--publication
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/NodePublicationAttributes'
-        relationships:
-          $ref: '#/components/schemas/NodePublicationRelationships'
     NodeFrontPageRelationships:
       type: object
       properties:
@@ -1838,124 +1221,70 @@ components:
                 $ref: '#/components/schemas/ResourceIdentifier'
             links:
               $ref: '#/components/schemas/Links'
-    CollectionDocument:
+    NodePageRelationships:
       type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_section:
+          type: object
+          description: To-one relationship to taxonomy_term--site_section.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_story_type:
+          type: object
+          description: To-one relationship to taxonomy_term--story_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    ErrorDocument:
+      type: object
+      required:
+      - errors
       properties:
         jsonapi:
           $ref: '#/components/schemas/JsonApiObject'
-        data:
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/ResourceObject'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-          description: Present when ?include= names relationships.
-        meta:
-          type: object
-          properties:
-            omitted:
-              type: object
-              description: Present when Drupal withheld resources the anonymous caller may not view; carries a detail message and per-item links.
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Links'
-            next:
-              $ref: '#/components/schemas/Links'
-            prev:
-              $ref: '#/components/schemas/Links'
-    NodePublicationAttributes:
-      type: object
-      description: Attributes observed on live `node--publication` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        drupal_internal__nid:
-          type: integer
-        drupal_internal__vid:
-          type: integer
-        langcode:
-          type: string
-        revision_timestamp:
-          type: string
-          format: date-time
-        revision_log:
-          type: string
-          nullable: true
-        status:
-          type: boolean
-        title:
-          type: string
-        created:
-          type: string
-          format: date-time
-        changed:
-          type: string
-          format: date-time
-        promote:
-          type: boolean
-        sticky:
-          type: boolean
-        default_langcode:
-          type: boolean
-        revision_translation_affected:
-          type: boolean
-        moderation_state:
-          type: string
-        path:
-          type: object
-          properties:
-            alias:
-              type: string
-            pid:
-              type: integer
-            langcode:
-              type: string
-        body:
-          type: object
-          properties:
-            value:
-              type: string
-            format:
-              type: string
-            processed:
-              type: string
-            summary:
-              type: string
-    ResourceObject:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        attributes:
-          type: object
-        relationships:
-          type: object
-        links:
-          $ref: '#/components/schemas/Links'
-    NodeDataset:
-      type: object
-      description: OpenJustice Open Data Portal datasets — the 26 published criminal-justice data products (Arrests, Crimes and Clearances, Homicide, Hate Crime, Use of Force, RIPA Stop Data, Death in Custody, Domestic Violence calls, Gun Violence Restraining Orders, Electronic Search Warrant notifications and more). Each dataset relates to its CSV/XLSX/ZIP/PDF distributions through `field_source` (file--file) and to a data-type taxonomy term through `field_data_type`. This is the collection a data consumer wants.
-      properties:
-        type:
-          type: string
-          const: node--dataset
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/NodeDatasetAttributes'
-        relationships:
-          $ref: '#/components/schemas/NodeDatasetRelationships'
+            $ref: '#/components/schemas/ErrorObject'
     NodeDocumentationAttributes:
       type: object
       description: Attributes observed on live `node--documentation` resources (2 sampled on 2026-09-17). Names are the Drupal field machine names.
@@ -2014,9 +1343,9 @@ components:
               type: string
             summary:
               type: string
-    NodeFrontPageAttributes:
+    NodePageAttributes:
       type: object
-      description: Attributes observed on live `node--front_page` resources (1 sampled on 2026-09-17). Names are the Drupal field machine names.
+      description: Attributes observed on live `node--page` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
       properties:
         drupal_internal__nid:
           type: integer
@@ -2050,6 +1379,195 @@ components:
           type: boolean
         moderation_state:
           type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+        field_display_sidebar:
+          type: string
+          nullable: true
+        field_jumbotron:
+          type: string
+          nullable: true
+    NodePage:
+      type: object
+      description: Basic content pages of the OpenJustice site.
+      properties:
+        type:
+          type: string
+          const: node--page
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodePageAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodePageRelationships'
+    NodeDataStorySection:
+      type: object
+      description: Sections within a data story, related to the parent story, its year term and story type.
+      properties:
+        type:
+          type: string
+          const: node--data_story_section
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeDataStorySectionAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeDataStorySectionRelationships'
+    NodeExploration:
+      type: object
+      description: Landing pages for the Exploration section of OpenJustice.
+      properties:
+        type:
+          type: string
+          const: node--exploration
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeExplorationAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeExplorationRelationships'
+    NodeStats:
+      type: object
+      description: The six OpenJustice Exploration "stats" pages (crime statistics explorers). `field_data_query` names the server-side query slug the dashboard uses; `field_path` is the public exploration path.
+      properties:
+        type:
+          type: string
+          const: node--stats
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeStatsAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeStatsRelationships'
+    NodeExplorationRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeLandingPage:
+      type: object
+      description: Section landing pages composed of section-block paragraphs.
+      properties:
+        type:
+          type: string
+          const: node--landing_page
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeLandingPageAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeLandingPageRelationships'
+    IndividualDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        links:
+          $ref: '#/components/schemas/Links'
+    NodeExplorationAttributes:
+      type: object
+      description: Attributes observed on live `node--exploration` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: string
+          nullable: true
+        moderation_state:
+          type: string
           nullable: true
         path:
           type: object
@@ -2060,6 +1578,92 @@ components:
               type: integer
             langcode:
               type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+    NodeDatasetAttributes:
+      type: object
+      description: Attributes observed on live `node--dataset` resources (26 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+        field_path:
+          type: string
+    ResourceObject:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type: object
+        links:
+          $ref: '#/components/schemas/Links'
     NodeDatasetRelationships:
       type: object
       properties:
@@ -2113,31 +1717,403 @@ components:
                 $ref: '#/components/schemas/ResourceIdentifier'
             links:
               $ref: '#/components/schemas/Links'
+    NodePublicationRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_publication_reports:
+          type: object
+          description: To-many relationship to paragraph--publication_report.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_pub_image:
+          type: object
+          description: To-one relationship to file--file.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    ResourceIdentifier:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+          description: entity--bundle
+        id:
+          type: string
+          format: uuid
+        meta:
+          type: object
+          properties:
+            drupal_internal__target_id:
+              oneOf:
+              - type: integer
+              - type: string
+    NodeDocumentation:
+      type: object
+      description: Data documentation pages published alongside the datasets.
+      properties:
+        type:
+          type: string
+          const: node--documentation
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeDocumentationAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeDocumentationRelationships'
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          const: '1.0'
+        meta:
+          type: object
+    NodeDataStorySectionRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_data_story:
+          type: object
+          description: To-many relationship to node--data_story.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_data_story_year:
+          type: object
+          description: To-one relationship to taxonomy_term--data_story_year.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        field_story_type:
+          type: object
+          description: To-one relationship.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeDocumentationRelationships:
+      type: object
+      properties:
+        node_type:
+          type: object
+          description: To-one relationship to node_type--node_type.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        uid:
+          type: object
+          description: To-one relationship to user--user.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+    NodeDataStory:
+      type: object
+      description: OpenJustice Data Stories — narrative statistical stories composed of chart paragraphs (`field_data_chart`), tabs and sections.
+      properties:
+        type:
+          type: string
+          const: node--data_story
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/NodeDataStoryAttributes'
+        relationships:
+          $ref: '#/components/schemas/NodeDataStoryRelationships'
+    NodeStatsAttributes:
+      type: object
+      description: Attributes observed on live `node--stats` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+        field_data_query:
+          type: string
+        field_ext_link:
+          type: string
+          nullable: true
+        field_path:
+          type: string
+    NodeDataStoryAttributes:
+      type: object
+      description: Attributes observed on live `node--data_story` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        moderation_state:
+          type: string
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+        field_chart_layout:
+          type: string
+          nullable: true
+        field_data_subtitle:
+          type: string
+        field_focus_box:
+          type: string
+          nullable: true
+        field_tabs:
+          type: string
+          nullable: true
+    NodeLandingPageAttributes:
+      type: object
+      description: Attributes observed on live `node--landing_page` resources (2 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        drupal_internal__nid:
+          type: integer
+        drupal_internal__vid:
+          type: integer
+        langcode:
+          type: string
+        revision_timestamp:
+          type: string
+          format: date-time
+        revision_log:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        title:
+          type: string
+        created:
+          type: string
+          format: date-time
+        changed:
+          type: string
+          format: date-time
+        promote:
+          type: boolean
+        sticky:
+          type: boolean
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+          nullable: true
+        moderation_state:
+          type: string
+          nullable: true
+        path:
+          type: object
+          properties:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+        body:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+            processed:
+              type: string
+            summary:
+              type: string
+          nullable: true
   responses:
-    BadRequest:
-      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
-          example:
-            jsonapi:
-              version: '1.0'
-              meta:
-                links:
-                  self:
-                    href: http://jsonapi.org/format/1.0/
-            errors:
-            - title: Bad Request
-              status: '400'
-              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
-              links:
-                via:
-                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
-                info:
-                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
-    ServiceUnavailable:
-      description: Not observed during the probe; listed because the site runs behind an F5 load balancer (persistence cookie `oag.ca.gov`) that answers on behalf of an unavailable origin.
     NotFound:
       description: No resource with that UUID. JSON:API error document.
       content:
@@ -2160,6 +2136,30 @@ components:
                   href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/00000000-0000-0000-0000-000000000000
                 info:
                   href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
+    ServiceUnavailable:
+      description: Not observed during the probe; listed because the site runs behind an F5 load balancer (persistence cookie `oag.ca.gov`) that answers on behalf of an unavailable origin.
+    BadRequest:
+      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Bad Request
+              status: '400'
+              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
   parameters:
     filter:
       name: filter
@@ -2171,24 +2171,6 @@ components:
         additionalProperties: true
       description: 'Drupal JSON:API filter family: `filter[<field>]=value` for equality, or `filter[<field>][operator]=CONTAINS&filter[<field>][value]=...` for other operators (=, <>, >, >=, <, <=, STARTS_WITH, CONTAINS, ENDS_WITH, IN, NOT IN, IS NULL, IS NOT NULL, BETWEEN). Verified 2026-09-17: `filter[title][operator]=CONTAINS&filter[title][value]=Arrest` on node/dataset returned 3 datasets; an unknown field returns HTTP 400 "Invalid nested filtering."'
       example: filter[title][operator]=CONTAINS&filter[title][value]=Arrest
-    fields:
-      name: fields
-      in: query
-      style: deepObject
-      explode: true
-      schema:
-        type: object
-        additionalProperties:
-          type: string
-      description: 'Sparse fieldsets keyed by resource type: `fields[file--file]=uri,filesize,filemime,filename`. Verified.'
-      example: fields[file--file]=uri,filesize,filemime,filename
-    include:
-      name: include
-      in: query
-      schema:
-        type: string
-      description: 'Comma-separated relationship paths to side-load into `included` (JSON:API compound documents). Verified 2026-09-17: `include=field_source,field_data_type` on node/dataset side-loaded 148 file--file distributions across the 26 datasets.'
-      example: field_source,field_data_type
     pageLimit:
       name: page[limit]
       in: query
@@ -2206,13 +2188,6 @@ components:
         type: string
         format: uuid
       description: Resource UUID (the JSON:API `id`, not `drupal_internal__nid`).
-    sort:
-      name: sort
-      in: query
-      schema:
-        type: string
-      description: Comma-separated attribute names; prefix with `-` for descending (JSON:API 1.0). Verified with `sort=title`.
-      example: title
     pageOffset:
       name: page[offset]
       in: query
@@ -2221,6 +2196,31 @@ components:
         minimum: 0
         default: 0
       description: Zero-based offset. Follow `links.next` rather than computing offsets.
+    sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+      description: Comma-separated attribute names; prefix with `-` for descending (JSON:API 1.0). Verified with `sort=title`.
+      example: title
+    include:
+      name: include
+      in: query
+      schema:
+        type: string
+      description: 'Comma-separated relationship paths to side-load into `included` (JSON:API compound documents). Verified 2026-09-17: `include=field_source,field_data_type` on node/dataset side-loaded 148 file--file distributions across the 26 datasets.'
+      example: field_source,field_data_type
+    fields:
+      name: fields
+      in: query
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: string
+      description: 'Sparse fieldsets keyed by resource type: `fields[file--file]=uri,filesize,filemime,filename`. Verified.'
+      example: fields[file--file]=uri,filesize,filemime,filename
 x-provenance:
   generated: '2026-09-17'
   method: probed

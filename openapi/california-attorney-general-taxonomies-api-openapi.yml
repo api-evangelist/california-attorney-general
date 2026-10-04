@@ -297,10 +297,57 @@ paths:
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
 components:
+  responses:
+    NotFound:
+      description: No resource with that UUID. JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Not Found
+              status: '404'
+              detail: 'The "entity" parameter was not converted for the path "/jsonapi/node/dataset/{entity}" (route name: "jsonapi.node--dataset.individual")'
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/00000000-0000-0000-0000-000000000000
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
+    ServiceUnavailable:
+      description: Not observed during the probe; listed because the site runs behind an F5 load balancer (persistence cookie `oag.ca.gov`) that answers on behalf of an unavailable origin.
+    BadRequest:
+      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Bad Request
+              status: '400'
+              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
   schemas:
-    TaxonomyTermStoryTypeAttributes:
+    TaxonomyTermSiteSectionAttributes:
       type: object
-      description: Attributes observed on live `taxonomy_term--story_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
+      description: Attributes observed on live `taxonomy_term--site_section` resources (1 sampled on 2026-09-17). Names are the Drupal field machine names.
       properties:
         drupal_internal__tid:
           type: integer
@@ -339,84 +386,6 @@ components:
               type: integer
             langcode:
               type: string
-    Links:
-      type: object
-      additionalProperties:
-        oneOf:
-        - type: string
-          format: uri
-        - type: object
-          properties:
-            href:
-              type: string
-              format: uri
-            meta:
-              type: object
-    TaxonomyTermDataStoryYear:
-      type: object
-      description: Year vocabulary for data stories.
-      properties:
-        type:
-          type: string
-          const: taxonomy_term--data_story_year
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/TaxonomyTermDataStoryYearAttributes'
-        relationships:
-          $ref: '#/components/schemas/TaxonomyTermDataStoryYearRelationships'
-    TaxonomyTermSiteSectionRelationships:
-      type: object
-      properties:
-        vid:
-          type: object
-          description: To-one relationship to taxonomy_vocabulary--taxonomy_vocabulary.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        revision_user:
-          type: object
-          description: To-one relationship.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        parent:
-          type: object
-          description: To-many relationship to taxonomy_term--site_section.
-          properties:
-            data:
-              type: array
-              items:
-                $ref: '#/components/schemas/ResourceIdentifier'
-            links:
-              $ref: '#/components/schemas/Links'
-    TaxonomyTermStoryType:
-      type: object
-      description: Story-type vocabulary.
-      properties:
-        type:
-          type: string
-          const: taxonomy_term--story_type
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/TaxonomyTermStoryTypeAttributes'
-        relationships:
-          $ref: '#/components/schemas/TaxonomyTermStoryTypeRelationships'
     TaxonomyTermDataStoryYearRelationships:
       type: object
       properties:
@@ -450,107 +419,19 @@ components:
                 $ref: '#/components/schemas/ResourceIdentifier'
             links:
               $ref: '#/components/schemas/Links'
-    TaxonomyTermDataTypeAttributes:
+    Links:
       type: object
-      description: Attributes observed on live `taxonomy_term--data_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
-      properties:
-        drupal_internal__tid:
-          type: integer
-        drupal_internal__revision_id:
-          type: integer
-        langcode:
-          type: string
-        revision_created:
-          type: string
-          nullable: true
-        revision_log_message:
-          type: string
-          nullable: true
-        status:
-          type: boolean
-        name:
-          type: string
-        description:
-          type: string
-          nullable: true
-        weight:
-          type: integer
-        changed:
-          type: string
-          format: date-time
-        default_langcode:
-          type: boolean
-        revision_translation_affected:
-          type: boolean
-        path:
-          type: object
+      additionalProperties:
+        oneOf:
+        - type: string
+          format: uri
+        - type: object
           properties:
-            alias:
+            href:
               type: string
-            pid:
-              type: integer
-            langcode:
-              type: string
-    TaxonomyTermStoryTypeRelationships:
-      type: object
-      properties:
-        vid:
-          type: object
-          description: To-one relationship to taxonomy_vocabulary--taxonomy_vocabulary.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        revision_user:
-          type: object
-          description: To-one relationship.
-          properties:
-            data:
-              oneOf:
-              - $ref: '#/components/schemas/ResourceIdentifier'
-              - type: 'null'
-            links:
-              $ref: '#/components/schemas/Links'
-        parent:
-          type: object
-          description: To-many relationship to taxonomy_term--story_type.
-          properties:
-            data:
-              type: array
-              items:
-                $ref: '#/components/schemas/ResourceIdentifier'
-            links:
-              $ref: '#/components/schemas/Links'
-    TaxonomyTermSiteSection:
-      type: object
-      description: Site-section vocabulary.
-      properties:
-        type:
-          type: string
-          const: taxonomy_term--site_section
-        id:
-          type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/TaxonomyTermSiteSectionAttributes'
-        relationships:
-          $ref: '#/components/schemas/TaxonomyTermSiteSectionRelationships'
-    ErrorDocument:
-      type: object
-      required:
-      - errors
-      properties:
-        jsonapi:
-          $ref: '#/components/schemas/JsonApiObject'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
+              format: uri
+            meta:
+              type: object
     ErrorObject:
       type: object
       properties:
@@ -592,6 +473,127 @@ components:
               type: string
             parameter:
               type: string
+    CollectionDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+          description: Present when ?include= names relationships.
+        meta:
+          type: object
+          properties:
+            omitted:
+              type: object
+              description: Present when Drupal withheld resources the anonymous caller may not view; carries a detail message and per-item links.
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Links'
+            next:
+              $ref: '#/components/schemas/Links'
+            prev:
+              $ref: '#/components/schemas/Links'
+    TaxonomyTermStoryType:
+      type: object
+      description: Story-type vocabulary.
+      properties:
+        type:
+          type: string
+          const: taxonomy_term--story_type
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/TaxonomyTermStoryTypeAttributes'
+        relationships:
+          $ref: '#/components/schemas/TaxonomyTermStoryTypeRelationships'
+    TaxonomyTermDataTypeRelationships:
+      type: object
+      properties:
+        vid:
+          type: object
+          description: To-one relationship to taxonomy_vocabulary--taxonomy_vocabulary.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        revision_user:
+          type: object
+          description: To-one relationship.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
+              $ref: '#/components/schemas/Links'
+        parent:
+          type: object
+          description: To-many relationship to taxonomy_term--data_type.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
+              $ref: '#/components/schemas/Links'
+    TaxonomyTermDataStoryYear:
+      type: object
+      description: Year vocabulary for data stories.
+      properties:
+        type:
+          type: string
+          const: taxonomy_term--data_story_year
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/TaxonomyTermDataStoryYearAttributes'
+        relationships:
+          $ref: '#/components/schemas/TaxonomyTermDataStoryYearRelationships'
+    ErrorDocument:
+      type: object
+      required:
+      - errors
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+    TaxonomyTermDataType:
+      type: object
+      description: Data-type vocabulary used to classify datasets.
+      properties:
+        type:
+          type: string
+          const: taxonomy_term--data_type
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/TaxonomyTermDataTypeAttributes'
+        relationships:
+          $ref: '#/components/schemas/TaxonomyTermDataTypeRelationships'
     TaxonomyTermDataStoryYearAttributes:
       type: object
       description: Attributes observed on live `taxonomy_term--data_story_year` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
@@ -634,9 +636,39 @@ components:
               type: integer
             langcode:
               type: string
-    TaxonomyTermSiteSectionAttributes:
+    IndividualDocument:
       type: object
-      description: Attributes observed on live `taxonomy_term--site_section` resources (1 sampled on 2026-09-17). Names are the Drupal field machine names.
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          $ref: '#/components/schemas/ResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceObject'
+        links:
+          $ref: '#/components/schemas/Links'
+    ResourceObject:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type: object
+        links:
+          $ref: '#/components/schemas/Links'
+    TaxonomyTermDataTypeAttributes:
+      type: object
+      description: Attributes observed on live `taxonomy_term--data_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
       properties:
         drupal_internal__tid:
           type: integer
@@ -675,6 +707,22 @@ components:
               type: integer
             langcode:
               type: string
+    TaxonomyTermSiteSection:
+      type: object
+      description: Site-section vocabulary.
+      properties:
+        type:
+          type: string
+          const: taxonomy_term--site_section
+        id:
+          type: string
+          format: uuid
+        links:
+          $ref: '#/components/schemas/Links'
+        attributes:
+          $ref: '#/components/schemas/TaxonomyTermSiteSectionAttributes'
+        relationships:
+          $ref: '#/components/schemas/TaxonomyTermSiteSectionRelationships'
     ResourceIdentifier:
       type: object
       required:
@@ -694,19 +742,6 @@ components:
               oneOf:
               - type: integer
               - type: string
-    IndividualDocument:
-      type: object
-      properties:
-        jsonapi:
-          $ref: '#/components/schemas/JsonApiObject'
-        data:
-          $ref: '#/components/schemas/ResourceObject'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-        links:
-          $ref: '#/components/schemas/Links'
     JsonApiObject:
       type: object
       properties:
@@ -715,7 +750,7 @@ components:
           const: '1.0'
         meta:
           type: object
-    TaxonomyTermDataTypeRelationships:
+    TaxonomyTermStoryTypeRelationships:
       type: object
       properties:
         vid:
@@ -740,7 +775,7 @@ components:
               $ref: '#/components/schemas/Links'
         parent:
           type: object
-          description: To-many relationship to taxonomy_term--data_type.
+          description: To-many relationship to taxonomy_term--story_type.
           properties:
             data:
               type: array
@@ -748,115 +783,80 @@ components:
                 $ref: '#/components/schemas/ResourceIdentifier'
             links:
               $ref: '#/components/schemas/Links'
-    ResourceObject:
+    TaxonomyTermStoryTypeAttributes:
       type: object
-      required:
-      - type
-      - id
+      description: Attributes observed on live `taxonomy_term--story_type` resources (3 sampled on 2026-09-17). Names are the Drupal field machine names.
       properties:
-        type:
+        drupal_internal__tid:
+          type: integer
+        drupal_internal__revision_id:
+          type: integer
+        langcode:
           type: string
-        id:
+        revision_created:
           type: string
-          format: uuid
-        attributes:
-          type: object
-        relationships:
-          type: object
-        links:
-          $ref: '#/components/schemas/Links'
-    TaxonomyTermDataType:
-      type: object
-      description: Data-type vocabulary used to classify datasets.
-      properties:
-        type:
+          nullable: true
+        revision_log_message:
           type: string
-          const: taxonomy_term--data_type
-        id:
+          nullable: true
+        status:
+          type: boolean
+        name:
           type: string
-          format: uuid
-        links:
-          $ref: '#/components/schemas/Links'
-        attributes:
-          $ref: '#/components/schemas/TaxonomyTermDataTypeAttributes'
-        relationships:
-          $ref: '#/components/schemas/TaxonomyTermDataTypeRelationships'
-    CollectionDocument:
-      type: object
-      properties:
-        jsonapi:
-          $ref: '#/components/schemas/JsonApiObject'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceObject'
-          description: Present when ?include= names relationships.
-        meta:
+        description:
+          type: string
+          nullable: true
+        weight:
+          type: integer
+        changed:
+          type: string
+          format: date-time
+        default_langcode:
+          type: boolean
+        revision_translation_affected:
+          type: boolean
+        path:
           type: object
           properties:
-            omitted:
-              type: object
-              description: Present when Drupal withheld resources the anonymous caller may not view; carries a detail message and per-item links.
-        links:
+            alias:
+              type: string
+            pid:
+              type: integer
+            langcode:
+              type: string
+    TaxonomyTermSiteSectionRelationships:
+      type: object
+      properties:
+        vid:
           type: object
+          description: To-one relationship to taxonomy_vocabulary--taxonomy_vocabulary.
           properties:
-            self:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
               $ref: '#/components/schemas/Links'
-            next:
+        revision_user:
+          type: object
+          description: To-one relationship.
+          properties:
+            data:
+              oneOf:
+              - $ref: '#/components/schemas/ResourceIdentifier'
+              - type: 'null'
+            links:
               $ref: '#/components/schemas/Links'
-            prev:
+        parent:
+          type: object
+          description: To-many relationship to taxonomy_term--site_section.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResourceIdentifier'
+            links:
               $ref: '#/components/schemas/Links'
-  responses:
-    BadRequest:
-      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
-          example:
-            jsonapi:
-              version: '1.0'
-              meta:
-                links:
-                  self:
-                    href: http://jsonapi.org/format/1.0/
-            errors:
-            - title: Bad Request
-              status: '400'
-              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
-              links:
-                via:
-                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
-                info:
-                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
-    ServiceUnavailable:
-      description: Not observed during the probe; listed because the site runs behind an F5 load balancer (persistence cookie `oag.ca.gov`) that answers on behalf of an unavailable origin.
-    NotFound:
-      description: No resource with that UUID. JSON:API error document.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
-          example:
-            jsonapi:
-              version: '1.0'
-              meta:
-                links:
-                  self:
-                    href: http://jsonapi.org/format/1.0/
-            errors:
-            - title: Not Found
-              status: '404'
-              detail: 'The "entity" parameter was not converted for the path "/jsonapi/node/dataset/{entity}" (route name: "jsonapi.node--dataset.individual")'
-              links:
-                via:
-                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset/00000000-0000-0000-0000-000000000000
-                info:
-                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
   parameters:
     filter:
       name: filter
@@ -868,24 +868,6 @@ components:
         additionalProperties: true
       description: 'Drupal JSON:API filter family: `filter[<field>]=value` for equality, or `filter[<field>][operator]=CONTAINS&filter[<field>][value]=...` for other operators (=, <>, >, >=, <, <=, STARTS_WITH, CONTAINS, ENDS_WITH, IN, NOT IN, IS NULL, IS NOT NULL, BETWEEN). Verified 2026-09-17: `filter[title][operator]=CONTAINS&filter[title][value]=Arrest` on node/dataset returned 3 datasets; an unknown field returns HTTP 400 "Invalid nested filtering."'
       example: filter[title][operator]=CONTAINS&filter[title][value]=Arrest
-    fields:
-      name: fields
-      in: query
-      style: deepObject
-      explode: true
-      schema:
-        type: object
-        additionalProperties:
-          type: string
-      description: 'Sparse fieldsets keyed by resource type: `fields[file--file]=uri,filesize,filemime,filename`. Verified.'
-      example: fields[file--file]=uri,filesize,filemime,filename
-    include:
-      name: include
-      in: query
-      schema:
-        type: string
-      description: 'Comma-separated relationship paths to side-load into `included` (JSON:API compound documents). Verified 2026-09-17: `include=field_source,field_data_type` on node/dataset side-loaded 148 file--file distributions across the 26 datasets.'
-      example: field_source,field_data_type
     pageLimit:
       name: page[limit]
       in: query
@@ -903,13 +885,6 @@ components:
         type: string
         format: uuid
       description: Resource UUID (the JSON:API `id`, not `drupal_internal__nid`).
-    sort:
-      name: sort
-      in: query
-      schema:
-        type: string
-      description: Comma-separated attribute names; prefix with `-` for descending (JSON:API 1.0). Verified with `sort=title`.
-      example: title
     pageOffset:
       name: page[offset]
       in: query
@@ -918,6 +893,31 @@ components:
         minimum: 0
         default: 0
       description: Zero-based offset. Follow `links.next` rather than computing offsets.
+    sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+      description: Comma-separated attribute names; prefix with `-` for descending (JSON:API 1.0). Verified with `sort=title`.
+      example: title
+    include:
+      name: include
+      in: query
+      schema:
+        type: string
+      description: 'Comma-separated relationship paths to side-load into `included` (JSON:API compound documents). Verified 2026-09-17: `include=field_source,field_data_type` on node/dataset side-loaded 148 file--file distributions across the 26 datasets.'
+      example: field_source,field_data_type
+    fields:
+      name: fields
+      in: query
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: string
+      description: 'Sparse fieldsets keyed by resource type: `fields[file--file]=uri,filesize,filemime,filename`. Verified.'
+      example: fields[file--file]=uri,filesize,filemime,filename
 x-provenance:
   generated: '2026-09-17'
   method: probed
