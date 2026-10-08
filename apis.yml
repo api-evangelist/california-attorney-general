@@ -389,6 +389,10 @@ apis:
   - type: LLMsTxt
     url: llms/california-attorney-general-llms.txt
 common:
+- type: Plans
+  url: plans/california-attorney-general-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/california-attorney-general-rate-limits.yml
 - type: Overlay
   url: overlays/california-attorney-general-openjustice-jsonapi-overlay.yaml
 - type: AgenticAccess
