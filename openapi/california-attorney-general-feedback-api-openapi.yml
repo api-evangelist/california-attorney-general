@@ -193,15 +193,30 @@ paths:
         detail: Empty request body.
         fetched: '2026-09-17'
 components:
+  responses:
+    BadRequest:
+      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+          example:
+            jsonapi:
+              version: '1.0'
+              meta:
+                links:
+                  self:
+                    href: http://jsonapi.org/format/1.0/
+            errors:
+            - title: Bad Request
+              status: '400'
+              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
+              links:
+                via:
+                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
+                info:
+                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
   schemas:
-    JsonApiObject:
-      type: object
-      properties:
-        version:
-          type: string
-          const: '1.0'
-        meta:
-          type: object
     ErrorDocument:
       type: object
       required:
@@ -254,29 +269,14 @@ components:
               type: string
             parameter:
               type: string
-  responses:
-    BadRequest:
-      description: Malformed query (unknown filter field, bad sort, empty request body). JSON:API error document.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
-          example:
-            jsonapi:
-              version: '1.0'
-              meta:
-                links:
-                  self:
-                    href: http://jsonapi.org/format/1.0/
-            errors:
-            - title: Bad Request
-              status: '400'
-              detail: Invalid nested filtering. The field `nonexistent_field`, given in the path `nonexistent_field`, does not exist.
-              links:
-                via:
-                  href: https://data-openjustice.doj.ca.gov/jsonapi/node/dataset?filter%5Bnonexistent_field%5D=x
-                info:
-                  href: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          const: '1.0'
+        meta:
+          type: object
 x-provenance:
   generated: '2026-09-17'
   method: probed
