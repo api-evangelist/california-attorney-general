@@ -66,8 +66,135 @@
 
 The California Attorney General is the chief law officer of the State of California and heads the California Department of Justice (DOJ). The office runs OpenJustice, the DOJ Criminal Justice Statistics Center's open-data initiative, whose Open Data Portal publishes 26 criminal-justice datasets (Arrests, Crimes and Clearances, Homicide, Hate Crime, Use of Force, RIPA stop data, deaths in custody and more) as CSV/XLSX/ZIP files with context PDFs. The DOJ publishes no developer portal, API documentation or OpenAPI, but the OpenJustice single-page app reads its content from a live, anonymous, standards-conformant JSON:API 1.0 surface at https://data-openjustice.doj.ca.gov/jsonapi (Drupal 9) carrying every dataset, its distributions, the CJSC publications and the data stories — verified here. The California Data Broker Registry that first brought this office into the catalog is now maintained by the California Privacy Protection Agency, per the AG's own page, and is attributed there.
 
-## Machine surfaces verified 2026-09-17
+**Areas:** State Government · California · Criminal Justice · Open Data · Law Enforcement · Crime Statistics · Government Data · JSON:API · Public Records · Attorney General
 
-- **OpenJustice Open Data Portal JSON:API** — https://data-openjustice.doj.ca.gov/jsonapi (anonymous, JSON:API 1.0, 26 datasets / 148 distributions). Probe-derived OpenAPI in `openapi/`, verbatim index in `discovery/`, dataset catalog in `datasets/`, verbatim responses in `examples/`.
-- No developer portal, API docs, OpenAPI, SDK, MCP server, agent card, llms.txt, security.txt or well-known document is published by the DOJ on any host probed (`well-known/`).
+## California Attorney General on APIs.io
 
+Everything profiled for California Attorney General is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/california-attorney-general/](https://apis.io/providers/california-attorney-general/)** — or go straight to one of the APIs or properties below.
+
+### APIs (7)
+
+- [California Attorney General Content API](https://apis.io/apis/california-attorney-general/california-attorney-general-content-api/) — Datasets, publications, stats pages, data stories and site pages (node entities).
+- [California Attorney General Discovery API](https://apis.io/apis/california-attorney-general/california-attorney-general-discovery-api/) — The JSON:API index.
+- [California Attorney General Feedback API](https://apis.io/apis/california-attorney-general/california-attorney-general-feedback-api/) — The three anonymous feedback creates the site footer uses.
+- [California Attorney General Files API](https://apis.io/apis/california-attorney-general/california-attorney-general-files-api/) — Downloadable distributions.
+- [California Attorney General Paragraphs API](https://apis.io/apis/california-attorney-general/california-attorney-general-paragraphs-api/) — Composable page fragments (charts, tabs, report years, blocks).
+- [California Attorney General Site Configuration API](https://apis.io/apis/california-attorney-general/california-attorney-general-site-configuration-api/) — Drupal config entities readable anonymously.
+- [California Attorney General Taxonomies API](https://apis.io/apis/california-attorney-general/california-attorney-general-taxonomies-api/) — Vocabularies used to classify content.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [california-attorney-general-mcp.yml](https://apis.io/servers/california-attorney-general/california-attorney-general-mcp-yml/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [California Attorney General Agentic Access](https://apis.io/agentic-access/california-attorney-general/california-attorney-general-agentic-access/)
+
+#### Examples (7)
+
+Example requests and responses.
+
+- [California Attorney General Datasets Include Example](https://apis.io/examples/california-attorney-general/california-attorney-general-datasets-include-example/)
+- [California Attorney General Datasets Sparse Fieldset Example](https://apis.io/examples/california-attorney-general/california-attorney-general-datasets-sparse-fieldset-example/)
+- [California Attorney General Error 400 Example](https://apis.io/examples/california-attorney-general/california-attorney-general-error-400-example/)
+- [California Attorney General Error 401 Write Example](https://apis.io/examples/california-attorney-general/california-attorney-general-error-401-write-example/)
+- [California Attorney General Error 404 Example](https://apis.io/examples/california-attorney-general/california-attorney-general-error-404-example/)
+- [California Attorney General Jsonapi Index Example](https://apis.io/examples/california-attorney-general/california-attorney-general-jsonapi-index-example/)
+- [California Attorney General Stats Filter Example](https://apis.io/examples/california-attorney-general/california-attorney-general-stats-filter-example/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [California Attorney General Openjustice Jsonapi Overlay](https://apis.io/overlays/california-attorney-general/california-attorney-general-openjustice-jsonapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [California Attorney General Authentication](https://apis.io/security/california-attorney-general/california-attorney-general-authentication/)
+- [California Attorney General Domain Security](https://apis.io/security/california-attorney-general/california-attorney-general-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [California Attorney General Plans Pricing](https://apis.io/plans/california-attorney-general/california-attorney-general-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [California Attorney General Rate Limits](https://apis.io/rate-limits/california-attorney-general/california-attorney-general-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://oag.ca.gov/)
+- [Documentation](https://openjustice.doj.ca.gov/data)
+- [Support](https://oag.ca.gov/research-services/request-process)
+- [Blog](https://oag.ca.gov/media/news)
+- [Terms of service](https://oag.ca.gov/conditions)
+- [Privacy policy](https://oag.ca.gov/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 27.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 31.3 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 21.1 |
+
+**Agent readiness 27.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/california-attorney-general/](https://apis.io/providers/california-attorney-general/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for California Attorney General: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/california-attorney-general/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
